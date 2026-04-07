@@ -6,744 +6,573 @@
 <title>BoxFit Pro — Smart Carton Recommender</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════
+   ROOT
+══════════════════════════════════ */
 :root{
-  --bg:#07090F;
-  --surface:#0C1020;
-  --card:#111827;
-  --card2:#161F30;
-  --border:rgba(255,255,255,0.06);
-  --border2:rgba(255,255,255,0.10);
-  --primary:#FF6B35;
-  --pd:rgba(255,107,53,0.12);
-  --pdark:#D9541E;
-  --accent:#4F9EFF;
-  --ad:rgba(79,158,255,0.10);
-  --green:#12B981;
-  --gd:rgba(18,185,129,0.10);
-  --yellow:#F59E0B;
-  --yd:rgba(245,158,11,0.10);
-  --red:#EF4444;
-  --rd:rgba(239,68,68,0.10);
-  --txt:#EFF3FF;
-  --txt2:#8B9BC8;
-  --txt3:#3D4F6E;
-  --sw:260px;
-  --bnh:62px;
-  --tbh:56px;
-  --r:14px;
-  --r2:10px;
-  --sh:0 4px 24px rgba(0,0,0,0.5);
-  --tr:0.2s cubic-bezier(0.4,0,0.2,1);
+  --bg:#07090F; --surface:#0C1020; --card:#111827; --card2:#161F30;
+  --bd:rgba(255,255,255,0.06); --bd2:rgba(255,255,255,0.10);
+  --P:#FF6B35; --Pd:rgba(255,107,53,0.12); --Pdk:#D9541E;
+  --A:#4F9EFF; --Ad:rgba(79,158,255,0.10);
+  --G:#12B981; --Gd:rgba(18,185,129,0.10);
+  --Y:#F59E0B; --Yd:rgba(245,158,11,0.10);
+  --R:#EF4444; --Rd:rgba(239,68,68,0.10);
+  --T:#EFF3FF; --T2:#8B9BC8; --T3:#3D4F6E;
+  --sw:260px; --bnh:64px; --tbh:54px;
+  --rr:14px; --r2:10px; --r3:8px;
+  --sh:0 4px 24px rgba(0,0,0,.5);
+  --tr:0.18s cubic-bezier(.4,0,.2,1);
 }
-
-/* ═══════════════════════════════════════════
-   RESET
-═══════════════════════════════════════════ */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html{height:100%;overflow:hidden;}
-body{
-  height:100%;overflow:hidden;
-  font-family:'Poppins',sans-serif;
-  background:var(--bg);color:var(--txt);
-  display:flex;
-  -webkit-font-smoothing:antialiased;
-}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--T);display:flex;-webkit-font-smoothing:antialiased;}
 ::-webkit-scrollbar{width:3px;height:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
 
-/* ═══════════════════════════════════════════
-   LAYOUT SHELL
-═══════════════════════════════════════════ */
-.app{
-  display:flex;width:100%;height:100%;overflow:hidden;
-}
+/* ══════════════════════════════════
+   LAYOUT
+══════════════════════════════════ */
+.app{display:flex;width:100%;height:100%;overflow:hidden;}
 
-/* ═══════════════════════════════════════════
-   SIDEBAR (desktop)
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════
+   SIDEBAR
+══════════════════════════════════ */
 .sidebar{
   width:var(--sw);flex-shrink:0;
-  background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
-  height:100%;overflow:hidden;
+  background:var(--surface);border-right:1px solid var(--bd);
+  display:flex;flex-direction:column;height:100%;overflow:hidden;
 }
-.sb-head{padding:24px 20px 18px;border-bottom:1px solid var(--border);}
-.sb-brand{display:flex;align-items:center;gap:12px;}
+.sb-head{padding:22px 18px 16px;border-bottom:1px solid var(--bd);}
+.sb-brand{display:flex;align-items:center;gap:11px;}
 .sb-logo{
-  width:42px;height:42px;border-radius:12px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--primary),#FF9060);
+  width:40px;height:40px;border-radius:11px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--P),#FF9060);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(255,107,53,.3);
+  box-shadow:0 4px 14px rgba(255,107,53,.3);
 }
-.sb-logo svg{width:21px;height:21px;}
-.sb-name{font-size:15px;font-weight:800;letter-spacing:-.3px;}
-.sb-tag{font-size:10px;color:var(--txt3);margin-top:1px;}
-.nav-list{flex:1;overflow-y:auto;padding:12px 10px;}
-.nav-lbl{
-  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;
-  color:var(--txt3);padding:0 10px;margin:12px 0 6px;
-}
-.nav-item{
+.sb-logo svg{width:20px;height:20px;}
+.sb-nm{font-size:15px;font-weight:800;letter-spacing:-.3px;}
+.sb-tg{font-size:10px;color:var(--T3);margin-top:1px;}
+.nav-list{flex:1;overflow-y:auto;padding:10px 8px;}
+.nav-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--T3);padding:0 10px;margin:10px 0 5px;}
+.ni{
   display:flex;align-items:center;gap:10px;
-  padding:10px 12px;border-radius:var(--r2);
+  padding:9px 10px;border-radius:var(--r2);
   cursor:pointer;transition:all var(--tr);
-  font-size:13px;font-weight:500;color:var(--txt2);
+  font-size:13px;font-weight:500;color:var(--T2);
   border:1px solid transparent;margin-bottom:2px;
 }
-.nav-item:hover{background:rgba(255,255,255,.04);color:var(--txt);}
-.nav-item.active{background:var(--pd);color:var(--primary);border-color:rgba(255,107,53,.2);}
-.nav-item.active .ni-ico{background:rgba(255,107,53,.15);}
-.ni-ico{
-  width:32px;height:32px;border-radius:9px;
-  background:rgba(255,255,255,.04);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.ni-ico svg{width:15px;height:15px;}
-.ni-bdg{
-  margin-left:auto;background:var(--primary);color:#fff;
-  font-size:10px;font-weight:700;padding:1px 6px;
-  border-radius:20px;min-width:20px;text-align:center;display:none;
-}
+.ni:hover{background:rgba(255,255,255,.04);color:var(--T);}
+.ni.on{background:var(--Pd);color:var(--P);border-color:rgba(255,107,53,.2);}
+.ni.on .ni-ic{background:rgba(255,107,53,.15);}
+.ni-ic{width:30px;height:30px;border-radius:8px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ni-ic svg{width:14px;height:14px;}
+.ni-bdg{margin-left:auto;background:var(--P);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;min-width:18px;text-align:center;display:none;}
 .ni-bdg.vis{display:block;}
-.sb-foot{padding:12px 14px;border-top:1px solid var(--border);}
-.conn-pill{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 10px;background:var(--card);
-  border-radius:var(--r2);border:1px solid var(--border);
-}
-.cdot{width:7px;height:7px;border-radius:50%;background:var(--txt3);flex-shrink:0;transition:background .3s;}
-.cdot.live{background:var(--green);box-shadow:0 0 6px var(--green);}
-.cdot.sync{background:var(--yellow);animation:blink 1s infinite;}
-.cdot.err{background:var(--red);}
+.sb-foot{padding:11px 13px;border-top:1px solid var(--bd);}
+.cpill{display:flex;align-items:center;gap:7px;padding:7px 10px;background:var(--card);border-radius:var(--r2);border:1px solid var(--bd);}
+.cdot{width:7px;height:7px;border-radius:50%;background:var(--T3);flex-shrink:0;transition:background .3s;}
+.cdot.live{background:var(--G);box-shadow:0 0 5px var(--G);}
+.cdot.sync{background:var(--Y);animation:blink 1s infinite;}
+.cdot.err{background:var(--R);}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
-.clbl{font-size:11px;color:var(--txt2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.sspin{
-  width:13px;height:13px;border-radius:50%;
-  border:2px solid rgba(245,158,11,.15);border-top-color:var(--yellow);
-  animation:spin .7s linear infinite;display:none;flex-shrink:0;
-}
+.clbl{font-size:10.5px;color:var(--T2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sspin{width:12px;height:12px;border-radius:50%;border:2px solid rgba(245,158,11,.15);border-top-color:var(--Y);animation:spin .7s linear infinite;display:none;flex-shrink:0;}
 .sspin.vis{display:block;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* ═══════════════════════════════════════════
-   MAIN PANEL
-═══════════════════════════════════════════ */
-.main{
-  flex:1;min-width:0;
-  display:flex;flex-direction:column;
-  height:100%;overflow:hidden;
-  position:relative;
-}
+/* ══════════════════════════════════
+   MAIN
+══════════════════════════════════ */
+.main{flex:1;min-width:0;display:flex;flex-direction:column;height:100%;overflow:hidden;}
 
-/* ═══════════════════════════════════════════
-   TOP BAR (mobile only)
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════
+   TOPBAR (mobile)
+══════════════════════════════════ */
 .topbar{
-  display:none;
-  height:var(--tbh);flex-shrink:0;
-  background:var(--surface);border-bottom:1px solid var(--border);
-  align-items:center;justify-content:space-between;
-  padding:0 16px;z-index:50;
+  display:none;height:var(--tbh);flex-shrink:0;
+  background:var(--surface);border-bottom:1px solid var(--bd);
+  align-items:center;padding:0 12px;gap:10px;z-index:50;
 }
-.tb-brand{display:flex;align-items:center;gap:10px;}
-.tb-logo{
-  width:32px;height:32px;border-radius:9px;
-  background:linear-gradient(135deg,var(--primary),#FF9060);
-  display:flex;align-items:center;justify-content:center;
-}
-.tb-logo svg{width:17px;height:17px;}
-.tb-name{font-size:14px;font-weight:800;}
 .tb-back{
   width:36px;height:36px;border-radius:10px;
-  background:rgba(255,255,255,.04);border:1px solid var(--border);
-  display:none;align-items:center;justify-content:center;cursor:pointer;
+  background:var(--P);
+  border:none;cursor:pointer;
+  display:none;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 3px 10px rgba(255,107,53,.35);
+  transition:all var(--tr);
 }
-.tb-back svg{width:18px;height:18px;}
+.tb-back:active{transform:scale(.92);}
+.tb-back svg{width:18px;height:18px;stroke:#fff;}
 .tb-back.vis{display:flex;}
-.tb-bdg{
-  background:var(--primary);color:#fff;
-  font-size:10px;font-weight:700;
-  min-width:20px;height:20px;border-radius:10px;
-  display:none;align-items:center;justify-content:center;padding:0 4px;
-}
-.tb-bdg.vis{display:flex;}
-
-/* ═══════════════════════════════════════════
-   SCROLL CONTENT — THE KEY FIX
-═══════════════════════════════════════════ */
-.content{
-  flex:1;
-  overflow-y:auto;
-  overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-  /* Desktop */
-  padding:28px 28px 36px;
-}
-
-/* ═══════════════════════════════════════════
-   SCREENS
-═══════════════════════════════════════════ */
-.screen{display:none;animation:fadeUp .22s ease both;}
-.screen.active{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-
-/* ═══════════════════════════════════════════
-   PAGE HEADER
-═══════════════════════════════════════════ */
-.ph{margin-bottom:18px;}
-.ph h1{font-size:20px;font-weight:700;letter-spacing:-.3px;}
-.ph p{font-size:12px;color:var(--txt3);margin-top:3px;}
-
-/* ═══════════════════════════════════════════
-   STEPS
-═══════════════════════════════════════════ */
-.steps{
-  display:flex;align-items:center;margin-bottom:20px;
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
-}
-.steps::-webkit-scrollbar{display:none;}
-.stp{display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;}
-.stp-n{
-  width:24px;height:24px;border-radius:50%;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:700;
-  background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--txt3);
-}
-.stp-l{font-size:12px;font-weight:500;color:var(--txt3);}
-.stp.done .stp-n{background:var(--green);border-color:var(--green);color:#fff;}
-.stp.done .stp-l{color:var(--txt2);}
-.stp.active .stp-n{background:var(--primary);border-color:var(--primary);color:#fff;}
-.stp.active .stp-l{color:var(--txt);font-weight:600;}
-.stp-line{width:28px;height:1px;background:var(--border);flex-shrink:0;margin:0 5px;}
-
-/* ═══════════════════════════════════════════
-   HERO
-═══════════════════════════════════════════ */
-.hero{
-  background:linear-gradient(135deg,#0E1C33,#0A1220 50%,#120E22);
-  border:1px solid rgba(79,158,255,.1);
-  border-radius:16px;padding:32px 28px 28px;
-  margin-bottom:18px;position:relative;overflow:hidden;
-}
-.hero::before{
-  content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;
-  background:radial-gradient(circle,rgba(255,107,53,.07),transparent 68%);pointer-events:none;
-}
-.hero-eye{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:9.5px;font-weight:700;text-transform:uppercase;
-  letter-spacing:2px;color:var(--primary);margin-bottom:12px;
-}
-.eye-dot{width:4px;height:4px;border-radius:50%;background:var(--primary);}
-.hero h1{font-size:26px;font-weight:900;line-height:1.2;margin-bottom:10px;letter-spacing:-.4px;}
-.hero h1 em{font-style:normal;color:var(--primary);}
-.hero p{font-size:12.5px;color:var(--txt2);max-width:420px;line-height:1.75;margin-bottom:22px;}
-.hero-deco{position:absolute;right:28px;top:50%;transform:translateY(-50%);opacity:.05;pointer-events:none;}
-.hero-deco svg{width:110px;height:110px;}
-
-/* ═══════════════════════════════════════════
-   STAT GRID
-═══════════════════════════════════════════ */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
-.sc{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--r);padding:13px 14px;
-  display:flex;align-items:center;gap:11px;transition:border-color var(--tr);
-}
-.sc:hover{border-color:var(--border2);}
-.sc-ico{
-  width:38px;height:38px;border-radius:10px;
+.tb-logo{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--P),#FF9060);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.sc-ico svg{width:17px;height:17px;}
-.ic-o{background:var(--pd);}
-.ic-b{background:var(--ad);}
-.ic-g{background:var(--gd);}
-.ic-y{background:var(--yd);}
-.sc-val{font-size:19px;font-weight:700;}
-.sc-lbl{font-size:10.5px;color:var(--txt3);margin-top:2px;}
+.tb-logo svg{width:16px;height:16px;}
+.tb-nm{font-size:14px;font-weight:800;flex:1;}
+.tb-bdg{background:var(--P);color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:none;align-items:center;justify-content:center;padding:0 5px;}
+.tb-bdg.vis{display:flex;}
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════
+   CONTENT
+══════════════════════════════════ */
+.content{
+  flex:1;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:26px 26px 32px;
+}
+
+/* ══════════════════════════════════
+   SCREENS
+══════════════════════════════════ */
+.scr{display:none;animation:fadeUp .2s ease both;}
+.scr.on{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+
+/* ══════════════════════════════════
+   PAGE HEADER
+══════════════════════════════════ */
+.ph{margin-bottom:16px;}
+.ph h1{font-size:19px;font-weight:700;letter-spacing:-.3px;}
+.ph p{font-size:12px;color:var(--T3);margin-top:3px;}
+
+/* ══════════════════════════════════
+   STEPS
+══════════════════════════════════ */
+.steps{display:flex;align-items:center;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.steps::-webkit-scrollbar{display:none;}
+.stp{display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;}
+.sn{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;background:rgba(255,255,255,.05);border:1px solid var(--bd);color:var(--T3);}
+.sl{font-size:11.5px;font-weight:500;color:var(--T3);}
+.stp.done .sn{background:var(--G);border-color:var(--G);color:#fff;}
+.stp.done .sl{color:var(--T2);}
+.stp.active .sn{background:var(--P);border-color:var(--P);color:#fff;}
+.stp.active .sl{color:var(--T);font-weight:600;}
+.sline{width:26px;height:1px;background:var(--bd);flex-shrink:0;margin:0 4px;}
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero{
+  background:linear-gradient(135deg,#0E1C33,#0A1220 50%,#120E22);
+  border:1px solid rgba(79,158,255,.1);border-radius:16px;
+  padding:30px 26px 26px;margin-bottom:16px;
+  position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(255,107,53,.07),transparent 68%);pointer-events:none;}
+.hero-eye{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--P);margin-bottom:11px;}
+.edot{width:4px;height:4px;border-radius:50%;background:var(--P);}
+.hero h1{font-size:24px;font-weight:900;line-height:1.2;margin-bottom:10px;letter-spacing:-.4px;}
+.hero h1 em{font-style:normal;color:var(--P);}
+.hero p{font-size:12.5px;color:var(--T2);max-width:400px;line-height:1.75;margin-bottom:20px;}
+.hero-deco{position:absolute;right:24px;top:50%;transform:translateY(-50%);opacity:.05;pointer-events:none;}
+.hero-deco svg{width:100px;height:100px;}
+
+/* ══════════════════════════════════
+   STATS
+══════════════════════════════════ */
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.sc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:12px 14px;display:flex;align-items:center;gap:10px;transition:border-color var(--tr);}
+.sc:hover{border-color:var(--bd2);}
+.sc-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sc-ico svg{width:16px;height:16px;}
+.io{background:var(--Pd);} .ib{background:var(--Ad);} .ig{background:var(--Gd);} .iy{background:var(--Yd);}
+.sc-v{font-size:18px;font-weight:700;}
+.sc-l{font-size:10px;color:var(--T3);margin-top:2px;}
+
+/* ══════════════════════════════════
    NOTICE / ERROR / LOADER
-═══════════════════════════════════════════ */
-.notice{
-  background:var(--ad);border:1px solid rgba(79,158,255,.15);
-  border-radius:var(--r2);padding:10px 13px;
-  font-size:11.5px;color:var(--accent);
-  display:flex;align-items:flex-start;gap:8px;margin-bottom:14px;
-}
-.notice svg{width:14px;height:14px;flex-shrink:0;margin-top:1px;}
+══════════════════════════════════ */
+.notice{background:var(--Ad);border:1px solid rgba(79,158,255,.15);border-radius:var(--r2);padding:9px 12px;font-size:11.5px;color:var(--A);display:flex;align-items:flex-start;gap:7px;margin-bottom:13px;}
+.notice svg{width:13px;height:13px;flex-shrink:0;margin-top:1px;}
 .notice code{font-family:'Courier New',monospace;background:rgba(79,158,255,.1);padding:1px 5px;border-radius:3px;font-size:10.5px;}
-.err-card{background:var(--rd);border:1px solid rgba(239,68,68,.2);border-radius:var(--r);padding:18px 20px;text-align:center;}
-.err-card h3{color:var(--red);font-size:13.5px;margin-bottom:6px;}
-.err-card p{color:var(--txt2);font-size:12px;margin-bottom:13px;}
-.loader-wrap{text-align:center;padding:44px 0;}
-.spin{
-  width:30px;height:30px;border:3px solid rgba(255,255,255,.06);
-  border-top-color:var(--primary);border-radius:50%;
-  animation:spin .75s linear infinite;margin:0 auto 11px;
-}
-.loader-wrap p{font-size:12px;color:var(--txt3);}
+.ecard{background:var(--Rd);border:1px solid rgba(239,68,68,.2);border-radius:var(--rr);padding:18px 20px;text-align:center;}
+.ecard h3{color:var(--R);font-size:13px;margin-bottom:5px;}
+.ecard p{color:var(--T2);font-size:12px;margin-bottom:12px;}
+.lwrap{text-align:center;padding:40px 0;}
+.spin{width:28px;height:28px;border:3px solid rgba(255,255,255,.06);border-top-color:var(--P);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 10px;}
+.lwrap p{font-size:12px;color:var(--T3);}
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════
    BUTTONS
-═══════════════════════════════════════════ */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;
-  cursor:pointer;transition:all var(--tr);border:none;border-radius:var(--r2);
-  padding:10px 16px;white-space:nowrap;
-}
-.btn svg{width:15px;height:15px;flex-shrink:0;}
-.btn-p{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(255,107,53,.28);}
-.btn-p:hover{background:var(--pdark);}
-.btn-p:active{transform:scale(.97);}
-.btn-g{background:rgba(255,255,255,.05);color:var(--txt2);border:1px solid var(--border);}
-.btn-g:hover{background:rgba(255,255,255,.08);color:var(--txt);}
-.btn-d{background:var(--rd);color:var(--red);border:1px solid rgba(239,68,68,.2);}
-.btn-d:hover{background:rgba(239,68,68,.18);}
-.btn-lg{padding:12px 24px;font-size:14px;border-radius:11px;}
-.btn-sm{padding:6px 11px;font-size:12px;border-radius:7px;}
+══════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--tr);border:none;border-radius:var(--r2);padding:9px 15px;white-space:nowrap;}
+.btn svg{width:14px;height:14px;flex-shrink:0;}
+.bp{background:var(--P);color:#fff;box-shadow:0 4px 14px rgba(255,107,53,.28);}
+.bp:hover{background:var(--Pdk);}
+.bp:active{transform:scale(.97);}
+.bg{background:rgba(255,255,255,.05);color:var(--T2);border:1px solid var(--bd);}
+.bg:hover{background:rgba(255,255,255,.08);color:var(--T);}
+.bd{background:var(--Rd);color:var(--R);border:1px solid rgba(239,68,68,.2);}
+.bd:hover{background:rgba(239,68,68,.18);}
+.blg{padding:11px 22px;font-size:14px;border-radius:11px;}
+.bsm{padding:5px 10px;font-size:12px;border-radius:7px;}
 .btn:disabled{opacity:.4;cursor:not-allowed;}
 
-/* ═══════════════════════════════════════════
-   TOOLBAR (Products search bar)
-═══════════════════════════════════════════ */
-.toolbar{
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:14px;flex-wrap:nowrap;
-}
-.search-wrap{flex:1;position:relative;min-width:0;}
-.s-ico{
-  position:absolute;left:11px;top:50%;transform:translateY(-50%);
-  pointer-events:none;color:var(--txt3);
-}
-.s-ico svg{width:14px;height:14px;}
-.search-inp{
-  width:100%;padding:9px 12px 9px 33px;
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--r2);color:var(--txt);
-  font-family:'Poppins',sans-serif;font-size:13px;outline:none;
-  transition:border-color var(--tr);
-}
-.search-inp:focus{border-color:rgba(255,107,53,.35);}
-.search-inp::placeholder{color:var(--txt3);}
-.tb-right{display:flex;align-items:center;gap:7px;flex-shrink:0;}
-.cnt-lbl{font-size:11.5px;color:var(--txt3);white-space:nowrap;}
-.cnt-lbl b{color:var(--primary);}
+/* ══════════════════════════════════
+   TOOLBAR
+══════════════════════════════════ */
+.toolbar{display:flex;align-items:center;gap:9px;margin-bottom:13px;flex-wrap:nowrap;}
+.sw{flex:1;position:relative;min-width:0;}
+.si{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--T3);}
+.si svg{width:14px;height:14px;}
+.sinp{width:100%;padding:9px 11px 9px 31px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r2);color:var(--T);font-family:'Poppins',sans-serif;font-size:13px;outline:none;transition:border-color var(--tr);}
+.sinp:focus{border-color:rgba(255,107,53,.35);}
+.sinp::placeholder{color:var(--T3);}
+.tr{display:flex;align-items:center;gap:7px;flex-shrink:0;}
+.clbl2{font-size:11px;color:var(--T3);white-space:nowrap;}
+.clbl2 b{color:var(--P);}
 
-/* ═══════════════════════════════════════════
-   TABLE (desktop)
-═══════════════════════════════════════════ */
-.tbl-wrap{border-radius:var(--r);border:1px solid var(--border);overflow:hidden;overflow-x:auto;}
-table{width:100%;border-collapse:collapse;min-width:520px;}
+/* ══════════════════════════════════
+   TABLE
+══════════════════════════════════ */
+.twrap{border-radius:var(--rr);border:1px solid var(--bd);overflow:hidden;overflow-x:auto;}
+table{width:100%;border-collapse:collapse;min-width:500px;}
 thead{background:rgba(255,255,255,.025);}
-th{padding:10px 14px;text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--txt3);border-bottom:1px solid var(--border);white-space:nowrap;}
-td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border);color:var(--txt2);vertical-align:middle;}
+th{padding:10px 13px;text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--T3);border-bottom:1px solid var(--bd);white-space:nowrap;}
+td{padding:11px 13px;font-size:13px;border-bottom:1px solid var(--bd);color:var(--T2);vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
 tbody tr{transition:background var(--tr);}
 tbody tr:hover{background:rgba(255,255,255,.02);}
-tbody tr.sel{background:rgba(255,107,53,.04);}
-.tn{font-weight:600;color:var(--txt);}
+tbody tr.hl{background:rgba(255,107,53,.04);}
+.tn{font-weight:600;color:var(--T);}
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════
    PRODUCT CARDS (mobile)
-═══════════════════════════════════════════ */
-.prod-cards{display:none;flex-direction:column;gap:8px;}
-.pc{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--r);padding:13px 14px;
-  transition:border-color var(--tr);
-}
-.pc.sel{border-color:rgba(255,107,53,.3);background:rgba(255,107,53,.04);}
-.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
-.pc-info{flex:1;min-width:0;}
-.pc-sno{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:20px;height:20px;border-radius:5px;
-  background:rgba(255,255,255,.05);font-size:9px;font-weight:700;color:var(--txt3);
-  margin-bottom:4px;
-}
-.pc-name{font-size:14px;font-weight:700;color:var(--txt);}
-.pc-meta{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap;}
-.dim-b{
-  font-family:'Courier New',monospace;background:var(--ad);color:var(--accent);
-  padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;
-}
-.wt-b{
-  background:var(--yd);color:var(--yellow);
-  padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;
-}
-.vol-b{color:var(--txt3);font-size:11px;}
-.pc-qty{flex-shrink:0;}
-
-/* Cart cards (mobile) */
-.cart-cards{display:none;flex-direction:column;gap:8px;}
-.cc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;}
-.cc-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;}
-.cc-name{font-size:13.5px;font-weight:700;color:var(--txt);flex:1;}
-.cc-bottom{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.cc-stat{flex:1;min-width:80px;}
-.cc-lbl{font-size:10px;color:var(--txt3);margin-bottom:2px;}
-.cc-val{font-size:13px;font-weight:600;}
-
-/* ═══════════════════════════════════════════
-   BADGES / CHIPS
-═══════════════════════════════════════════ */
-.sno-b{
-  width:22px;height:22px;border-radius:6px;
-  background:rgba(255,255,255,.05);
-  display:inline-flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:700;color:var(--txt3);
-}
-.chip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;}
-.ch-g{background:var(--gd);color:var(--green);}
-.ch-y{background:var(--yd);color:var(--yellow);}
-.ch-r{background:var(--rd);color:var(--red);}
-.ch-b{background:var(--ad);color:var(--accent);}
-.ch-o{background:var(--pd);color:var(--primary);}
-
-/* ═══════════════════════════════════════════
-   QTY CONTROL
-═══════════════════════════════════════════ */
-.qty-w{display:flex;align-items:center;gap:5px;}
-.q-btn{
-  width:30px;height:30px;border-radius:8px;
-  border:1px solid var(--border);background:rgba(255,255,255,.04);
-  color:var(--txt);cursor:pointer;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:700;transition:all var(--tr);
+══════════════════════════════════ */
+.pcards{display:none;flex-direction:column;gap:8px;}
+.pcard{
+  background:var(--card);border:1px solid var(--bd);
+  border-radius:var(--rr);padding:14px;
+  transition:border-color var(--tr),background var(--tr);
   -webkit-user-select:none;user-select:none;
 }
-.q-btn:hover{background:var(--primary);border-color:var(--primary);}
-.q-btn:active{transform:scale(.88);}
-.q-disp{
-  min-width:34px;height:30px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--card);border:1px solid var(--border);
-  border-radius:8px;font-size:13px;font-weight:700;color:var(--txt3);
-  transition:all var(--tr);
+.pcard.sel{border-color:rgba(255,107,53,.35);background:rgba(255,107,53,.04);}
+.pcard-row{display:flex;align-items:center;gap:12px;}
+.pcard-left{flex:1;min-width:0;}
+.pcard-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:5px;
+  background:rgba(255,255,255,.06);
+  font-size:9px;font-weight:700;color:var(--T3);margin-bottom:4px;
 }
-.q-disp.on{border-color:rgba(255,107,53,.35);color:var(--primary);}
+.pcard-name{font-size:14px;font-weight:700;color:var(--T);line-height:1.2;}
+.pcard-badges{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.db{font-family:'Courier New',monospace;background:var(--Ad);color:var(--A);padding:2px 7px;border-radius:4px;font-size:10.5px;font-weight:600;}
+.wb{background:var(--Yd);color:var(--Y);padding:2px 7px;border-radius:4px;font-size:10.5px;font-weight:600;}
+.vb{color:var(--T3);font-size:10.5px;}
+.pcard-right{flex-shrink:0;}
 
-/* ═══════════════════════════════════════════
+/* Cart cards */
+.ccards{display:none;flex-direction:column;gap:8px;}
+.ccard{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:13px 14px;}
+.ccard-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;}
+.ccard-nm{font-size:13.5px;font-weight:700;color:var(--T);flex:1;}
+.ccard-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.cstat{flex:1;min-width:70px;}
+.csl{font-size:9.5px;color:var(--T3);margin-bottom:2px;}
+.csv{font-size:13px;font-weight:600;}
+
+/* ══════════════════════════════════
+   BADGES / CHIPS
+══════════════════════════════════ */
+.snob{width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,.05);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--T3);}
+.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:10.5px;font-weight:600;}
+.cg{background:var(--Gd);color:var(--G);} .cy{background:var(--Yd);color:var(--Y);} .cr{background:var(--Rd);color:var(--R);} .cb{background:var(--Ad);color:var(--A);} .co{background:var(--Pd);color:var(--P);}
+
+/* ══════════════════════════════════
+   QTY — INSTANT UPDATE
+══════════════════════════════════ */
+.qw{display:flex;align-items:center;gap:5px;}
+.qb{
+  width:32px;height:32px;border-radius:8px;
+  border:1px solid var(--bd);background:rgba(255,255,255,.04);
+  color:var(--T);cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:700;
+  transition:background var(--tr),border-color var(--tr),transform .1s;
+  -webkit-user-select:none;user-select:none;
+}
+.qb:active{transform:scale(.85);background:var(--P);border-color:var(--P);}
+.qb:hover{background:var(--P);border-color:var(--P);}
+.qd{
+  min-width:36px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--card);border:1px solid var(--bd);
+  border-radius:8px;font-size:13px;font-weight:700;color:var(--T3);
+  transition:border-color var(--tr),color var(--tr);
+  pointer-events:none;
+}
+.qd.on{border-color:rgba(255,107,53,.4);color:var(--P);}
+
+/* ══════════════════════════════════
    CART BAR
-═══════════════════════════════════════════ */
-.cart-bar{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--r);padding:13px 16px;
-  display:flex;align-items:center;gap:16px;
-  flex-wrap:wrap;margin-bottom:14px;
-}
-.cbs .cl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--txt3);}
+══════════════════════════════════ */
+.cbar{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:12px 15px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:13px;}
+.cbs .cl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--T3);}
 .cbs .cv{font-size:17px;font-weight:700;}
-.cbs .cu{font-size:10px;color:var(--txt3);margin-left:2px;}
-.cbdiv{width:1px;height:30px;background:var(--border);flex-shrink:0;}
-.cba{margin-left:auto;display:flex;gap:7px;}
+.cbs .cu{font-size:10px;color:var(--T3);margin-left:2px;}
+.cdiv{width:1px;height:28px;background:var(--bd);flex-shrink:0;}
+.cacts{margin-left:auto;display:flex;gap:7px;}
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════
    EMPTY STATE
-═══════════════════════════════════════════ */
-.empty{text-align:center;padding:48px 16px;}
-.empty-ico{
-  width:68px;height:68px;border-radius:18px;
-  background:var(--card);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  margin:0 auto 16px;
-}
-.empty-ico svg{width:30px;height:30px;color:var(--txt3);}
-.empty h3{font-size:14px;font-weight:600;color:var(--txt2);margin-bottom:5px;}
-.empty p{font-size:12px;color:var(--txt3);margin-bottom:16px;}
+══════════════════════════════════ */
+.empty{text-align:center;padding:44px 16px;}
+.empty-ico{width:64px;height:64px;border-radius:17px;background:var(--card);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;margin:0 auto 15px;}
+.empty-ico svg{width:28px;height:28px;color:var(--T3);}
+.empty h3{font-size:14px;font-weight:600;color:var(--T2);margin-bottom:5px;}
+.empty p{font-size:12px;color:var(--T3);margin-bottom:15px;}
 
-/* ═══════════════════════════════════════════
-   CALC OVERLAY
-═══════════════════════════════════════════ */
-.overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(7,9,15,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:14px;
-}
-.overlay.vis{display:flex;}
-.ov-ring{width:52px;height:52px;border-radius:50%;border:4px solid rgba(255,107,53,.1);border-top-color:var(--primary);animation:spin .85s linear infinite;}
-.ov-t{font-size:14px;font-weight:700;}
-.ov-s{font-size:12px;color:var(--txt3);}
+/* ══════════════════════════════════
+   OVERLAY
+══════════════════════════════════ */
+.ov{display:none;position:fixed;inset:0;background:rgba(7,9,15,.9);backdrop-filter:blur(10px);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:13px;}
+.ov.on{display:flex;}
+.ovring{width:50px;height:50px;border-radius:50%;border:4px solid rgba(255,107,53,.1);border-top-color:var(--P);animation:spin .85s linear infinite;}
+.ovt{font-size:14px;font-weight:700;}
+.ovs{font-size:12px;color:var(--T3);}
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════
    RESULTS
-═══════════════════════════════════════════ */
-.res-hero{border-radius:16px;padding:20px 22px;margin-bottom:14px;border:1px solid;}
+══════════════════════════════════ */
+.rhero{border-radius:15px;padding:19px 20px;margin-bottom:13px;border:1px solid;}
 .rh-ok{background:linear-gradient(135deg,#0C2118,#071610);border-color:rgba(18,185,129,.25);}
 .rh-ow{background:linear-gradient(135deg,#1E1A0A,#140F05);border-color:rgba(245,158,11,.25);}
 .rh-no{background:linear-gradient(135deg,#200D0D,#130808);border-color:rgba(239,68,68,.25);}
-.rh-top{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px;flex-wrap:wrap;}
-.rh-ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.rhi-ok{background:var(--gd);}
-.rhi-ow{background:var(--yd);}
-.rhi-no{background:var(--rd);}
-.rh-ico svg{width:22px;height:22px;}
+.rh-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:15px;flex-wrap:wrap;}
+.rh-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rhi-ok{background:var(--Gd);} .rhi-ow{background:var(--Yd);} .rhi-no{background:var(--Rd);}
+.rh-ico svg{width:21px;height:21px;}
 .rh-m{flex:1;}
-.rh-eye{font-size:10px;color:var(--txt3);margin-bottom:3px;}
-.rh-name{font-size:24px;font-weight:900;letter-spacing:-.4px;line-height:1.05;}
-.rh-name.ok{color:var(--green);}
-.rh-name.ow{color:var(--yellow);}
-.rh-name.no{color:var(--red);}
-.rh-dims{font-size:11.5px;color:var(--txt2);margin-top:5px;}
-.met-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-.mbox{background:rgba(255,255,255,.03);border-radius:9px;padding:12px 13px;}
-.mbox-l{font-size:9.5px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;}
-.mbox-v{font-size:18px;font-weight:700;}
-.mbox-u{font-size:10.5px;color:var(--txt3);margin-left:2px;}
-.util-t{height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:7px;}
-.util-f{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);}
-.uf-hi{background:linear-gradient(90deg,var(--green),#34D399);}
-.uf-md{background:linear-gradient(90deg,var(--yellow),#FCD34D);}
-.uf-lo{background:linear-gradient(90deg,var(--red),#F87171);}
-.warn-bar{
-  background:var(--yd);border:1px solid rgba(245,158,11,.2);
-  border-radius:var(--r2);padding:10px 13px;
-  display:flex;align-items:flex-start;gap:8px;
-  font-size:12px;color:var(--yellow);margin-bottom:13px;
-}
-.warn-bar svg{width:15px;height:15px;flex-shrink:0;margin-top:1px;}
-.ag{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-.dc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px 16px;}
-.dttl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--txt3);margin-bottom:11px;display:flex;align-items:center;gap:6px;}
-.dttl svg{width:12px;height:12px;}
-.drow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;}
+.rh-eye{font-size:9.5px;color:var(--T3);margin-bottom:3px;}
+.rh-nm{font-size:23px;font-weight:900;letter-spacing:-.4px;line-height:1;}
+.rh-nm.ok{color:var(--G);} .rh-nm.ow{color:var(--Y);} .rh-nm.no{color:var(--R);}
+.rh-dm{font-size:11.5px;color:var(--T2);margin-top:5px;}
+.mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.mbox{background:rgba(255,255,255,.03);border-radius:9px;padding:11px 12px;}
+.mbl{font-size:9px;color:var(--T3);font-weight:600;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;}
+.mbv{font-size:17px;font-weight:700;}
+.mbu{font-size:10px;color:var(--T3);margin-left:2px;}
+.utt{height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:7px;}
+.utf{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.uhi{background:linear-gradient(90deg,var(--G),#34D399);}
+.umd{background:linear-gradient(90deg,var(--Y),#FCD34D);}
+.ulo{background:linear-gradient(90deg,var(--R),#F87171);}
+.warnbar{background:var(--Yd);border:1px solid rgba(245,158,11,.2);border-radius:var(--r2);padding:9px 12px;display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--Y);margin-bottom:12px;}
+.warnbar svg{width:14px;height:14px;flex-shrink:0;margin-top:1px;}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px;}
+.dc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:14px 15px;}
+.dttl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--T3);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.dttl svg{width:11px;height:11px;}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:12px;}
 .drow:last-child{border-bottom:none;}
-.dl{color:var(--txt3);}
-.dv{color:var(--txt);font-weight:600;}
-.pc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:15px 16px;margin-bottom:12px;}
-.box-analysis{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;}
-.ba-h{display:flex;align-items:center;gap:9px;margin-bottom:14px;}
-.ba-ico{width:32px;height:32px;border-radius:9px;background:var(--ad);display:flex;align-items:center;justify-content:center;}
-.ba-ico svg{width:16px;height:16px;}
-.ba-t{font-size:13px;font-weight:700;}
-.ba-s{font-size:11px;color:var(--txt3);}
-.ba-list{display:flex;flex-direction:column;gap:7px;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-.ba-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--r2);border:1px solid var(--border);background:rgba(255,255,255,.02);}
-.ba-item.fit{border-color:rgba(18,185,129,.2);background:rgba(18,185,129,.04);}
-.ba-item.big{border-color:rgba(245,158,11,.15);background:rgba(245,158,11,.03);}
-.ba-item.no{border-color:rgba(239,68,68,.15);background:rgba(239,68,68,.03);}
-.ba-st{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.bs-fit{background:var(--gd);}
-.bs-big{background:var(--yd);}
-.bs-no{background:var(--rd);}
-.ba-st svg{width:14px;height:14px;}
-.ba-b{flex:1;min-width:0;}
-.ba-n{font-size:13px;font-weight:600;color:var(--txt);}
-.ba-r{font-size:11px;color:var(--txt3);margin-top:1px;}
-.ba-d{font-size:10px;font-family:'Courier New',monospace;color:var(--txt3);margin-top:2px;}
-.ba-best{background:var(--pd);color:var(--primary);font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;border:1px solid rgba(255,107,53,.2);flex-shrink:0;}
-.res-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px;}
+.dl{color:var(--T3);} .dv{color:var(--T);font-weight:600;}
+.ppc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:14px 15px;margin-bottom:11px;}
+.banal{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:15px;margin-bottom:11px;}
+.ba-h{display:flex;align-items:center;gap:8px;margin-bottom:13px;}
+.ba-ico{width:30px;height:30px;border-radius:8px;background:var(--Ad);display:flex;align-items:center;justify-content:center;}
+.ba-ico svg{width:15px;height:15px;}
+.ba-t{font-size:12.5px;font-weight:700;}
+.ba-s{font-size:10.5px;color:var(--T3);}
+.ba-list{display:flex;flex-direction:column;gap:7px;max-height:280px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.bai{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r2);border:1px solid var(--bd);background:rgba(255,255,255,.02);}
+.bai.fit{border-color:rgba(18,185,129,.2);background:rgba(18,185,129,.04);}
+.bai.big{border-color:rgba(245,158,11,.15);background:rgba(245,158,11,.03);}
+.bai.no{border-color:rgba(239,68,68,.15);background:rgba(239,68,68,.03);}
+.bast{width:27px;height:27px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bsf{background:var(--Gd);} .bsb{background:var(--Yd);} .bsn{background:var(--Rd);}
+.bast svg{width:13px;height:13px;}
+.bab{flex:1;min-width:0;}
+.ban{font-size:12.5px;font-weight:600;color:var(--T);}
+.bar{font-size:10.5px;color:var(--T3);margin-top:1px;}
+.bad{font-size:10px;font-family:'Courier New',monospace;color:var(--T3);margin-top:2px;}
+.babest{background:var(--Pd);color:var(--P);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:20px;border:1px solid rgba(255,107,53,.2);flex-shrink:0;}
 
-/* ═══════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════ */
-#toasts{position:fixed;bottom:76px;right:14px;z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none;}
-.toast{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 13px;background:var(--card2);
-  border:1px solid var(--border2);border-radius:10px;
-  font-size:12px;min-width:190px;max-width:280px;
-  box-shadow:var(--sh);animation:tin .25s ease both;pointer-events:all;
+/* ══════════════════════════════════
+   SMART OPTIMIZER (NEW)
+══════════════════════════════════ */
+.optimizer{
+  background:linear-gradient(135deg,#0A1628,#0D1525);
+  border:1px solid rgba(79,158,255,.2);
+  border-radius:var(--rr);padding:16px;margin-bottom:11px;
 }
-.toast.out{animation:tout .25s ease both;}
+.opt-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.opt-ico{
+  width:34px;height:34px;border-radius:9px;
+  background:var(--Ad);
+  display:flex;align-items:center;justify-content:center;
+}
+.opt-ico svg{width:17px;height:17px;}
+.opt-t{font-size:13px;font-weight:700;color:var(--T);}
+.opt-s{font-size:10.5px;color:var(--T3);}
+.opt-list{display:flex;flex-direction:column;gap:7px;}
+.opt-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 12px;border-radius:var(--r2);
+  border:1px solid var(--Ad);background:rgba(79,158,255,.04);
+}
+.opt-item.warn{border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.04);}
+.opt-item.good{border-color:rgba(18,185,129,.2);background:rgba(18,185,129,.04);}
+.opt-dot{width:8px;height:8px;border-radius:50%;background:var(--A);flex-shrink:0;margin-top:4px;}
+.opt-dot.warn{background:var(--Y);}
+.opt-dot.good{background:var(--G);}
+.opt-txt{font-size:12px;color:var(--T2);line-height:1.5;}
+.opt-txt strong{color:var(--T);}
+.opt-empty{font-size:12.5px;color:var(--T3);text-align:center;padding:12px 0;}
+
+.racts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+
+/* ══════════════════════════════════
+   TOASTS
+══════════════════════════════════ */
+#toasts{position:fixed;bottom:74px;right:13px;z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none;}
+.toast{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--card2);border:1px solid var(--bd2);border-radius:10px;font-size:12px;min-width:185px;max-width:270px;box-shadow:var(--sh);animation:tin .22s ease both;pointer-events:all;}
+.toast.out{animation:tout .22s ease both;}
 .toast svg{width:14px;height:14px;flex-shrink:0;}
-.t-ok{border-left:3px solid var(--green);}
-.t-er{border-left:3px solid var(--red);}
-.t-wa{border-left:3px solid var(--yellow);}
-.t-in{border-left:3px solid var(--accent);}
-@keyframes tin{from{opacity:0;transform:translateX(50px);}to{opacity:1;transform:translateX(0);}}
-@keyframes tout{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(50px);}}
+.tok{border-left:3px solid var(--G);} .ter{border-left:3px solid var(--R);} .twa{border-left:3px solid var(--Y);} .tin{border-left:3px solid var(--A);}
+@keyframes tin{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}
+@keyframes tout{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(40px);}}
 
-/* ═══════════════════════════════════════════
-   BOTTOM NAV (mobile)
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════
+   BOTTOM NAV
+══════════════════════════════════ */
 .bnav{
-  display:none;
-  position:fixed;bottom:0;left:0;right:0;
+  display:none;position:fixed;bottom:0;left:0;right:0;
   height:var(--bnh);z-index:200;
-  background:rgba(10,13,26,.97);
+  background:rgba(8,11,22,.97);
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--border);
+  border-top:1px solid rgba(255,255,255,.07);
 }
-.bnav-inner{
-  display:flex;height:100%;
-  padding:0 4px;
-  align-items:stretch;
-}
-.bn{
-  flex:1;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:3px;
-  cursor:pointer;border:none;background:none;
-  font-family:'Poppins',sans-serif;
-  color:var(--txt3);
-  transition:color var(--tr);
-  position:relative;
-  padding:0;
+.bn-inner{display:flex;height:100%;padding:0 6px;}
+.bnb{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;border:none;background:none;
+  font-family:'Poppins',sans-serif;color:var(--T3);
+  transition:color var(--tr);position:relative;
+  padding:6px 4px 4px;outline:none;
   -webkit-tap-highlight-color:transparent;
-  outline:none;
 }
-.bn.active{color:var(--primary);}
-
-/* Active pill behind icon */
-.bn-pill{
-  position:absolute;
-  top:7px;
-  width:44px;height:30px;
-  border-radius:10px;
-  background:var(--pd);
-  opacity:0;
-  transition:opacity var(--tr);
-  pointer-events:none;
+.bnb.on{color:var(--P);}
+/* Active pill */
+.bnb-pill{
+  position:absolute;top:6px;
+  width:48px;height:30px;border-radius:10px;
+  background:var(--Pd);opacity:0;
+  transition:opacity var(--tr);pointer-events:none;
 }
-.bn.active .bn-pill{opacity:1;}
-
-/* Icon wrapper */
-.bn-ic{
-  width:24px;height:24px;
-  position:relative;z-index:1;
+.bnb.on .bnb-pill{opacity:1;}
+/* Icon */
+.bnb-ic{
+  width:26px;height:26px;position:relative;z-index:1;
   display:flex;align-items:center;justify-content:center;
   transition:transform var(--tr);
 }
-.bn-ic svg{
-  width:23px;height:23px;
-  stroke-width:1.8;
-}
-.bn.active .bn-ic{transform:scale(1.12);}
-
+.bnb-ic svg{width:24px;height:24px;stroke-width:1.7;}
+.bnb.on .bnb-ic{transform:scale(1.1);}
 /* Label */
-.bn-lb{
-  font-size:9.5px;font-weight:600;
-  letter-spacing:.1px;
-  position:relative;z-index:1;
-  line-height:1;
+.bnb-lb{
+  font-size:9.5px;font-weight:600;letter-spacing:.1px;
+  position:relative;z-index:1;line-height:1;
 }
-
 /* Badge */
-.bn-bdg{
-  position:absolute;top:4px;
-  left:calc(50% + 5px);
-  background:var(--primary);color:#fff;
-  font-size:9px;font-weight:700;
-  padding:1px 4px;border-radius:9px;
-  min-width:15px;text-align:center;
-  border:2px solid var(--bg);
-  display:none;line-height:1.3;
-  z-index:3;
+.bnb-bdg{
+  position:absolute;top:4px;left:calc(50% + 6px);
+  background:var(--P);color:#fff;font-size:9px;font-weight:700;
+  padding:1px 4px;border-radius:9px;min-width:15px;text-align:center;
+  border:2px solid #07090F;display:none;z-index:3;line-height:1.3;
 }
-.bn-bdg.vis{display:block;}
+.bnb-bdg.vis{display:block;}
 
-/* ═══════════════════════════════════════════
-   EXIT CONFIRM DIALOG
-═══════════════════════════════════════════ */
-.exit-dlg{
-  display:none;position:fixed;inset:0;z-index:900;
-  background:rgba(7,9,15,.9);backdrop-filter:blur(8px);
-  align-items:center;justify-content:center;padding:20px;
-}
-.exit-dlg.vis{display:flex;}
-.exit-box{
-  background:var(--card2);border:1px solid var(--border2);
-  border-radius:16px;padding:24px 22px;text-align:center;
-  max-width:280px;width:100%;
-}
-.exit-box h3{font-size:15px;font-weight:700;margin-bottom:7px;}
-.exit-box p{font-size:12.5px;color:var(--txt3);margin-bottom:20px;}
-.exit-btns{display:flex;gap:10px;}
-.exit-btns .btn{flex:1;justify-content:center;}
+/* ══════════════════════════════════
+   EXIT DIALOG
+══════════════════════════════════ */
+.xdlg{display:none;position:fixed;inset:0;z-index:900;background:rgba(7,9,15,.92);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.xdlg.on{display:flex;}
+.xbox{background:var(--card2);border:1px solid var(--bd2);border-radius:15px;padding:22px 20px;text-align:center;max-width:270px;width:100%;}
+.xbox .xi{width:52px;height:52px;border-radius:14px;background:var(--Rd);display:flex;align-items:center;justify-content:center;margin:0 auto 13px;}
+.xbox .xi svg{width:26px;height:26px;}
+.xbox h3{font-size:15px;font-weight:700;margin-bottom:6px;}
+.xbox p{font-size:12px;color:var(--T3);margin-bottom:18px;}
+.xbtns{display:flex;gap:9px;}
+.xbtns .btn{flex:1;justify-content:center;}
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════
    RESPONSIVE
-═══════════════════════════════════════════ */
+══════════════════════════════════ */
 @media(max-width:768px){
   html,body{overflow:hidden;}
   .sidebar{display:none;}
   .topbar{display:flex;}
   .bnav{display:block;}
   .content{
-    padding:14px 14px calc(var(--bnh) + 20px);
+    padding:13px 13px calc(var(--bnh) + 18px);
     height:calc(100vh - var(--tbh));
-    overflow-y:auto;
-    overflow-x:hidden;
+    overflow-y:auto;overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
   }
-  /* Switch from table to cards on mobile */
-  .tbl-wrap{display:none!important;}
-  .prod-cards{display:flex;}
-  .cart-cards{display:flex;}
-  /* Stats 2 col */
-  .stat-grid{grid-template-columns:repeat(2,1fr);}
-  /* Hero smaller */
-  .hero{padding:20px 16px;}
-  .hero h1{font-size:20px;}
+  .twrap{display:none!important;}
+  .pcards{display:flex;}
+  .ccards{display:flex;}
+  .sgrid{grid-template-columns:repeat(2,1fr);}
+  .hero{padding:18px 15px;}
+  .hero h1{font-size:19px;}
   .hero-deco{display:none;}
-  /* Cart bar stacked */
-  .cart-bar{flex-direction:column;align-items:stretch;gap:9px;}
-  .cba{width:100%;margin-left:0;}
-  .cba .btn{flex:1;justify-content:center;}
-  .cbdiv{display:none;}
-  /* Results */
-  .met-row{grid-template-columns:1fr 1fr;}
+  .cbar{flex-direction:column;align-items:stretch;gap:8px;}
+  .cacts{width:100%;margin-left:0;}
+  .cacts .btn{flex:1;justify-content:center;}
+  .cdiv{display:none;}
+  .mrow{grid-template-columns:1fr 1fr;}
   .ag{grid-template-columns:1fr;}
-  .rh-name{font-size:20px;}
-  /* Toolbar */
-  .toolbar{flex-wrap:wrap;gap:8px;}
-  .tb-right{width:100%;justify-content:space-between;}
-  #toasts{bottom:72px;right:12px;}
+  .rh-nm{font-size:19px;}
+  .toolbar{flex-wrap:wrap;gap:7px;}
+  .tr{width:100%;justify-content:space-between;}
+  #toasts{bottom:70px;right:10px;}
 }
 @media(max-width:480px){
-  .met-row{grid-template-columns:1fr;}
-  .stat-grid{grid-template-columns:1fr 1fr;}
+  .mrow{grid-template-columns:1fr;}
+  .sgrid{grid-template-columns:1fr 1fr;}
 }
 @media(min-width:769px){
   .content{height:100%;overflow-y:auto;}
-  #toasts{bottom:18px;right:18px;}
+  #toasts{bottom:16px;right:16px;}
 }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- ══ SIDEBAR (desktop) ══ -->
+<!-- ══ SIDEBAR ══ -->
 <nav class="sidebar">
   <div class="sb-head">
     <div class="sb-brand">
       <div class="sb-logo">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       </div>
-      <div><div class="sb-name">BoxFit Pro</div><div class="sb-tag">A&T India · Logistics</div></div>
+      <div><div class="sb-nm">BoxFit Pro</div><div class="sb-tg">A&T India · Logistics</div></div>
     </div>
   </div>
   <div class="nav-list">
     <div class="nav-lbl">Menu</div>
-    <div class="nav-item active" data-s="home" onclick="goTo('home')">
-      <div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-      <span>Dashboard</span>
+    <div class="ni on" data-s="home" onclick="goTo('home')">
+      <div class="ni-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><span>Dashboard</span>
     </div>
-    <div class="nav-item" data-s="products" onclick="goTo('products')">
-      <div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-      <span>Products</span>
+    <div class="ni" data-s="products" onclick="goTo('products')">
+      <div class="ni-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div><span>Products</span>
     </div>
-    <div class="nav-item" data-s="cart" onclick="goTo('cart')">
-      <div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
-      <span>Selected Items</span>
+    <div class="ni" data-s="cart" onclick="goTo('cart')">
+      <div class="ni-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><span>Selected Items</span>
       <span class="ni-bdg" id="nb"></span>
     </div>
-    <div class="nav-item" data-s="results" onclick="goTo('results')">
-      <div class="ni-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <span>Results</span>
+    <div class="ni" data-s="results" onclick="goTo('results')">
+      <div class="ni-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><span>Results</span>
     </div>
   </div>
   <div class="sb-foot">
-    <div class="conn-pill">
+    <div class="cpill">
       <div class="cdot sync" id="cdot"></div>
       <span class="clbl" id="ctxt">Connecting…</span>
       <div class="sspin" id="sspin"></div>
@@ -754,29 +583,26 @@ tbody tr.sel{background:rgba(255,107,53,.04);}
 <!-- ══ MAIN ══ -->
 <div class="main">
 
-  <!-- Mobile top bar -->
-  <div class="topbar">
-    <div class="tb-brand">
-      <button class="tb-back" id="tb-back" onclick="goBack()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <div class="tb-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-      </div>
-      <span class="tb-name">BoxFit Pro</span>
+  <div class="topbar" id="topbar">
+    <button class="tb-back" id="tbback" onclick="goBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="tb-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
     </div>
+    <span class="tb-nm">BoxFit Pro</span>
     <div class="tb-bdg" id="tbbdg"></div>
   </div>
 
   <div class="content" id="content">
 
-    <!-- ── SCREEN: HOME ── -->
-    <section id="s-home" class="screen active">
+    <!-- HOME -->
+    <section id="s-home" class="scr on">
       <div class="hero">
-        <div class="hero-eye"><div class="eye-dot"></div>A&T India — Logistics Tool<div class="eye-dot"></div></div>
+        <div class="hero-eye"><div class="edot"></div>A&T India — Logistics Tool<div class="edot"></div></div>
         <h1>Find the <em>Perfect Box</em><br>for Every Shipment</h1>
         <p>Select products, set quantities, and our smart packing engine instantly recommends the most efficient carton — reducing waste and cutting costs.</p>
-        <button class="btn btn-p btn-lg" onclick="goTo('products')">
+        <button class="btn bp blg" onclick="goTo('products')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Start Packing
         </button>
@@ -786,298 +612,273 @@ tbody tr.sel{background:rgba(255,107,53,.04);}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <span>Using <b>sample data</b>. Replace <code>SCRIPT_URL</code> with your Apps Script URL.</span>
       </div>
-      <div id="h-loader" class="loader-wrap"><div class="spin"></div><p>Fetching data from Google Sheets…</p></div>
-      <div id="h-err" class="err-card" style="display:none">
+      <div id="h-loader" class="lwrap"><div class="spin"></div><p>Fetching data from Google Sheets…</p></div>
+      <div id="h-err" class="ecard" style="display:none">
         <h3>Connection Error</h3><p>Could not reach Apps Script. Sample data loaded.</p>
-        <button class="btn btn-g btn-sm" onclick="fetchData(true)">
+        <button class="btn bg bsm" onclick="fetchData(true)">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.79"/></svg>Retry
         </button>
       </div>
-      <div id="h-stats" class="stat-grid" style="display:none">
-        <div class="sc"><div class="sc-ico ic-o"><svg viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div><div class="sc-val" id="h-np">—</div><div class="sc-lbl">Products</div></div></div>
-        <div class="sc"><div class="sc-ico ic-b"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div><div class="sc-val" id="h-nb">—</div><div class="sc-lbl">Box Types</div></div></div>
-        <div class="sc"><div class="sc-ico ic-g"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div><div class="sc-val" id="h-sel">0</div><div class="sc-lbl">Selected</div></div></div>
-        <div class="sc"><div class="sc-ico ic-y"><svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><div class="sc-val" id="h-wt">0 kg</div><div class="sc-lbl">Total Weight</div></div></div>
+      <div id="h-stats" class="sgrid" style="display:none">
+        <div class="sc"><div class="sc-ico io"><svg viewBox="0 0 24 24" fill="none" stroke="var(--P)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div><div class="sc-v" id="h-np">—</div><div class="sc-l">Products</div></div></div>
+        <div class="sc"><div class="sc-ico ib"><svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div><div class="sc-v" id="h-nb">—</div><div class="sc-l">Box Types</div></div></div>
+        <div class="sc"><div class="sc-ico ig"><svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div><div class="sc-v" id="h-sel">0</div><div class="sc-l">Selected</div></div></div>
+        <div class="sc"><div class="sc-ico iy"><svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div><div class="sc-v" id="h-wt">0 kg</div><div class="sc-l">Total Weight</div></div></div>
       </div>
     </section>
 
-    <!-- ── SCREEN: PRODUCTS ── -->
-    <section id="s-products" class="screen">
+    <!-- PRODUCTS -->
+    <section id="s-products" class="scr">
       <div class="ph"><h1>Select Products</h1><p>Choose products and set quantities to pack</p></div>
       <div class="steps">
-        <div class="stp done"><div class="stp-n"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="stp-l">Home</span></div>
-        <div class="stp-line"></div>
-        <div class="stp active"><div class="stp-n">2</div><span class="stp-l">Products</span></div>
-        <div class="stp-line"></div>
-        <div class="stp"><div class="stp-n">3</div><span class="stp-l">Cart</span></div>
-        <div class="stp-line"></div>
-        <div class="stp"><div class="stp-n">4</div><span class="stp-l">Results</span></div>
+        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Home</span></div>
+        <div class="sline"></div>
+        <div class="stp active"><div class="sn">2</div><span class="sl">Products</span></div>
+        <div class="sline"></div>
+        <div class="stp"><div class="sn">3</div><span class="sl">Cart</span></div>
+        <div class="sline"></div>
+        <div class="stp"><div class="sn">4</div><span class="sl">Results</span></div>
       </div>
       <div class="toolbar">
-        <div class="search-wrap">
-          <span class="s-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-          <input class="search-inp" id="psearch" placeholder="Search products…" oninput="renderProds()">
+        <div class="sw">
+          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+          <input class="sinp" id="psearch" placeholder="Search products…" oninput="renderProds()">
         </div>
-        <div class="tb-right">
-          <span class="cnt-lbl">Showing <b id="p-show">0</b>/<b id="p-tot">0</b></span>
-          <button class="btn btn-g btn-sm" onclick="clearAllQty()">Clear</button>
-          <button class="btn btn-p btn-sm" onclick="proceedToCart()">Cart (<span id="p-cnt">0</span>)</button>
+        <div class="tr">
+          <span class="clbl2">Showing <b id="p-show">0</b>/<b id="p-tot">0</b></span>
+          <button class="btn bg bsm" onclick="clearAllQty()">Clear</button>
+          <button class="btn bp bsm" onclick="proceedToCart()">Cart (<span id="p-cnt">0</span>)</button>
         </div>
       </div>
-      <div id="p-loader" class="loader-wrap"><div class="spin"></div><p>Loading…</p></div>
-      <div id="p-err" class="err-card" style="display:none"><h3>No Products</h3><p>Check your Apps Script URL.</p><button class="btn btn-g btn-sm" onclick="fetchData(true)">Retry</button></div>
-      <!-- Desktop table -->
-      <div class="tbl-wrap" id="p-tbl" style="display:none">
-        <table><thead><tr><th>#</th><th>Product Name</th><th>Dimensions (L×W×H)</th><th>Weight</th><th>Volume</th><th>Quantity</th></tr></thead>
+      <div id="p-loader" class="lwrap"><div class="spin"></div><p>Loading…</p></div>
+      <div id="p-err" class="ecard" style="display:none"><h3>No Products</h3><p>Check your Apps Script URL.</p><button class="btn bg bsm" onclick="fetchData(true)">Retry</button></div>
+      <div class="twrap" id="p-tbl" style="display:none">
+        <table><thead><tr><th>#</th><th>Product Name</th><th>Dimensions</th><th>Weight</th><th>Volume</th><th>Qty</th></tr></thead>
         <tbody id="p-tbody"></tbody></table>
       </div>
-      <!-- Mobile cards -->
-      <div class="prod-cards" id="p-cards"></div>
+      <div class="pcards" id="p-cards"></div>
     </section>
 
-    <!-- ── SCREEN: CART ── -->
-    <section id="s-cart" class="screen">
-      <div class="ph"><h1>Selected Items</h1><p>Review items, then calculate the optimal box</p></div>
+    <!-- CART -->
+    <section id="s-cart" class="scr">
+      <div class="ph"><h1>Selected Items</h1><p>Review and calculate optimal box</p></div>
       <div class="steps">
-        <div class="stp done"><div class="stp-n"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="stp-l">Home</span></div>
-        <div class="stp-line"></div>
-        <div class="stp done"><div class="stp-n"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="stp-l">Products</span></div>
-        <div class="stp-line"></div>
-        <div class="stp active"><div class="stp-n">3</div><span class="stp-l">Cart</span></div>
-        <div class="stp-line"></div>
-        <div class="stp"><div class="stp-n">4</div><span class="stp-l">Results</span></div>
+        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Home</span></div>
+        <div class="sline"></div>
+        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Products</span></div>
+        <div class="sline"></div>
+        <div class="stp active"><div class="sn">3</div><span class="sl">Cart</span></div>
+        <div class="sline"></div>
+        <div class="stp"><div class="sn">4</div><span class="sl">Results</span></div>
       </div>
       <div id="c-empty" class="empty" style="display:none">
         <div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
         <h3>Cart is empty</h3><p>Go to Products and add items to pack</p>
-        <button class="btn btn-p btn-sm" onclick="goTo('products')">Browse Products</button>
+        <button class="btn bp bsm" onclick="goTo('products')">Browse Products</button>
       </div>
       <div id="c-content" style="display:none">
-        <div class="cart-bar">
+        <div class="cbar">
           <div class="cbs"><div class="cl">Units</div><div class="cv" id="c-units">0</div></div>
-          <div class="cbdiv"></div>
+          <div class="cdiv"></div>
           <div class="cbs"><div class="cl">Volume</div><div class="cv"><span id="c-vol">0</span><span class="cu">cm³</span></div></div>
-          <div class="cbdiv"></div>
+          <div class="cdiv"></div>
           <div class="cbs"><div class="cl">Weight</div><div class="cv"><span id="c-wt">0</span><span class="cu">kg</span></div></div>
-          <div class="cba">
-            <button class="btn btn-g btn-sm" onclick="clearCart()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
-              Clear
+          <div class="cacts">
+            <button class="btn bg bsm" onclick="clearCart()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>Clear
             </button>
-            <button class="btn btn-p" id="calc-btn" onclick="runCalc()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              Calculate Best Box
+            <button class="btn bp" id="calc-btn" onclick="runCalc()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Calculate Best Box
             </button>
           </div>
         </div>
-        <!-- Desktop table -->
-        <div class="tbl-wrap">
+        <div class="twrap">
           <table><thead><tr><th>Product</th><th>Dimensions</th><th>Unit Wt</th><th>Qty</th><th>Volume</th><th>Weight</th><th></th></tr></thead>
           <tbody id="c-tbody"></tbody></table>
         </div>
-        <!-- Mobile cards -->
-        <div class="cart-cards" id="c-cards"></div>
+        <div class="ccards" id="c-cards"></div>
       </div>
     </section>
 
-    <!-- ── SCREEN: RESULTS ── -->
-    <section id="s-results" class="screen">
-      <div class="ph"><h1>Recommendation</h1><p>Best carton box for your selected products</p></div>
+    <!-- RESULTS -->
+    <section id="s-results" class="scr">
+      <div class="ph"><h1>Recommendation</h1><p>Best carton box for your selection</p></div>
       <div class="steps">
-        <div class="stp done"><div class="stp-n"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="stp-l">Home</span></div>
-        <div class="stp-line"></div>
-        <div class="stp done"><div class="stp-n"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="stp-l">Products</span></div>
-        <div class="stp-line"></div>
-        <div class="stp done"><div class="stp-n"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="stp-l">Cart</span></div>
-        <div class="stp-line"></div>
-        <div class="stp active"><div class="stp-n">4</div><span class="stp-l">Results</span></div>
+        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Home</span></div>
+        <div class="sline"></div>
+        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Products</span></div>
+        <div class="sline"></div>
+        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Cart</span></div>
+        <div class="sline"></div>
+        <div class="stp active"><div class="sn">4</div><span class="sl">Results</span></div>
       </div>
       <div id="r-empty" class="empty">
         <div class="empty-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <h3>No results yet</h3><p>Add products to cart and click Calculate</p>
-        <button class="btn btn-p btn-sm" onclick="goTo('products')">Get Started</button>
+        <h3>No results yet</h3><p>Add products and click Calculate</p>
+        <button class="btn bp bsm" onclick="goTo('products')">Get Started</button>
       </div>
       <div id="r-content" style="display:none"></div>
     </section>
 
-  </div><!-- .content -->
-</div><!-- .main -->
+  </div>
+</div>
+</div>
 
-</div><!-- .app -->
-
-<!-- ══ BOTTOM NAV (mobile) ══ -->
-<nav class="bnav" role="navigation" aria-label="Main navigation">
-  <div class="bnav-inner">
-    <button class="bn active" data-s="home" onclick="goTo('home')" aria-label="Home">
-      <div class="bn-pill"></div>
-      <div class="bn-ic">
+<!-- ══ BOTTOM NAV ══ -->
+<nav class="bnav" role="navigation">
+  <div class="bn-inner">
+    <button class="bnb on" data-s="home" onclick="goTo('home')">
+      <div class="bnb-pill"></div>
+      <div class="bnb-ic">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
           <polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
       </div>
-      <span class="bn-lb">Home</span>
+      <span class="bnb-lb">Home</span>
     </button>
-
-    <button class="bn" data-s="products" onclick="goTo('products')" aria-label="Products">
-      <div class="bn-pill"></div>
-      <div class="bn-ic">
+    <button class="bnb" data-s="products" onclick="goTo('products')">
+      <div class="bnb-pill"></div>
+      <div class="bnb-ic">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-          <line x1="8" y1="21" x2="16" y2="21"/>
-          <line x1="12" y1="17" x2="12" y2="21"/>
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
+          <line x1="3" y1="18" x2="3.01" y2="18"/>
         </svg>
       </div>
-      <span class="bn-lb">Products</span>
+      <span class="bnb-lb">Products</span>
     </button>
-
-    <button class="bn" data-s="cart" onclick="goTo('cart')" aria-label="Cart">
-      <div class="bn-pill"></div>
-      <span class="bn-bdg" id="bndg"></span>
-      <div class="bn-ic">
+    <button class="bnb" data-s="cart" onclick="goTo('cart')">
+      <div class="bnb-pill"></div>
+      <span class="bnb-bdg" id="bndg"></span>
+      <div class="bnb-ic">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
         </svg>
       </div>
-      <span class="bn-lb">Cart</span>
+      <span class="bnb-lb">Cart</span>
     </button>
-
-    <button class="bn" data-s="results" onclick="goTo('results')" aria-label="Results">
-      <div class="bn-pill"></div>
-      <div class="bn-ic">
+    <button class="bnb" data-s="results" onclick="goTo('results')">
+      <div class="bnb-pill"></div>
+      <div class="bnb-ic">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
         </svg>
       </div>
-      <span class="bn-lb">Results</span>
+      <span class="bnb-lb">Results</span>
     </button>
   </div>
 </nav>
 
 <!-- ══ CALC OVERLAY ══ -->
-<div class="overlay" id="ov">
-  <div class="ov-ring"></div>
-  <div class="ov-t">Running packing algorithm…</div>
-  <div class="ov-s">Finding the optimal carton box</div>
+<div class="ov" id="ov">
+  <div class="ovring"></div>
+  <div class="ovt">Running packing algorithm…</div>
+  <div class="ovs">Finding the optimal carton box</div>
 </div>
 
 <!-- ══ EXIT DIALOG ══ -->
-<div class="exit-dlg" id="exit-dlg">
-  <div class="exit-box">
+<div class="xdlg" id="xdlg">
+  <div class="xbox">
+    <div class="xi"><svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
     <h3>Exit App?</h3>
     <p>Are you sure you want to close BoxFit Pro?</p>
-    <div class="exit-btns">
-      <button class="btn btn-g" onclick="hideExitDlg()">Cancel</button>
-      <button class="btn btn-p" onclick="confirmExit()">Exit</button>
+    <div class="xbtns">
+      <button class="btn bg" onclick="closeExit()">Cancel</button>
+      <button class="btn bp" onclick="doExit()">Exit</button>
     </div>
   </div>
 </div>
 
-<!-- ══ TOASTS ══ -->
 <div id="toasts"></div>
 
 <script>
-/* ═══════════════════════════════════════════
-   ⚙️ APPS SCRIPT URL
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════
+   CONFIG
+═══════════════════════════════════ */
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxOpkKSzSLry0CegCtZ8_mFmYV6a3MRGrXt4KXsfe8iiCyzTyE5JSHmfXxH_E7IC9Zkpw/exec';
 const POLL_MS=2000;
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    STATE
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
 const A={
   products:[],boxes:[],cart:{},result:null,ready:false,
-  polling:null,syncActive:false,
-  /* Navigation history stack for back button */
-  navStack:['home'],
-  currentScreen:'home'
+  polling:null,syncActive:false,cur:'home'
 };
 
-/* ═══════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════ */
-document.addEventListener('DOMContentLoaded',()=>{
-  loadCart();syncBadges();fetchData(true);
-  setupBackButton();
-});
+/* ═══════════════════════════════════
+   NAVIGATION STACK (back button fix)
+   ─────────────────────────────────
+   We manage our OWN stack array.
+   Browser history entries exist only
+   to intercept the Android back gesture.
+   Each goTo() pushes one dummy entry.
+   popstate → we pop our own stack.
+═══════════════════════════════════ */
+const ORDER=['home','products','cart','results'];
+let navStack=['home'];   // our own stack
 
-/* ═══════════════════════════════════════════
-   BACK BUTTON NAVIGATION
-   ─────────────────────────────────────────
-   Uses a custom nav stack.
-   Android physical back button fires popstate
-   via pushState dummy entries.
-═══════════════════════════════════════════ */
-const SCREEN_ORDER=['home','products','cart','results'];
-
-function setupBackButton(){
-  // Push initial state
-  history.pushState({screen:'home'},'','');
-  window.addEventListener('popstate',(e)=>{
-    e.preventDefault();
+function setupBack(){
+  // Two dummy states so first back press doesn't exit immediately
+  history.replaceState({i:0},'','');
+  history.pushState({i:1},'','');
+  window.addEventListener('popstate',()=>{
+    // Re-push immediately so next back still fires popstate
+    history.pushState({i:1},'','');
     handleBack();
   });
 }
 
 function handleBack(){
-  // Always re-push a state so back button keeps working
-  history.pushState({screen:A.currentScreen},'','');
-
-  if(A.currentScreen==='home'){
-    showExitDlg();
+  if(navStack.length<=1){
+    // Already at root (home)
+    showExit();
     return;
   }
-  const idx=SCREEN_ORDER.indexOf(A.currentScreen);
-  const prev=SCREEN_ORDER[Math.max(0,idx-1)];
-  goTo(prev,true); // true = skip pushing history (we handle it)
-}
-
-function showExitDlg(){document.getElementById('exit-dlg').classList.add('vis');}
-function hideExitDlg(){document.getElementById('exit-dlg').classList.remove('vis');}
-function confirmExit(){
-  // On PWA/browser just go to blank; in Capacitor/Cordova you'd call navigator.app.exitApp()
-  try{navigator.app.exitApp();}catch(e){window.close();}
+  navStack.pop();
+  const prev=navStack[navStack.length-1];
+  goTo(prev,true); // skipStack=true
 }
 
 function goBack(){handleBack();}
+function showExit(){G('xdlg').classList.add('on');}
+function closeExit(){G('xdlg').classList.remove('on');}
+function doExit(){try{navigator.app.exitApp();}catch(e){window.close();}}
 
-/* ═══════════════════════════════════════════
-   SCREEN NAVIGATION
-═══════════════════════════════════════════ */
-function goTo(name,skipHistory=false){
-  // Scroll content to top on navigate
-  const c=document.getElementById('content');
-  if(c)c.scrollTop=0;
+/* ═══════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════ */
+function goTo(name,skipStack=false){
+  G('content').scrollTop=0;
+  A.cur=name;
 
-  A.currentScreen=name;
-  document.querySelectorAll('.screen').forEach(e=>e.classList.remove('active'));
-  const sc=document.getElementById('s-'+name);
-  if(sc)sc.classList.add('active');
+  // Update stack
+  if(!skipStack){
+    // Remove any existing occurrence further up then push
+    navStack=navStack.filter(s=>s!==name);
+    navStack.push(name);
+    // Push a browser history entry so popstate fires
+    history.pushState({i:1},'','');
+  }
 
-  // Sync all nav elements
+  // Show/hide screens
+  document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));
+  const sc=G('s-'+name);if(sc)sc.classList.add('on');
+
+  // Sync nav items
   document.querySelectorAll('[data-s]').forEach(e=>
-    e.classList.toggle('active',e.dataset.s===name));
+    e.classList.toggle('on',e.dataset.s===name));
 
-  // Update mobile back button visibility
-  updateTopbar(name);
+  // Topbar back button visibility
+  const bb=G('tbback');
+  if(bb)bb.classList.toggle('vis',name!=='home');
 
-  // Re-render if needed
   if(name==='cart')renderCart();
   if(name==='products')renderProds();
   if(name==='results'&&!A.result){show('r-empty');hide('r-content');}
-
-  // Push to browser history for back button (unless called from handleBack)
-  if(!skipHistory){
-    history.pushState({screen:name},'','');
-  }
-}
-
-function updateTopbar(name){
-  const btn=document.getElementById('tb-back');
-  if(btn) btn.classList.toggle('vis',name!=='home');
 }
 
 function proceedToCart(){
@@ -1085,18 +886,19 @@ function proceedToCart(){
   goTo('cart');
 }
 
-/* ═══════════════════════════════════════════
-   DATA FETCH
-═══════════════════════════════════════════ */
-async function fetchData(initial=false){
-  if(!initial&&A.syncActive)return;
-  A.syncActive=true;spinSync(true);
+/* ═══════════════════════════════════
+   DATA
+═══════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  loadCart();syncBadges();
+  setupBack();
+  fetchData(true);
+});
 
-  if(initial){
-    setConn('sync','Connecting…');
-    show('h-loader');hide('h-err');hide('h-stats');hide('h-notice');
-  }
-
+async function fetchData(init=false){
+  if(!init&&A.syncActive)return;
+  A.syncActive=true;spinOn(true);
+  if(init){setConn('sync','Connecting…');show('h-loader');hide('h-err');hide('h-stats');hide('h-notice');}
   try{
     const ctrl=new AbortController();
     const t=setTimeout(()=>ctrl.abort(),6000);
@@ -1104,45 +906,22 @@ async function fetchData(initial=false){
     clearTimeout(t);
     if(!res.ok)throw new Error('HTTP '+res.status);
     const data=await res.json();
-
-    const np=(data.products||[]).map((p,i)=>({
-      id:String(p.id||i+1),sno:p.sno||i+1,name:p.name||'',
-      length:+p.length||0,width:+p.width||0,height:+p.height||0,weight:+p.weight||0
-    }));
-    const nb=(data.boxes||[]).map((b,i)=>({
-      id:String(b.id||i+1),sno:b.sno||i+1,name:b.name||'',
-      length:+b.length||0,width:+b.width||0,height:+b.height||0,maxWeight:+b.maxWeight||0
-    }));
-
-    const changed=JSON.stringify(np)!==JSON.stringify(A.products)||JSON.stringify(nb)!==JSON.stringify(A.boxes);
+    const np=(data.products||[]).map((p,i)=>({id:String(p.id||i+1),sno:p.sno||i+1,name:p.name||'',length:+p.length||0,width:+p.width||0,height:+p.height||0,weight:+p.weight||0}));
+    const nb=(data.boxes||[]).map((b,i)=>({id:String(b.id||i+1),sno:b.sno||i+1,name:b.name||'',length:+b.length||0,width:+b.width||0,height:+b.height||0,maxWeight:+b.maxWeight||0}));
+    const chg=JSON.stringify(np)!==JSON.stringify(A.products)||JSON.stringify(nb)!==JSON.stringify(A.boxes);
     A.products=np;A.boxes=nb;A.ready=true;
-    setConn('live',`${A.products.length} prods · ${A.boxes.length} boxes`);
-
-    if(initial){
-      hide('h-loader');show('h-stats');updateHStats();renderProds();
-      toast('Data loaded from Google Sheets','ok');
-    } else if(changed){
-      updateHStats();renderProds();toast('Data refreshed','ok');
-    }
-  } catch(err){
-    if(initial){
-      hide('h-loader');show('h-err');show('h-notice');
-      setConn('err','Sample data');loadSample();
-    } else {
-      setConn('err','Sync failed');
-      setTimeout(()=>setConn('live',`${A.products.length} prods · ${A.boxes.length} boxes`),2500);
-    }
-  } finally{
-    A.syncActive=false;spinSync(false);
-    if(!A.polling)startPoll();
-  }
+    setConn('live',`${np.length} prods · ${nb.length} boxes`);
+    if(init){hide('h-loader');show('h-stats');updHS();renderProds();toast('Data loaded','ok');}
+    else if(chg){updHS();renderProds();toast('Data refreshed','ok');}
+  }catch(e){
+    if(init){hide('h-loader');show('h-err');show('h-notice');setConn('err','Sample data');loadSample();}
+    else{setConn('err','Sync failed');setTimeout(()=>setConn('live',`${A.products.length} prods · ${A.boxes.length} boxes`),2500);}
+  }finally{A.syncActive=false;spinOn(false);if(!A.polling)startPoll();}
 }
-
 function startPoll(){
   if(SCRIPT_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')return;
   A.polling=setInterval(()=>fetchData(false),POLL_MS);
 }
-
 function loadSample(){
   A.products=[
     {id:'1',sno:1,name:'Laptop 15',length:38,width:26,height:2.5,weight:2.1},
@@ -1160,15 +939,14 @@ function loadSample(){
   ];
   A.ready=true;
   hide('h-loader');show('h-stats');show('h-notice');
-  updateHStats();renderProds();
-  toast('Sample data loaded','info');
+  updHS();renderProds();toast('Sample data loaded','info');
 }
 
-/* ═══════════════════════════════════════════
-   CART LOGIC
-═══════════════════════════════════════════ */
-function loadCart(){try{const s=localStorage.getItem('bfp5');if(s)A.cart=JSON.parse(s);}catch(e){}}
-function saveCart(){localStorage.setItem('bfp5',JSON.stringify(A.cart));}
+/* ═══════════════════════════════════
+   CART
+═══════════════════════════════════ */
+function loadCart(){try{const s=localStorage.getItem('bfp6');if(s)A.cart=JSON.parse(s);}catch(e){}}
+function saveCart(){localStorage.setItem('bfp6',JSON.stringify(A.cart));}
 function cartCount(){return Object.keys(A.cart).length;}
 function cartUnits(){return Object.values(A.cart).reduce((s,v)=>s+v,0);}
 function cartItems(){
@@ -1178,29 +956,73 @@ function cartItems(){
 }
 function cartTotals(){
   const it=cartItems();
-  return{
-    vol:it.reduce((s,i)=>s+i.length*i.width*i.height*i.qty,0),
-    wt:it.reduce((s,i)=>s+i.weight*i.qty,0),
-    items:it
-  };
+  return{vol:it.reduce((s,i)=>s+i.length*i.width*i.height*i.qty,0),wt:it.reduce((s,i)=>s+i.weight*i.qty,0),items:it};
 }
+
+/* ══ INSTANT QTY UPDATE ══
+   Key fix: directly mutate DOM first,
+   then persist — no re-render delay.   */
 function setQty(id,v){
-  v=Math.max(0,parseInt(v)||0);id=String(id);
+  v=Math.max(0,parseInt(v)||0);
+  id=String(id);
   if(v===0)delete A.cart[id];else A.cart[id]=v;
-  saveCart();syncBadges();
-  // Update highlights and display
-  document.querySelectorAll(`tr[data-id="${id}"]`).forEach(r=>r.classList.toggle('sel',(A.cart[id]||0)>0));
-  document.querySelectorAll(`.pc[data-id="${id}"]`).forEach(r=>r.classList.toggle('sel',(A.cart[id]||0)>0));
-  const d=G(`qd-${id}`);if(d){d.textContent=v||0;d.classList.toggle('on',v>0);}
+  saveCart();
+  syncBadges();
+  /* Update ALL qty display elements for this product (table + cards) */
+  document.querySelectorAll(`.qd[data-qid="${id}"]`).forEach(el=>{
+    el.textContent=v;
+    el.classList.toggle('on',v>0);
+  });
+  /* Update row/card highlight */
+  document.querySelectorAll(`[data-rid="${id}"]`).forEach(el=>{
+    el.classList.toggle('hl',v>0);
+    el.classList.toggle('sel',v>0);
+  });
 }
+
 function adj(id,delta){
-  id=String(id);const cur=A.cart[id]||0,nv=Math.max(0,cur+delta);
+  id=String(id);
+  const cur=A.cart[id]||0;
+  const nv=Math.max(0,cur+delta);
   setQty(id,nv);
-  if(delta>0&&nv===1){const p=A.products.find(x=>String(x.id)===id);if(p)toast(p.name+' added','ok');}
+  if(delta>0&&nv===1){
+    const p=A.products.find(x=>String(x.id)===id);
+    if(p)toast(p.name+' added','ok');
+  }
 }
+
 function adjCart(id,delta){
-  id=String(id);setQty(id,Math.max(1,(A.cart[id]||0)+delta));renderCart();
+  id=String(id);
+  setQty(id,Math.max(1,(A.cart[id]||0)+delta));
+  // Only update the display in cart table/cards, not full re-render
+  const it=cartItems();
+  const item=it.find(i=>String(i.id)===id);
+  if(!item)return;
+  // Update table row volume & weight cells
+  const row=document.querySelector(`tr[data-rid="${id}"]`);
+  if(row){
+    const cells=row.querySelectorAll('td');
+    if(cells.length>=6){
+      const iv=item.length*item.width*item.height*item.qty;
+      const iw=item.weight*item.qty;
+      cells[4].textContent=N(iv)+' cm³';
+      cells[5].textContent=iw.toFixed(2)+' kg';
+    }
+  }
+  // Update mobile card
+  const card=document.querySelector(`.ccard[data-rid="${id}"]`);
+  if(card){
+    const iv=item.length*item.width*item.height*item.qty;
+    const iw=item.weight*item.qty;
+    const vEl=card.querySelector('.cv-vol');if(vEl)vEl.textContent=N(iv)+' cm³';
+    const wEl=card.querySelector('.cv-wt');if(wEl)wEl.textContent=iw.toFixed(2)+' kg';
+  }
+  // Update cart bar totals
+  const{vol,wt}=cartTotals();
+  T('c-units',it.reduce((s,i)=>s+i.qty,0));
+  T('c-vol',N(vol));T('c-wt',wt.toFixed(2));
 }
+
 function removeItem(id){
   delete A.cart[String(id)];saveCart();syncBadges();renderCart();renderProds();
 }
@@ -1209,7 +1031,7 @@ function clearCart(){
   if(!confirm('Remove all items?'))return;
   A.cart={};saveCart();syncBadges();renderCart();renderProds();toast('Cart cleared','info');
 }
-function clearAllQty(){A.cart={};saveCart();syncBadges();renderProds();toast('Selection cleared','info');}
+function clearAllQty(){A.cart={};saveCart();syncBadges();renderProds();toast('Cleared','info');}
 
 function syncBadges(){
   const u=cartUnits(),c=cartCount();
@@ -1219,11 +1041,11 @@ function syncBadges(){
   T('h-sel',u);T('p-cnt',c);
   const{wt}=cartTotals();T('h-wt',wt.toFixed(2)+' kg');
 }
-function updateHStats(){T('h-np',A.products.length);T('h-nb',A.boxes.length);}
+function updHS(){T('h-np',A.products.length);T('h-nb',A.boxes.length);}
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    RENDER PRODUCTS
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
 function renderProds(){
   if(!A.ready){show('p-loader');hide('p-tbl');return;}
   hide('p-loader');hide('p-err');show('p-tbl');
@@ -1235,20 +1057,19 @@ function renderProds(){
   const tb=G('p-tbody');
   if(tb){
     tb.innerHTML=!list.length
-      ?`<tr><td colspan="6" style="text-align:center;padding:36px;color:var(--txt3)">No products found</td></tr>`
+      ?`<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--T3)">No products found</td></tr>`
       :list.map(p=>{
         const qty=A.cart[String(p.id)]||0;
-        const vol=N(p.length*p.width*p.height);
-        return`<tr data-id="${p.id}" class="${qty>0?'sel':''}">
-          <td><span class="sno-b">${p.sno}</span></td>
+        return`<tr data-rid="${p.id}" class="${qty>0?'hl':''}">
+          <td><span class="snob">${p.sno}</span></td>
           <td class="tn">${p.name}</td>
-          <td><span class="dim-b">${p.length}×${p.width}×${p.height}</span></td>
-          <td><span class="wt-b">${p.weight} kg</span></td>
-          <td style="font-size:11px;color:var(--txt3)">${vol} cm³</td>
-          <td><div class="qty-w">
-            <button class="q-btn" onclick="adj('${p.id}',-1)">−</button>
-            <div class="q-disp ${qty>0?'on':''}" id="qd-${p.id}">${qty}</div>
-            <button class="q-btn" onclick="adj('${p.id}',1)">+</button>
+          <td><span class="db">${p.length}×${p.width}×${p.height}</span></td>
+          <td><span class="wb">${p.weight} kg</span></td>
+          <td style="font-size:11px;color:var(--T3)">${N(p.length*p.width*p.height)} cm³</td>
+          <td><div class="qw">
+            <button class="qb" onclick="adj('${p.id}',-1)">−</button>
+            <div class="qd ${qty>0?'on':''}" data-qid="${p.id}">${qty}</div>
+            <button class="qb" onclick="adj('${p.id}',1)">+</button>
           </div></td>
         </tr>`;
       }).join('');
@@ -1258,26 +1079,25 @@ function renderProds(){
   const pc=G('p-cards');
   if(pc){
     pc.innerHTML=!list.length
-      ?`<div style="text-align:center;padding:36px;color:var(--txt3);font-size:13px">No products found</div>`
+      ?`<div style="text-align:center;padding:32px;color:var(--T3);font-size:13px">No products found</div>`
       :list.map(p=>{
         const qty=A.cart[String(p.id)]||0;
-        const vol=N(p.length*p.width*p.height);
-        return`<div class="pc ${qty>0?'sel':''}" data-id="${p.id}">
-          <div class="pc-top">
-            <div class="pc-info">
-              <div class="pc-sno">${p.sno}</div>
-              <div class="pc-name">${p.name}</div>
-              <div class="pc-meta">
-                <span class="dim-b">${p.length}×${p.width}×${p.height}</span>
-                <span class="wt-b">${p.weight} kg</span>
-                <span class="vol-b">${vol} cm³</span>
+        return`<div class="pcard ${qty>0?'sel':''}" data-rid="${p.id}">
+          <div class="pcard-row">
+            <div class="pcard-left">
+              <div class="pcard-num">${p.sno}</div>
+              <div class="pcard-name">${p.name}</div>
+              <div class="pcard-badges">
+                <span class="db">${p.length}×${p.width}×${p.height}</span>
+                <span class="wb">${p.weight} kg</span>
+                <span class="vb">${N(p.length*p.width*p.height)} cm³</span>
               </div>
             </div>
-            <div class="pc-qty">
-              <div class="qty-w">
-                <button class="q-btn" onclick="adj('${p.id}',-1)">−</button>
-                <div class="q-disp ${qty>0?'on':''}" id="qd-${p.id}">${qty}</div>
-                <button class="q-btn" onclick="adj('${p.id}',1)">+</button>
+            <div class="pcard-right">
+              <div class="qw">
+                <button class="qb" onclick="adj('${p.id}',-1)">−</button>
+                <div class="qd ${qty>0?'on':''}" data-qid="${p.id}">${qty}</div>
+                <button class="qb" onclick="adj('${p.id}',1)">+</button>
               </div>
             </div>
           </div>
@@ -1286,9 +1106,9 @@ function renderProds(){
   }
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    RENDER CART
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
 function renderCart(){
   const items=cartItems();
   if(!items.length){show('c-empty');hide('c-content');return;}
@@ -1297,73 +1117,63 @@ function renderCart(){
   T('c-units',items.reduce((s,i)=>s+i.qty,0));
   T('c-vol',N(vol));T('c-wt',wt.toFixed(2));
 
-  // Desktop table
   const tb=G('c-tbody');
   if(tb){
     tb.innerHTML=items.map(it=>{
-      const iv=it.length*it.width*it.height*it.qty;
-      const iw=it.weight*it.qty;
-      return`<tr>
+      const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;
+      return`<tr data-rid="${it.id}">
         <td class="tn">${it.name}</td>
-        <td><span class="dim-b">${it.length}×${it.width}×${it.height}</span></td>
-        <td><span class="wt-b">${it.weight} kg</span></td>
-        <td><div class="qty-w">
-          <button class="q-btn" onclick="adjCart('${it.id}',-1)">−</button>
-          <div class="q-disp on">${it.qty}</div>
-          <button class="q-btn" onclick="adjCart('${it.id}',1)">+</button>
+        <td><span class="db">${it.length}×${it.width}×${it.height}</span></td>
+        <td><span class="wb">${it.weight} kg</span></td>
+        <td><div class="qw">
+          <button class="qb" onclick="adjCart('${it.id}',-1)">−</button>
+          <div class="qd on" data-qid="${it.id}">${it.qty}</div>
+          <button class="qb" onclick="adjCart('${it.id}',1)">+</button>
         </div></td>
-        <td style="color:var(--accent);font-weight:600">${N(iv)} cm³</td>
-        <td style="color:var(--yellow);font-weight:600">${iw.toFixed(2)} kg</td>
-        <td><button class="btn btn-d btn-sm" onclick="removeItem('${it.id}')">
+        <td style="color:var(--A);font-weight:600">${N(iv)} cm³</td>
+        <td style="color:var(--Y);font-weight:600">${iw.toFixed(2)} kg</td>
+        <td><button class="btn bd bsm" onclick="removeItem('${it.id}')">
           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button></td>
       </tr>`;
     }).join('');
   }
 
-  // Mobile cards
   const cc=G('c-cards');
   if(cc){
     cc.innerHTML=items.map(it=>{
-      const iv=it.length*it.width*it.height*it.qty;
-      const iw=it.weight*it.qty;
-      return`<div class="cc">
-        <div class="cc-top">
-          <div class="cc-name">${it.name}</div>
-          <button class="btn btn-d btn-sm" onclick="removeItem('${it.id}')">
+      const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;
+      return`<div class="ccard" data-rid="${it.id}">
+        <div class="ccard-head">
+          <div class="ccard-nm">${it.name}</div>
+          <button class="btn bd bsm" onclick="removeItem('${it.id}')">
             <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
-        <div class="pc-meta" style="margin-bottom:10px">
-          <span class="dim-b">${it.length}×${it.width}×${it.height}</span>
-          <span class="wt-b">${it.weight} kg</span>
+        <div class="pcard-badges" style="margin-bottom:10px">
+          <span class="db">${it.length}×${it.width}×${it.height}</span>
+          <span class="wb">${it.weight} kg</span>
         </div>
-        <div class="cc-bottom">
-          <div class="qty-w">
-            <button class="q-btn" onclick="adjCart('${it.id}',-1)">−</button>
-            <div class="q-disp on">${it.qty}</div>
-            <button class="q-btn" onclick="adjCart('${it.id}',1)">+</button>
+        <div class="ccard-foot">
+          <div class="qw">
+            <button class="qb" onclick="adjCart('${it.id}',-1)">−</button>
+            <div class="qd on" data-qid="${it.id}">${it.qty}</div>
+            <button class="qb" onclick="adjCart('${it.id}',1)">+</button>
           </div>
-          <div class="cc-stat">
-            <div class="cc-lbl">Volume</div>
-            <div class="cc-val" style="color:var(--accent)">${N(iv)} cm³</div>
-          </div>
-          <div class="cc-stat">
-            <div class="cc-lbl">Weight</div>
-            <div class="cc-val" style="color:var(--yellow)">${iw.toFixed(2)} kg</div>
-          </div>
+          <div class="cstat"><div class="csl">Volume</div><div class="csv cv-vol" style="color:var(--A)">${N(iv)} cm³</div></div>
+          <div class="cstat"><div class="csl">Weight</div><div class="csv cv-wt" style="color:var(--Y)">${iw.toFixed(2)} kg</div></div>
         </div>
       </div>`;
     }).join('');
   }
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    PACKING ALGORITHM
-═══════════════════════════════════════════ */
-function sdims(a,b,c){return[a,b,c].sort((x,y)=>x-y);}
+═══════════════════════════════════ */
+function sd(a,b,c){return[a,b,c].sort((x,y)=>x-y);}
 function fits(il,iw,ih,bl,bw,bh){
-  const[ia,ib,ic]=sdims(il,iw,ih);const[ba,bb,bc]=sdims(bl,bw,bh);
+  const[ia,ib,ic]=sd(il,iw,ih);const[ba,bb,bc]=sd(bl,bw,bh);
   return ia<=ba&&ib<=bb&&ic<=bc;
 }
 function stackFits(items,bl,bw,bh){
@@ -1372,9 +1182,7 @@ function stackFits(items,bl,bw,bh){
   let uH=0;
   for(const it of s){
     let bH=Infinity,ok=false;
-    for(const[fl,fw,sh]of oris(it.l,it.w,it.h)){
-      if(fl<=bl&&fw<=bw&&sh<bH){bH=sh;ok=true;}
-    }
+    for(const[fl,fw,sh]of oris(it.l,it.w,it.h)){if(fl<=bl&&fw<=bw&&sh<bH){bH=sh;ok=true;}}
     if(!ok)return false;uH+=bH;
   }
   return uH<=bh;
@@ -1388,8 +1196,7 @@ function findBox(){
   const boxes=[...A.boxes].sort((a,b)=>(a.length*a.width*a.height)-(b.length*b.width*b.height));
   let rec=null,ow=null;
   for(const box of boxes){
-    const bl=+box.length,bw=+box.width,bh=+box.height;
-    const bv=bl*bw*bh,mw=+box.maxWeight;
+    const bl=+box.length,bw=+box.width,bh=+box.height,bv=bl*bw*bh,mw=+box.maxWeight;
     if(tv>bv)continue;
     if(!ex.every(it=>fits(it.l,it.w,it.h,bl,bw,bh)))continue;
     if(!stackFits(ex,bl,bw,bh))continue;
@@ -1400,49 +1207,103 @@ function findBox(){
 }
 function analyzeBoxes(tv,tw,ex,bestId){
   return A.boxes.map(box=>{
-    const bl=+box.length,bw=+box.width,bh=+box.height;
-    const bv=bl*bw*bh,mw=+box.maxWeight;
-    const vOk=tv<=bv;
-    const aFit=ex.every(it=>fits(it.l,it.w,it.h,bl,bw,bh));
-    const sOk=aFit&&stackFits(ex,bl,bw,bh);
-    const wOk=tw<=mw;
+    const bl=+box.length,bw=+box.width,bh=+box.height,bv=bl*bw*bh,mw=+box.maxWeight;
+    const vOk=tv<=bv,aFit=ex.every(it=>fits(it.l,it.w,it.h,bl,bw,bh));
+    const sOk=aFit&&stackFits(ex,bl,bw,bh),wOk=tw<=mw;
     const isBest=String(box.id)===String(bestId);
     let st,cls,reason;
-    if(!vOk||!aFit||!sOk){
-      st='no';cls='no';
-      reason=!vOk?'Volume exceeds box capacity':!aFit?'Item(s) don\'t fit dimensionally':'Stacking height exceeds box';
-    } else if(!wOk){
-      st='big';cls='big';reason=`Overweight by ${(tw-mw).toFixed(2)} kg`;
-    } else {
-      const u=tv/bv*100;
-      reason=u<20?'Oversized — too much unused space':u<40?'Larger than needed but fits':`Good fit — ${u.toFixed(0)}% utilization`;
-      st='ok';cls='fit';
-    }
+    if(!vOk||!aFit||!sOk){st='no';cls='no';reason=!vOk?'Volume exceeds box':!aFit?'Items don\'t fit dimensionally':'Stacking height exceeded';}
+    else if(!wOk){st='big';cls='big';reason=`Overweight by ${(tw-mw).toFixed(2)} kg`;}
+    else{const u=tv/bv*100;reason=u<20?'Oversized — lots of unused space':u<40?'Larger than needed but fits':`Good fit — ${u.toFixed(0)}% used`;st='ok';cls='fit';}
     return{box,st,cls,reason,isBest,bv};
   });
 }
 
-/* ═══════════════════════════════════════════
-   RUN CALCULATION
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════
+   SMART OPTIMIZER
+   Suggests which extra products
+   can fit in remaining box space.
+═══════════════════════════════════ */
+function buildOptimizer(box,bv,mw,tv,tw,items){
+  const remVol=bv-tv;
+  const remWt=mw-tw;
+  const util=(tv/bv*100);
+
+  const suggestions=[];
+
+  // Check each product for how many more fit
+  A.products.forEach(p=>{
+    const pv=p.length*p.width*p.height;
+    const pw=p.weight;
+    if(pv<=0||pw<=0)return;
+    // How many units fit in remaining space?
+    const byVol=Math.floor(remVol/pv);
+    const byWt=remWt>0?Math.floor(remWt/pw):0;
+    const n=Math.min(byVol,byWt);
+    if(n<=0)return;
+    // Also check that one unit fits dimensionally
+    if(!fits(p.length,p.width,p.height,+box.length,+box.width,+box.height))return;
+    suggestions.push({p,n});
+  });
+
+  // Sort by most units first
+  suggestions.sort((a,b)=>b.n-a.n);
+
+  let html='';
+
+  // Overall utilization advice
+  if(util<30){
+    html+=`<div class="opt-item warn"><div class="opt-dot warn"></div><div class="opt-txt">Box is only <strong>${util.toFixed(0)}% utilized</strong>. Consider downsizing to the next smaller box to save shipping costs.</div></div>`;
+  } else if(util>90){
+    html+=`<div class="opt-item good"><div class="opt-dot good"></div><div class="opt-txt"><strong>Excellent utilization at ${util.toFixed(0)}%.</strong> This is a highly efficient packing choice.</div></div>`;
+  }
+
+  // Remaining space & weight
+  if(remVol>0){
+    html+=`<div class="opt-item"><div class="opt-dot"></div><div class="opt-txt">Remaining space: <strong>${N(remVol)} cm³</strong> · Remaining weight capacity: <strong>${remWt>0?remWt.toFixed(2)+'kg':'0 kg (at capacity)'}</strong></div></div>`;
+  }
+
+  // Product suggestions (max 4)
+  suggestions.slice(0,4).forEach(({p,n})=>{
+    html+=`<div class="opt-item good"><div class="opt-dot good"></div><div class="opt-txt">You can add <strong>${n} more unit${n>1?'s':''} of ${p.name}</strong> (${p.length}×${p.width}×${p.height} cm, ${p.weight} kg each) into this box.</div></div>`;
+  });
+
+  if(!suggestions.length&&util>=30){
+    html+=`<div class="opt-item"><div class="opt-dot"></div><div class="opt-txt">Remaining space is too small to accommodate any additional products from the catalog.</div></div>`;
+  }
+
+  if(!html)return '';
+
+  return`<div class="optimizer">
+    <div class="opt-head">
+      <div class="opt-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><polyline points="12 16 12.01 16"/></svg>
+      </div>
+      <div><div class="opt-t">Smart Space Optimizer</div><div class="opt-s">AI-powered packing suggestions</div></div>
+    </div>
+    <div class="opt-list">${html}</div>
+  </div>`;
+}
+
+/* ═══════════════════════════════════
+   CALCULATE
+═══════════════════════════════════ */
 function runCalc(){
   if(!cartItems().length){toast('Cart is empty','warn');return;}
   G('calc-btn').disabled=true;
-  G('ov').classList.add('vis');
+  G('ov').classList.add('on');
   setTimeout(()=>{
-    const result=findBox();
-    A.result=result;
-    G('ov').classList.remove('vis');
+    const result=findBox();A.result=result;
+    G('ov').classList.remove('on');
     G('calc-btn').disabled=false;
-    renderResults(result);
-    goTo('results');
+    renderResults(result);goTo('results');
     toast('Calculation complete!','ok');
   },900);
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    RENDER RESULTS
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
 function renderResults(r){
   const cont=G('r-content');
   if(!r){show('r-empty');hide('r-content');return;}
@@ -1453,21 +1314,21 @@ function renderResults(r){
 
   if(noFit){
     const an=analyzeBoxes(tv,tw,ex,null);
-    html=`<div class="res-hero rh-no">
+    html=`<div class="rhero rh-no">
       <div class="rh-top">
-        <div class="rh-ico rhi-no"><svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-        <div class="rh-m"><div class="rh-eye">Recommendation</div><div class="rh-name no">No Suitable Box</div><div class="rh-dims">Products exceed all available boxes</div></div>
+        <div class="rh-ico rhi-no"><svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+        <div class="rh-m"><div class="rh-eye">Recommendation</div><div class="rh-nm no">No Suitable Box</div><div class="rh-dm">Products exceed all available boxes</div></div>
       </div>
-      <div class="met-row">
-        <div class="mbox"><div class="mbox-l">Total Volume</div><div class="mbox-v">${N(tv)}<span class="mbox-u">cm³</span></div></div>
-        <div class="mbox"><div class="mbox-l">Total Weight</div><div class="mbox-v">${tw.toFixed(2)}<span class="mbox-u">kg</span></div></div>
-        <div class="mbox"><div class="mbox-l">Status</div><div class="mbox-v"><span class="chip ch-r">❌ No Fit</span></div></div>
+      <div class="mrow">
+        <div class="mbox"><div class="mbl">Total Volume</div><div class="mbv">${N(tv)}<span class="mbu">cm³</span></div></div>
+        <div class="mbox"><div class="mbl">Total Weight</div><div class="mbv">${tw.toFixed(2)}<span class="mbu">kg</span></div></div>
+        <div class="mbox"><div class="mbl">Status</div><div class="mbv"><span class="chip cr">❌ No Fit</span></div></div>
       </div>
     </div>
-    ${boxAnalysisHTML(an,null)}
-    <div class="res-actions">
-      <button class="btn btn-g" onclick="goTo('cart')">← Back to Cart</button>
-      <button class="btn btn-d btn-sm" onclick="resetAll()">Reset All</button>
+    ${baHTML(an,null)}
+    <div class="racts">
+      <button class="btn bg" onclick="goTo('cart')">← Cart</button>
+      <button class="btn bd bsm" onclick="resetAll()">Reset</button>
     </div>`;
     cont.innerHTML=html;return;
   }
@@ -1477,97 +1338,90 @@ function renderResults(r){
   const isOW=!rec&&!!ow;
   const util=(tv/bv*100).toFixed(1);
   const remV=bv-tv,remW=mw-tw;
-  const ufc=util>=70?'uf-hi':util>=45?'uf-md':'uf-lo';
+  const ufc=util>=70?'uhi':util>=45?'umd':'ulo';
   const an=analyzeBoxes(tv,tw,ex,box.id);
 
-  if(isOW) html+=`<div class="warn-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>Weight Exceeded:</b> ${tw.toFixed(2)} kg total exceeds ${box.name}'s capacity of ${mw} kg.</div></div>`;
+  if(isOW)html+=`<div class="warnbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>Weight Exceeded:</b> ${tw.toFixed(2)} kg exceeds ${box.name}'s limit of ${mw} kg. Split the shipment.</div></div>`;
 
-  html+=`<div class="res-hero ${isOW?'rh-ow':'rh-ok'}">
+  html+=`<div class="rhero ${isOW?'rh-ow':'rh-ok'}">
     <div class="rh-top">
       <div class="rh-ico ${isOW?'rhi-ow':'rhi-ok'}">
-        ${isOW?`<svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`
-        :`<svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`}
+        ${isOW?`<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`}
       </div>
       <div class="rh-m" style="flex:1">
-        <div class="rh-eye">Recommended Carton Box</div>
-        <div class="rh-name ${isOW?'ow':'ok'}">${box.name}</div>
-        <div class="rh-dims">${box.length}×${box.width}×${box.height} cm · ${mw} kg · ${N(bv)} cm³</div>
+        <div class="rh-eye">Recommended Box</div>
+        <div class="rh-nm ${isOW?'ow':'ok'}">${box.name}</div>
+        <div class="rh-dm">${box.length}×${box.width}×${box.height} cm · ${mw} kg cap · ${N(bv)} cm³</div>
       </div>
-      <span class="chip ${+util>=70?'ch-g':+util>=45?'ch-y':'ch-o'}">${util}%</span>
+      <span class="chip ${+util>=70?'cg':+util>=45?'cy':'co'}">${util}%</span>
     </div>
-    <div class="met-row">
-      <div class="mbox"><div class="mbox-l">Space Used</div><div class="mbox-v">${util}<span class="mbox-u">%</span></div><div class="util-t"><div class="util-f ${ufc}" id="uf" style="width:0%"></div></div></div>
-      <div class="mbox"><div class="mbox-l">Free Space</div><div class="mbox-v">${N(remV)}<span class="mbox-u">cm³</span></div></div>
-      <div class="mbox"><div class="mbox-l">Wt Remaining</div><div class="mbox-v" style="color:${remW<0?'var(--red)':'inherit'}">${Math.abs(remW).toFixed(2)}<span class="mbox-u">kg</span></div></div>
+    <div class="mrow">
+      <div class="mbox"><div class="mbl">Space Used</div><div class="mbv">${util}<span class="mbu">%</span></div><div class="utt"><div class="utf ${ufc}" id="uf" style="width:0%"></div></div></div>
+      <div class="mbox"><div class="mbl">Free Space</div><div class="mbv">${N(remV)}<span class="mbu">cm³</span></div></div>
+      <div class="mbox"><div class="mbl">Wt Left</div><div class="mbv" style="color:${remW<0?'var(--R)':'inherit'}">${Math.abs(remW).toFixed(2)}<span class="mbu">kg</span></div></div>
     </div>
   </div>
   <div class="ag">
     <div class="dc">
       <div class="dttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Volume</div>
-      <div class="drow"><span class="dl">Product Vol</span><span class="dv">${N(tv)} cm³</span></div>
-      <div class="drow"><span class="dl">Box Vol</span><span class="dv">${N(bv)} cm³</span></div>
-      <div class="drow"><span class="dl">Utilization</span><span class="dv" style="color:var(--green)">${util}%</span></div>
-      <div class="drow"><span class="dl">Remaining</span><span class="dv">${N(remV)} cm³</span></div>
+      <div class="drow"><span class="dl">Product</span><span class="dv">${N(tv)} cm³</span></div>
+      <div class="drow"><span class="dl">Box</span><span class="dv">${N(bv)} cm³</span></div>
+      <div class="drow"><span class="dl">Used</span><span class="dv" style="color:var(--G)">${util}%</span></div>
+      <div class="drow"><span class="dl">Free</span><span class="dv">${N(remV)} cm³</span></div>
     </div>
     <div class="dc">
       <div class="dttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Weight</div>
-      <div class="drow"><span class="dl">Total Wt</span><span class="dv">${tw.toFixed(2)} kg</span></div>
+      <div class="drow"><span class="dl">Total</span><span class="dv">${tw.toFixed(2)} kg</span></div>
       <div class="drow"><span class="dl">Capacity</span><span class="dv">${mw} kg</span></div>
-      <div class="drow"><span class="dl">Utilization</span><span class="dv" style="color:${isOW?'var(--red)':'var(--green)'}">${(tw/mw*100).toFixed(1)}%</span></div>
-      <div class="drow"><span class="dl">Remaining</span><span class="dv" style="color:${remW<0?'var(--red)':'inherit'}">${remW.toFixed(2)} kg</span></div>
+      <div class="drow"><span class="dl">Used</span><span class="dv" style="color:${isOW?'var(--R)':'var(--G)'}">${(tw/mw*100).toFixed(1)}%</span></div>
+      <div class="drow"><span class="dl">Remaining</span><span class="dv" style="color:${remW<0?'var(--R)':'inherit'}">${remW.toFixed(2)} kg</span></div>
     </div>
   </div>
-  <div class="pc-card">
+  <div class="ppc">
     <div class="dttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Products Packed</div>
-    ${items.map(it=>{
-      const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;
-      return`<div class="drow"><span class="dl">${it.name} × ${it.qty}</span><span class="dv">${N(iv)} cm³ · ${iw.toFixed(2)} kg</span></div>`;
-    }).join('')}
+    ${items.map(it=>{const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;return`<div class="drow"><span class="dl">${it.name} × ${it.qty}</span><span class="dv">${N(iv)} cm³ · ${iw.toFixed(2)} kg</span></div>`;}).join('')}
   </div>
-  ${boxAnalysisHTML(an,box.id)}
-  <div class="res-actions">
-    <button class="btn btn-g" onclick="goTo('cart')">← Cart</button>
-    <button class="btn btn-g" onclick="goTo('products')">Change Products</button>
-    <button class="btn btn-d btn-sm" onclick="resetAll()">Reset</button>
+  ${!isOW?buildOptimizer(box,bv,mw,tv,tw,items):''}
+  ${baHTML(an,box.id)}
+  <div class="racts">
+    <button class="btn bg" onclick="goTo('cart')">← Cart</button>
+    <button class="btn bg" onclick="goTo('products')">Change Products</button>
+    <button class="btn bd bsm" onclick="resetAll()">Reset</button>
   </div>`;
 
   cont.innerHTML=html;
   setTimeout(()=>{const f=G('uf');if(f)f.style.width=util+'%';},80);
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    BOX ANALYSIS HTML
-═══════════════════════════════════════════ */
-function boxAnalysisHTML(an,bestId){
-  const items=an.map(({box,st,cls,reason,isBest,bv})=>{
-    const ico={
-      ok:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-      big:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
-      no:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`
-    }[st];
-    const sbg={ok:'bs-fit',big:'bs-big',no:'bs-no'}[st];
+═══════════════════════════════════ */
+function baHTML(an,bestId){
+  const rows=an.map(({box,st,cls,reason,isBest,bv})=>{
+    const ico={ok:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,big:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,no:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`}[st];
+    const sbg={ok:'bsf',big:'bsb',no:'bsn'}[st];
     const lbl={ok:'✅ Best Fit',big:'⚠️ Overweight',no:'❌ Not Fit'}[st];
-    return`<div class="ba-item ${cls}">
-      <div class="ba-st ${sbg}">${ico}</div>
-      <div class="ba-b">
-        <div class="ba-n">${box.name} ${isBest?'<span class="ba-best">★ Recommended</span>':''}</div>
-        <div class="ba-r">${lbl} — ${reason}</div>
-        <div class="ba-d">${box.length}×${box.width}×${box.height} cm · ${box.maxWeight} kg · ${N(bv)} cm³</div>
+    return`<div class="bai ${cls}">
+      <div class="bast ${sbg}">${ico}</div>
+      <div class="bab">
+        <div class="ban">${box.name} ${isBest?'<span class="babest">★ Recommended</span>':''}</div>
+        <div class="bar">${lbl} — ${reason}</div>
+        <div class="bad">${box.length}×${box.width}×${box.height} · ${box.maxWeight}kg · ${N(bv)}cm³</div>
       </div>
     </div>`;
   }).join('');
-  return`<div class="box-analysis">
+  return`<div class="banal">
     <div class="ba-h">
-      <div class="ba-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-      <div><div class="ba-t">All Box Analysis</div><div class="ba-s">Fit status for every available carton</div></div>
+      <div class="ba-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div><div class="ba-t">All Box Analysis</div><div class="ba-s">Fit status for every carton</div></div>
     </div>
-    <div class="ba-list">${items}</div>
+    <div class="ba-list">${rows}</div>
   </div>`;
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    RESET
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
 function resetAll(){
   if(!confirm('Reset everything?'))return;
   A.cart={};A.result=null;
@@ -1575,38 +1429,23 @@ function resetAll(){
   goTo('home');toast('Reset complete','info');
 }
 
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    TOAST
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
 function toast(msg,type='info'){
   const C=G('toasts');
-  const ico={
-    ok:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-    warn:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--yellow)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
-    err:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
-    info:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
-  }[type]||'';
-  const cls={ok:'t-ok',warn:'t-wa',err:'t-er',info:'t-in'}[type]||'t-in';
+  const ico={ok:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,warn:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,err:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,info:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`}[type]||'';
+  const cls={ok:'tok',warn:'twa',err:'ter',info:'tin'}[type]||'tin';
   const t=document.createElement('div');
-  t.className=`toast ${cls}`;
-  t.innerHTML=ico+`<span>${msg}</span>`;
-  C.appendChild(t);
-  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),280);},3000);
+  t.className=`toast ${cls}`;t.innerHTML=ico+`<span>${msg}</span>`;C.appendChild(t);
+  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),250);},3000);
 }
 
-/* ═══════════════════════════════════════════
-   CONNECTION
-═══════════════════════════════════════════ */
-function setConn(s,txt){
-  const d=G('cdot'),t=G('ctxt');
-  if(d)d.className='cdot '+({live:'live',sync:'sync',err:'err'}[s]||'');
-  if(t)t.textContent=txt;
-}
-function spinSync(on){const s=G('sspin');if(s)s.classList.toggle('vis',on);}
-
-/* ═══════════════════════════════════════════
+/* ═══════════════════════════════════
    HELPERS
-═══════════════════════════════════════════ */
+═══════════════════════════════════ */
+function setConn(s,txt){const d=G('cdot'),t=G('ctxt');if(d)d.className='cdot '+({live:'live',sync:'sync',err:'err'}[s]||'');if(t)t.textContent=txt;}
+function spinOn(on){const s=G('sspin');if(s)s.classList.toggle('vis',on);}
 function G(id){return document.getElementById(id);}
 function show(id){const e=G(id);if(e)e.style.display='';}
 function hide(id){const e=G(id);if(e)e.style.display='none';}
