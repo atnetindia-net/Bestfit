@@ -4,20 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>BoxFit Pro — Smart Carton Recommender</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#060810;
-  --surface:#0A0E1A;
-  --card:#0F1525;
-  --card2:#131929;
-  --card3:#17203200;
-  --bd:rgba(255,255,255,0.055);
+  --bg:#05070F;
+  --surface:#080C18;
+  --card:#0D1220;
+  --card2:#111827;
+  --bd:rgba(255,255,255,0.06);
   --bd2:rgba(255,255,255,0.10);
-  --bd3:rgba(255,255,255,0.15);
+  --bd3:rgba(255,255,255,0.16);
   --P:#FF5C1A;
   --Pl:#FF7A42;
-  --Pd:rgba(255,92,26,0.10);
+  --Pd:rgba(255,92,26,0.12);
   --Pdk:#D94410;
   --A:#4F9EFF;
   --Ad:rgba(79,158,255,0.10);
@@ -27,27 +26,40 @@
   --Yd:rgba(245,158,11,0.10);
   --R:#EF4444;
   --Rd:rgba(239,68,68,0.10);
-  --T:#F0F4FF;
-  --T2:#8B9BC8;
-  --T3:#3D4F70;
-  --sw:260px;
-  --bnh:68px;
-  --tbh:58px;
+  --V:#A78BFA;
+  --Vd:rgba(167,139,250,0.10);
+  --T:#EEF2FF;
+  --T2:#7C8DB5;
+  --T3:#3A4A6B;
+  --sw:265px;
+  --bnh:64px;
+  --tbh:56px;
   --rr:14px;
   --r2:10px;
   --r3:8px;
-  --sh:0 8px 32px rgba(0,0,0,.6);
-  --tr:0.18s cubic-bezier(.4,0,.2,1);
+  --sh:0 8px 32px rgba(0,0,0,.7);
+  --tr:0.16s cubic-bezier(.4,0,.2,1);
+  --glow:0 0 30px rgba(255,92,26,0.15);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--T);display:flex;-webkit-font-smoothing:antialiased;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--T);display:flex;-webkit-font-smoothing:antialiased;}
 ::-webkit-scrollbar{width:3px;height:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px;}
 
+/* ── GRID TEXTURE ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,92,26,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,92,26,0.03) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 40%,transparent 100%);
+}
+
 /* ── LAYOUT ── */
-.app{display:flex;width:100%;height:100%;overflow:hidden;}
+.app{display:flex;width:100%;height:100%;overflow:hidden;position:relative;z-index:1;}
 
 /* ── SIDEBAR ── */
 .sidebar{
@@ -62,11 +74,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   width:42px;height:42px;border-radius:12px;flex-shrink:0;
   background:linear-gradient(135deg,var(--P) 0%,#FF8C55 100%);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(255,92,26,.3);
+  box-shadow:0 4px 20px rgba(255,92,26,.35);
 }
 .sb-logo svg{width:20px;height:20px;}
-.sb-nm{font-size:15px;font-weight:800;letter-spacing:-.4px;color:var(--T);}
-.sb-tg{font-size:10px;color:var(--T3);margin-top:1px;}
+.sb-nm{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--T);}
+.sb-tg{font-size:10px;color:var(--T3);margin-top:1px;font-weight:500;}
 .nav-list{flex:1;overflow-y:auto;padding:10px 8px;}
 .nav-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--T3);padding:0 10px;margin:12px 0 6px;}
 .ni{
@@ -84,9 +96,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .ni-bdg{margin-left:auto;background:var(--P);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;min-width:18px;text-align:center;display:none;}
 .ni-bdg.vis{display:block;}
 .sb-foot{padding:12px 13px;border-top:1px solid var(--bd);}
-.cpill{display:flex;align-items:center;gap:8px;padding:8px 11px;background:var(--card);border-radius:var(--r2);border:1px solid var(--bd);}
+.cpill{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--card);border-radius:var(--r2);border:1px solid var(--bd);}
 .cdot{width:7px;height:7px;border-radius:50%;background:var(--T3);flex-shrink:0;transition:background .3s;}
-.cdot.live{background:var(--G);box-shadow:0 0 6px var(--G);}
+.cdot.live{background:var(--G);box-shadow:0 0 8px var(--G);}
 .cdot.sync{background:var(--Y);animation:blink 1s infinite;}
 .cdot.err{background:var(--R);}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
@@ -101,35 +113,24 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 /* ── TOPBAR (mobile) ── */
 .topbar{
   display:none;height:var(--tbh);flex-shrink:0;
-  background:rgba(10,14,26,0.97);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(8,12,24,0.97);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--bd);
-  align-items:center;padding:0 14px;gap:11px;z-index:50;
+  align-items:center;padding:0 14px;gap:10px;z-index:50;
 }
-.tb-back{
-  width:36px;height:36px;border-radius:10px;
-  background:rgba(255,92,26,0.15);
-  border:1px solid rgba(255,92,26,0.25);
-  cursor:pointer;
-  display:none;align-items:center;justify-content:center;flex-shrink:0;
-  transition:all var(--tr);
-}
-.tb-back:active{transform:scale(.9);background:var(--P);}
-.tb-back svg{width:17px;height:17px;stroke:var(--P);}
-.tb-back.vis{display:flex;}
-/* A&T Logo area in topbar */
 .tb-brand{display:flex;align-items:center;gap:9px;flex:1;}
 .tb-logo-wrap{
-  width:32px;height:32px;border-radius:9px;
+  width:34px;height:34px;border-radius:10px;
   background:linear-gradient(135deg,var(--P),#FF8C55);
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 3px 10px rgba(255,92,26,.3);
+  box-shadow:0 3px 12px rgba(255,92,26,.35);
 }
-.tb-logo-wrap svg{width:16px;height:16px;}
+.tb-logo-wrap svg{width:17px;height:17px;}
 .tb-nm{font-size:15px;font-weight:800;letter-spacing:-.3px;color:var(--T);}
-.tb-sub{font-size:10px;color:var(--T3);}
-.tb-bdg{background:var(--P);color:#fff;font-size:10px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:none;align-items:center;justify-content:center;padding:0 5px;}
+.tb-sub{font-size:9.5px;color:var(--T3);font-weight:500;}
+.tb-bdg{background:var(--P);color:#fff;font-size:10px;font-weight:700;min-width:22px;height:22px;border-radius:11px;display:none;align-items:center;justify-content:center;padding:0 6px;box-shadow:0 2px 8px rgba(255,92,26,.4);}
 .tb-bdg.vis{display:flex;}
+.tb-actions{display:flex;align-items:center;gap:6px;flex-shrink:0;}
 
 /* ── CONTENT ── */
 .content{
@@ -139,14 +140,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 }
 
 /* ── SCREENS ── */
-.scr{display:none;animation:fadeUp .22s ease both;}
+.scr{display:none;animation:fadeUp .2s ease both;}
 .scr.on{display:block;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
 /* ── PAGE HEADER ── */
 .ph{margin-bottom:16px;}
 .ph h1{font-size:20px;font-weight:800;letter-spacing:-.4px;}
-.ph p{font-size:12px;color:var(--T3);margin-top:3px;}
+.ph p{font-size:12px;color:var(--T3);margin-top:3px;font-weight:400;}
 
 /* ── STEPS ── */
 .steps{display:flex;align-items:center;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -162,106 +163,83 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 
 /* ── HERO ── */
 .hero{
-  background:linear-gradient(135deg,#0C1730 0%,#0A1220 55%,#130D20 100%);
-  border:1px solid rgba(79,158,255,.12);
-  border-radius:18px;
-  padding:28px 24px 24px;
+  background:linear-gradient(135deg,#0C1730 0%,#0A1020 55%,#130D20 100%);
+  border:1px solid rgba(79,158,255,.1);
+  border-radius:20px;
+  padding:32px 28px 26px;
   margin-bottom:16px;
   position:relative;overflow:hidden;
 }
 .hero::before{
-  content:'';position:absolute;top:-100px;right:-80px;
-  width:320px;height:320px;
-  background:radial-gradient(circle,rgba(255,92,26,.08),transparent 65%);
+  content:'';position:absolute;top:-80px;right:-60px;
+  width:340px;height:340px;
+  background:radial-gradient(circle,rgba(255,92,26,.1),transparent 65%);
   pointer-events:none;
 }
 .hero::after{
-  content:'';position:absolute;bottom:-60px;left:-40px;
-  width:200px;height:200px;
-  background:radial-gradient(circle,rgba(79,158,255,.06),transparent 65%);
+  content:'';position:absolute;bottom:-80px;left:-40px;
+  width:240px;height:240px;
+  background:radial-gradient(circle,rgba(79,158,255,.07),transparent 65%);
   pointer-events:none;
 }
 .hero-eye{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--P);margin-bottom:12px;}
 .edot{width:4px;height:4px;border-radius:50%;background:var(--P);}
-.hero h1{font-size:26px;font-weight:900;line-height:1.18;margin-bottom:10px;letter-spacing:-.5px;}
+.hero h1{font-size:28px;font-weight:900;line-height:1.18;margin-bottom:10px;letter-spacing:-.6px;}
 .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--P),var(--Pl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero p{font-size:12.5px;color:var(--T2);max-width:400px;line-height:1.8;margin-bottom:22px;}
-.hero-deco{position:absolute;right:24px;top:50%;transform:translateY(-50%);opacity:.04;pointer-events:none;}
-.hero-deco svg{width:110px;height:110px;}
-
-/* Mobile hero brand strip */
-.hero-brand-strip{
-  display:none;
-  align-items:center;gap:10px;
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--bd);
-  border-radius:10px;
-  padding:8px 12px;
-  margin-bottom:14px;
-}
-.hbs-logo{
-  width:36px;height:36px;border-radius:9px;
-  background:linear-gradient(135deg,var(--P),#FF8C55);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 3px 10px rgba(255,92,26,.25);
-}
-.hbs-logo svg{width:18px;height:18px;}
-.hbs-nm{font-size:14px;font-weight:800;letter-spacing:-.3px;}
-.hbs-tg{font-size:10px;color:var(--T3);}
-.hbs-sep{width:1px;height:28px;background:var(--bd);margin:0 4px;}
-.hbs-info{font-size:10.5px;color:var(--T3);}
-.hbs-info b{color:var(--P);}
+.hero p{font-size:12.5px;color:var(--T2);max-width:400px;line-height:1.85;margin-bottom:22px;font-weight:400;}
+.hero-deco{position:absolute;right:28px;top:50%;transform:translateY(-50%);opacity:.05;pointer-events:none;}
+.hero-deco svg{width:120px;height:120px;}
 
 /* ── STATS ── */
 .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:0;}
 .sc{
   background:var(--card);border:1px solid var(--bd);
-  border-radius:var(--rr);padding:13px 14px;
-  display:flex;align-items:center;gap:10px;
-  transition:border-color var(--tr),transform var(--tr);
+  border-radius:var(--rr);padding:14px 15px;
+  display:flex;align-items:center;gap:11px;
+  transition:border-color var(--tr),transform var(--tr),box-shadow var(--tr);
 }
-.sc:hover{border-color:var(--bd2);transform:translateY(-1px);}
-.sc-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.sc-ico svg{width:16px;height:16px;}
+.sc:hover{border-color:var(--bd2);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3);}
+.sc-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sc-ico svg{width:17px;height:17px;}
 .io{background:var(--Pd);} .ib{background:var(--Ad);} .ig{background:var(--Gd);} .iy{background:var(--Yd);}
 .sc-v{font-size:18px;font-weight:800;color:var(--T);}
-.sc-l{font-size:10px;color:var(--T3);margin-top:2px;}
+.sc-l{font-size:10px;color:var(--T3);margin-top:2px;font-weight:500;}
 
 /* ── NOTICE / ERROR / LOADER ── */
-.notice{background:var(--Ad);border:1px solid rgba(79,158,255,.15);border-radius:var(--r2);padding:9px 12px;font-size:11.5px;color:var(--A);display:flex;align-items:flex-start;gap:7px;margin-bottom:13px;}
-.notice svg{width:13px;height:13px;flex-shrink:0;margin-top:1px;}
-.notice code{font-family:'Courier New',monospace;background:rgba(79,158,255,.1);padding:1px 5px;border-radius:3px;font-size:10.5px;}
-.ecard{background:var(--Rd);border:1px solid rgba(239,68,68,.2);border-radius:var(--rr);padding:18px 20px;text-align:center;}
-.ecard h3{color:var(--R);font-size:13px;margin-bottom:5px;}
-.ecard p{color:var(--T2);font-size:12px;margin-bottom:12px;}
-.lwrap{text-align:center;padding:44px 0;}
-.spin{width:28px;height:28px;border:3px solid rgba(255,255,255,.06);border-top-color:var(--P);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 10px;}
-.lwrap p{font-size:12px;color:var(--T3);}
+.notice{background:var(--Ad);border:1px solid rgba(79,158,255,.18);border-radius:var(--r2);padding:10px 13px;font-size:11.5px;color:var(--A);display:flex;align-items:flex-start;gap:8px;margin-bottom:13px;font-weight:500;}
+.notice svg{width:14px;height:14px;flex-shrink:0;margin-top:1px;}
+.notice code{font-family:'Courier New',monospace;background:rgba(79,158,255,.12);padding:1px 5px;border-radius:3px;font-size:10.5px;}
+.ecard{background:var(--Rd);border:1px solid rgba(239,68,68,.22);border-radius:var(--rr);padding:20px 22px;text-align:center;}
+.ecard h3{color:var(--R);font-size:13px;margin-bottom:5px;font-weight:700;}
+.ecard p{color:var(--T2);font-size:12px;margin-bottom:13px;font-weight:400;}
+.lwrap{text-align:center;padding:48px 0;}
+.spin{width:30px;height:30px;border:3px solid rgba(255,255,255,.06);border-top-color:var(--P);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 12px;}
+.lwrap p{font-size:12px;color:var(--T3);font-weight:500;}
 
 /* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--tr);border:none;border-radius:var(--r2);padding:9px 15px;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all var(--tr);border:none;border-radius:var(--r2);padding:9px 15px;white-space:nowrap;letter-spacing:.1px;}
 .btn svg{width:14px;height:14px;flex-shrink:0;}
-.bp{background:linear-gradient(135deg,var(--P),var(--Pl));color:#fff;box-shadow:0 4px 14px rgba(255,92,26,.25);}
-.bp:hover{background:linear-gradient(135deg,var(--Pdk),var(--P));}
+.bp{background:linear-gradient(135deg,var(--P),var(--Pl));color:#fff;box-shadow:0 4px 16px rgba(255,92,26,.28);}
+.bp:hover{background:linear-gradient(135deg,var(--Pdk),var(--P));box-shadow:0 6px 20px rgba(255,92,26,.36);}
 .bp:active{transform:scale(.97);}
 .bg{background:rgba(255,255,255,.05);color:var(--T2);border:1px solid var(--bd);}
-.bg:hover{background:rgba(255,255,255,.08);color:var(--T);}
+.bg:hover{background:rgba(255,255,255,.08);color:var(--T);border-color:var(--bd2);}
 .bd{background:var(--Rd);color:var(--R);border:1px solid rgba(239,68,68,.2);}
 .bd:hover{background:rgba(239,68,68,.18);}
-.blg{padding:12px 22px;font-size:14px;border-radius:12px;}
+.blg{padding:13px 24px;font-size:14px;border-radius:13px;}
 .bsm{padding:5px 10px;font-size:12px;border-radius:7px;}
 .btn:disabled{opacity:.4;cursor:not-allowed;}
 
-/* ── TOOLBAR ── */
+/* ── TOOLBAR (desktop) ── */
 .toolbar{display:flex;align-items:center;gap:9px;margin-bottom:13px;flex-wrap:nowrap;}
 .sw{flex:1;position:relative;min-width:0;}
-.si{position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--T3);}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--T3);}
 .si svg{width:14px;height:14px;}
-.sinp{width:100%;padding:9px 11px 9px 31px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r2);color:var(--T);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;outline:none;transition:border-color var(--tr);}
-.sinp:focus{border-color:rgba(255,92,26,.35);}
+.sinp{width:100%;padding:9px 11px 9px 33px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r2);color:var(--T);font-family:'Poppins',sans-serif;font-size:13px;outline:none;transition:border-color var(--tr),box-shadow var(--tr);}
+.sinp:focus{border-color:rgba(255,92,26,.4);box-shadow:0 0 0 3px rgba(255,92,26,.08);}
 .sinp::placeholder{color:var(--T3);}
 .tr2{display:flex;align-items:center;gap:7px;flex-shrink:0;}
-.clbl2{font-size:11px;color:var(--T3);white-space:nowrap;}
+.clbl2{font-size:11px;color:var(--T3);white-space:nowrap;font-weight:500;}
 .clbl2 b{color:var(--P);}
 
 /* ── TABLE ── */
@@ -276,15 +254,23 @@ tbody tr:hover{background:rgba(255,255,255,.02);}
 tbody tr.hl{background:rgba(255,92,26,.04);}
 .tn{font-weight:600;color:var(--T);}
 
+/* ══════════════════════════════════════
+   PRODUCT SCREEN — MOBILE STICKY LAYOUT
+══════════════════════════════════════ */
+#s-products{display:none;flex-direction:column;}
+#s-products.on{display:flex;}
+.prod-fixed{flex-shrink:0;}
+.prod-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
 /* ── PRODUCT CARDS (mobile) ── */
-.pcards{display:none;flex-direction:column;gap:8px;}
+.pcards{display:none;flex-direction:column;gap:8px;padding-bottom:8px;}
 .pcard{
   background:var(--card);border:1px solid var(--bd);
-  border-radius:var(--rr);padding:14px;
-  transition:border-color var(--tr),background var(--tr);
+  border-radius:var(--rr);padding:14px 14px;
+  transition:border-color var(--tr),background var(--tr),box-shadow var(--tr);
   -webkit-user-select:none;user-select:none;
 }
-.pcard.sel{border-color:rgba(255,92,26,.3);background:rgba(255,92,26,.04);}
+.pcard.sel{border-color:rgba(255,92,26,.32);background:rgba(255,92,26,.05);box-shadow:0 0 0 1px rgba(255,92,26,.12);}
 .pcard-row{display:flex;align-items:center;gap:12px;}
 .pcard-left{flex:1;min-width:0;}
 .pcard-num{
@@ -293,11 +279,11 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
   background:rgba(255,255,255,.06);
   font-size:9px;font-weight:700;color:var(--T3);margin-bottom:4px;
 }
-.pcard-name{font-size:14px;font-weight:700;color:var(--T);line-height:1.2;}
+.pcard-name{font-size:14px;font-weight:700;color:var(--T);line-height:1.25;}
 .pcard-badges{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap;}
 .db{font-family:'Courier New',monospace;background:var(--Ad);color:var(--A);padding:2px 7px;border-radius:4px;font-size:10.5px;font-weight:600;}
 .wb{background:var(--Yd);color:var(--Y);padding:2px 7px;border-radius:4px;font-size:10.5px;font-weight:600;}
-.vb{color:var(--T3);font-size:10.5px;}
+.vb{color:var(--T3);font-size:10.5px;font-weight:500;}
 
 /* Cart cards */
 .ccards{display:none;flex-direction:column;gap:8px;}
@@ -306,30 +292,31 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 .ccard-nm{font-size:13.5px;font-weight:700;color:var(--T);flex:1;}
 .ccard-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .cstat{flex:1;min-width:70px;}
-.csl{font-size:9.5px;color:var(--T3);margin-bottom:2px;}
+.csl{font-size:9.5px;color:var(--T3);margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
 .csv{font-size:13px;font-weight:600;}
 
 /* ── BADGES / CHIPS ── */
 .snob{width:22px;height:22px;border-radius:5px;background:rgba(255,255,255,.05);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--T3);}
-.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:10.5px;font-weight:600;}
+.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:600;}
 .cg{background:var(--Gd);color:var(--G);}
 .cy{background:var(--Yd);color:var(--Y);}
 .cr{background:var(--Rd);color:var(--R);}
 .cb{background:var(--Ad);color:var(--A);}
 .co{background:var(--Pd);color:var(--P);}
+.cv{background:var(--Vd);color:var(--V);}
 
 /* ── QTY ── */
 .qw{display:flex;align-items:center;gap:5px;}
 .qb{
   width:32px;height:32px;border-radius:8px;
-  border:1px solid var(--bd);background:rgba(255,255,255,.04);
+  border:1px solid var(--bd2);background:rgba(255,255,255,.05);
   color:var(--T);cursor:pointer;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   font-size:18px;font-weight:700;
   transition:background var(--tr),border-color var(--tr),transform .1s;
   -webkit-user-select:none;user-select:none;
 }
-.qb:active{transform:scale(.82);background:var(--P);border-color:var(--P);}
+.qb:active{transform:scale(.8);background:var(--P);border-color:var(--P);}
 .qb:hover{background:var(--P);border-color:var(--P);}
 .qd{
   min-width:36px;height:32px;
@@ -339,102 +326,135 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
   transition:border-color var(--tr),color var(--tr);
   pointer-events:none;
 }
-.qd.on{border-color:rgba(255,92,26,.4);color:var(--P);}
+.qd.on{border-color:rgba(255,92,26,.45);color:var(--P);}
 
 /* ── CART BAR ── */
-.cbar{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:13px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:13px;}
-.cbs .cl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--T3);}
-.cbs .cv{font-size:17px;font-weight:800;}
-.cbs .cu{font-size:10px;color:var(--T3);margin-left:2px;}
-.cdiv{width:1px;height:28px;background:var(--bd);flex-shrink:0;}
+.cbar{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:14px 17px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:13px;}
+.cbs .cl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--T3);}
+.cbs .cv{font-size:18px;font-weight:800;}
+.cbs .cu{font-size:10px;color:var(--T3);margin-left:2px;font-weight:500;}
+.cdiv{width:1px;height:30px;background:var(--bd);flex-shrink:0;}
 .cacts{margin-left:auto;display:flex;gap:7px;}
 
 /* ── EMPTY STATE ── */
-.empty{text-align:center;padding:48px 16px;}
-.empty-ico{width:66px;height:66px;border-radius:18px;background:var(--card);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
-.empty-ico svg{width:28px;height:28px;color:var(--T3);}
+.empty{text-align:center;padding:52px 16px;}
+.empty-ico{width:70px;height:70px;border-radius:20px;background:var(--card);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.empty-ico svg{width:30px;height:30px;color:var(--T3);}
 .empty h3{font-size:14px;font-weight:700;color:var(--T2);margin-bottom:5px;}
-.empty p{font-size:12px;color:var(--T3);margin-bottom:15px;}
+.empty p{font-size:12px;color:var(--T3);margin-bottom:16px;font-weight:400;}
 
 /* ── OVERLAY ── */
-.ov{display:none;position:fixed;inset:0;background:rgba(6,8,16,.92);backdrop-filter:blur(12px);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+.ov{display:none;position:fixed;inset:0;background:rgba(5,7,15,.94);backdrop-filter:blur(16px);z-index:800;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
 .ov.on{display:flex;}
-.ovring{width:52px;height:52px;border-radius:50%;border:4px solid rgba(255,92,26,.1);border-top-color:var(--P);animation:spin .85s linear infinite;}
-.ovt{font-size:15px;font-weight:700;}
-.ovs{font-size:12px;color:var(--T3);}
+.ovring{width:54px;height:54px;border-radius:50%;border:4px solid rgba(255,92,26,.1);border-top-color:var(--P);animation:spin .85s linear infinite;}
+.ovt{font-size:16px;font-weight:700;}
+.ovs{font-size:12px;color:var(--T3);font-weight:400;}
 
-/* ── RESULTS ── */
-.rhero{border-radius:16px;padding:20px;margin-bottom:13px;border:1px solid;}
-.rh-ok{background:linear-gradient(135deg,#0C2118,#071610);border-color:rgba(16,185,129,.25);}
-.rh-ow{background:linear-gradient(135deg,#1E1A0A,#140F05);border-color:rgba(245,158,11,.25);}
-.rh-no{background:linear-gradient(135deg,#200D0D,#130808);border-color:rgba(239,68,68,.25);}
-.rh-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
-.rh-ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+/* ── RESULTS HERO ── */
+.rhero{border-radius:18px;padding:22px;margin-bottom:13px;border:1px solid;}
+.rh-ok{background:linear-gradient(135deg,#0C2118,#071610);border-color:rgba(16,185,129,.28);}
+.rh-ow{background:linear-gradient(135deg,#1E1A0A,#140F05);border-color:rgba(245,158,11,.28);}
+.rh-no{background:linear-gradient(135deg,#200D0D,#130808);border-color:rgba(239,68,68,.28);}
+.rh-multi{background:linear-gradient(135deg,#0A1028,#080E20);border-color:rgba(167,139,250,.28);}
+.rh-top{display:flex;align-items:flex-start;gap:13px;margin-bottom:18px;flex-wrap:wrap;}
+.rh-ico{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .rhi-ok{background:var(--Gd);}
 .rhi-ow{background:var(--Yd);}
 .rhi-no{background:var(--Rd);}
-.rh-ico svg{width:22px;height:22px;}
+.rhi-multi{background:var(--Vd);}
+.rh-ico svg{width:23px;height:23px;}
 .rh-m{flex:1;}
-.rh-eye{font-size:9.5px;color:var(--T3);margin-bottom:3px;}
-.rh-nm{font-size:24px;font-weight:900;letter-spacing:-.5px;line-height:1;}
+.rh-eye{font-size:9.5px;color:var(--T3);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
+.rh-nm{font-size:24px;font-weight:900;letter-spacing:-.5px;line-height:1.1;}
 .rh-nm.ok{color:var(--G);}
 .rh-nm.ow{color:var(--Y);}
 .rh-nm.no{color:var(--R);}
-.rh-dm{font-size:11.5px;color:var(--T2);margin-top:5px;}
+.rh-nm.multi{color:var(--V);}
+.rh-dm{font-size:11.5px;color:var(--T2);margin-top:5px;font-weight:400;}
 .mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.mbox{background:rgba(255,255,255,.03);border-radius:10px;padding:12px;}
+.mbox{background:rgba(255,255,255,.04);border-radius:11px;padding:13px;}
 .mbl{font-size:9px;color:var(--T3);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
 .mbv{font-size:17px;font-weight:800;}
-.mbu{font-size:10px;color:var(--T3);margin-left:2px;}
+.mbu{font-size:10px;color:var(--T3);margin-left:2px;font-weight:500;}
 .utt{height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-top:8px;}
-.utf{height:100%;border-radius:3px;transition:width 1.3s cubic-bezier(.4,0,.2,1);}
+.utf{height:100%;border-radius:3px;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
 .uhi{background:linear-gradient(90deg,var(--G),#34D399);}
 .umd{background:linear-gradient(90deg,var(--Y),#FCD34D);}
 .ulo{background:linear-gradient(90deg,var(--R),#F87171);}
-.warnbar{background:var(--Yd);border:1px solid rgba(245,158,11,.2);border-radius:var(--r2);padding:9px 12px;display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--Y);margin-bottom:12px;}
+.warnbar{background:var(--Yd);border:1px solid rgba(245,158,11,.22);border-radius:var(--r2);padding:10px 13px;display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--Y);margin-bottom:12px;font-weight:500;}
 .warnbar svg{width:14px;height:14px;flex-shrink:0;margin-top:1px;}
 .ag{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px;}
-.dc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:14px 15px;}
-.dttl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--T3);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
+.dc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:15px 16px;}
+.dttl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--T3);margin-bottom:11px;display:flex;align-items:center;gap:5px;}
 .dttl svg{width:11px;height:11px;}
 .drow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--bd);font-size:12px;}
 .drow:last-child{border-bottom:none;}
-.dl{color:var(--T3);}
+.dl{color:var(--T3);font-weight:500;}
 .dv{color:var(--T);font-weight:600;}
-.ppc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:14px 15px;margin-bottom:11px;}
+.ppc{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:15px 16px;margin-bottom:11px;}
 .banal{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);padding:15px;margin-bottom:11px;}
 .ba-h{display:flex;align-items:center;gap:8px;margin-bottom:13px;}
-.ba-ico{width:30px;height:30px;border-radius:8px;background:var(--Ad);display:flex;align-items:center;justify-content:center;}
+.ba-ico{width:32px;height:32px;border-radius:9px;background:var(--Ad);display:flex;align-items:center;justify-content:center;}
 .ba-ico svg{width:15px;height:15px;}
 .ba-t{font-size:12.5px;font-weight:700;}
-.ba-s{font-size:10.5px;color:var(--T3);}
+.ba-s{font-size:10.5px;color:var(--T3);font-weight:400;}
 .ba-list{display:flex;flex-direction:column;gap:7px;max-height:280px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-.bai{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r2);border:1px solid var(--bd);background:rgba(255,255,255,.02);}
-.bai.fit{border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.04);}
-.bai.big{border-color:rgba(245,158,11,.15);background:rgba(245,158,11,.03);}
-.bai.no{border-color:rgba(239,68,68,.15);background:rgba(239,68,68,.03);}
-.bast{width:27px;height:27px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.bsf{background:var(--Gd);}
-.bsb{background:var(--Yd);}
-.bsn{background:var(--Rd);}
+.bai{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r2);border:1px solid var(--bd);background:rgba(255,255,255,.02);}
+.bai.fit{border-color:rgba(16,185,129,.22);background:rgba(16,185,129,.04);}
+.bai.big{border-color:rgba(245,158,11,.18);background:rgba(245,158,11,.03);}
+.bai.no{border-color:rgba(239,68,68,.18);background:rgba(239,68,68,.03);}
+.bast{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bsf{background:var(--Gd);} .bsb{background:var(--Yd);} .bsn{background:var(--Rd);}
 .bast svg{width:13px;height:13px;}
 .bab{flex:1;min-width:0;}
 .ban{font-size:12.5px;font-weight:600;color:var(--T);}
-.bar{font-size:10.5px;color:var(--T3);margin-top:1px;}
+.bar{font-size:10.5px;color:var(--T3);margin-top:1px;font-weight:400;}
 .bad{font-size:10px;font-family:'Courier New',monospace;color:var(--T3);margin-top:2px;}
-.babest{background:var(--Pd);color:var(--P);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:20px;border:1px solid rgba(255,92,26,.2);flex-shrink:0;}
+.babest{background:var(--Pd);color:var(--P);font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:20px;border:1px solid rgba(255,92,26,.22);flex-shrink:0;}
+
+/* ── MULTI-BOX SPLIT RESULT ── */
+.split-wrap{margin-bottom:11px;}
+.split-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:14px 16px;background:var(--Vd);border:1px solid rgba(167,139,250,.22);border-radius:var(--rr);}
+.split-ico{width:36px;height:36px;border-radius:10px;background:rgba(167,139,250,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.split-ico svg{width:18px;height:18px;}
+.split-title{font-size:13.5px;font-weight:700;color:var(--V);}
+.split-sub{font-size:11px;color:var(--T3);margin-top:1px;font-weight:400;}
+.split-box{background:var(--card);border:1px solid var(--bd);border-radius:var(--rr);margin-bottom:8px;overflow:hidden;}
+.split-box-head{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 15px;
+  background:rgba(255,255,255,.025);
+  border-bottom:1px solid var(--bd);
+}
+.split-num{
+  width:24px;height:24px;border-radius:6px;
+  background:var(--Vd);border:1px solid rgba(167,139,250,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:var(--V);flex-shrink:0;
+}
+.split-box-name{font-size:14px;font-weight:700;color:var(--T);flex:1;}
+.split-box-dims{font-size:10.5px;color:var(--T3);font-family:'Courier New',monospace;}
+.split-items{padding:12px 15px;display:flex;flex-direction:column;gap:6px;}
+.split-item{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--bd);}
+.split-item:last-child{border-bottom:none;}
+.split-item-name{color:var(--T);font-weight:600;}
+.split-item-info{color:var(--T3);font-size:11px;font-weight:500;}
+.split-stats{display:flex;gap:6px;padding:10px 15px;background:rgba(255,255,255,.02);border-top:1px solid var(--bd);}
+.split-stat{flex:1;text-align:center;}
+.split-stat-l{font-size:9px;color:var(--T3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+.split-stat-v{font-size:13px;font-weight:700;}
 
 /* ── OPTIMIZER ── */
 .optimizer{
-  background:linear-gradient(135deg,#0A1628,#0D1525);
-  border:1px solid rgba(79,158,255,.2);
+  background:linear-gradient(135deg,#0A1628,#0D1520);
+  border:1px solid rgba(79,158,255,.18);
   border-radius:var(--rr);padding:16px;margin-bottom:11px;
 }
 .opt-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.opt-ico{width:34px;height:34px;border-radius:9px;background:var(--Ad);display:flex;align-items:center;justify-content:center;}
+.opt-ico{width:35px;height:35px;border-radius:9px;background:var(--Ad);display:flex;align-items:center;justify-content:center;}
 .opt-ico svg{width:17px;height:17px;}
 .opt-t{font-size:13px;font-weight:700;color:var(--T);}
-.opt-s{font-size:10.5px;color:var(--T3);}
+.opt-s{font-size:10.5px;color:var(--T3);font-weight:400;}
 .opt-list{display:flex;flex-direction:column;gap:7px;}
 .opt-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:var(--r2);border:1px solid var(--Ad);background:rgba(79,158,255,.04);}
 .opt-item.warn{border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.04);}
@@ -442,13 +462,13 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 .opt-dot{width:8px;height:8px;border-radius:50%;background:var(--A);flex-shrink:0;margin-top:4px;}
 .opt-dot.warn{background:var(--Y);}
 .opt-dot.good{background:var(--G);}
-.opt-txt{font-size:12px;color:var(--T2);line-height:1.55;}
-.opt-txt strong{color:var(--T);}
+.opt-txt{font-size:12px;color:var(--T2);line-height:1.6;font-weight:400;}
+.opt-txt strong{color:var(--T);font-weight:600;}
 .racts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
 
 /* ── TOASTS ── */
-#toasts{position:fixed;bottom:80px;right:13px;z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none;}
-.toast{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--card2);border:1px solid var(--bd2);border-radius:11px;font-size:12px;min-width:185px;max-width:270px;box-shadow:var(--sh);animation:tin .22s ease both;pointer-events:all;}
+#toasts{position:fixed;bottom:80px;right:14px;z-index:9999;display:flex;flex-direction:column;gap:7px;pointer-events:none;}
+.toast{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--card2);border:1px solid var(--bd2);border-radius:12px;font-size:12px;min-width:190px;max-width:280px;box-shadow:var(--sh);animation:tin .22s ease both;pointer-events:all;font-weight:500;}
 .toast.out{animation:tout .22s ease both;}
 .toast svg{width:14px;height:14px;flex-shrink:0;}
 .tok{border-left:3px solid var(--G);}
@@ -459,119 +479,69 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 @keyframes tout{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(40px);}}
 
 /* ══════════════════════════════════
-   BOTTOM NAV — FULLY REDESIGNED
+   BOTTOM NAV
 ══════════════════════════════════ */
 .bnav{
   display:none;
   position:fixed;bottom:0;left:0;right:0;
   height:var(--bnh);z-index:200;
-  background:rgba(10,14,26,0.96);
+  background:rgba(8,12,24,0.97);
   backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
   border-top:1px solid rgba(255,255,255,0.07);
 }
-.bn-inner{
-  display:flex;height:100%;
-  padding:6px 8px 8px;
-  gap:4px;
-  align-items:stretch;
-}
+.bn-inner{display:flex;height:100%;padding:5px 8px 8px;gap:4px;align-items:stretch;}
 .bnb{
   flex:1;display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  gap:4px;cursor:pointer;border:none;background:none;
-  font-family:'Plus Jakarta Sans',sans-serif;
+  gap:3px;cursor:pointer;border:none;background:none;
+  font-family:'Poppins',sans-serif;
   color:var(--T3);
   transition:color var(--tr);
   position:relative;
-  border-radius:12px;
-  outline:none;
+  border-radius:12px;outline:none;
   -webkit-tap-highlight-color:transparent;
-  padding:4px 2px;
-  overflow:hidden;
+  padding:4px 2px;overflow:hidden;
 }
-/* Pill background */
-.bnb::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  border-radius:12px;
-  background:transparent;
-  transition:background var(--tr);
-  pointer-events:none;
-}
-.bnb.on::before{
-  background:rgba(255,92,26,0.12);
-}
+.bnb::before{content:'';position:absolute;inset:0;border-radius:12px;background:transparent;transition:background var(--tr);pointer-events:none;}
+.bnb.on::before{background:rgba(255,92,26,0.12);}
 .bnb.on{color:var(--P);}
-
-/* Icon container — fixed size ensures pill fully wraps icon */
-.bnb-ic{
-  position:relative;z-index:1;
-  width:28px;height:28px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.bnb-ic svg{
-  width:22px;height:22px;
-  stroke-width:1.8;
-  transition:transform var(--tr);
-}
-.bnb.on .bnb-ic svg{
-  transform:scale(1.08);
-  stroke-width:2.2;
-}
-
-/* Label */
-.bnb-lb{
-  font-size:10px;font-weight:600;letter-spacing:.1px;
-  position:relative;z-index:1;line-height:1;
-  transition:color var(--tr);
-}
-
-/* Badge */
-.bnb-bdg{
-  position:absolute;top:3px;right:calc(50% - 20px);
-  background:var(--P);color:#fff;
-  font-size:9px;font-weight:700;
-  padding:1px 4px;border-radius:9px;
-  min-width:16px;text-align:center;
-  border:2px solid #060810;
-  display:none;z-index:3;line-height:1.35;
-}
+.bnb-ic{position:relative;z-index:1;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bnb-ic svg{width:21px;height:21px;stroke-width:1.8;transition:transform var(--tr);}
+.bnb.on .bnb-ic svg{transform:scale(1.1);stroke-width:2.2;}
+.bnb-lb{font-size:9.5px;font-weight:600;letter-spacing:.1px;position:relative;z-index:1;line-height:1;}
+.bnb-bdg{position:absolute;top:2px;right:calc(50% - 22px);background:var(--P);color:#fff;font-size:9px;font-weight:700;padding:1px 4px;border-radius:9px;min-width:16px;text-align:center;border:2px solid #05070F;display:none;z-index:3;line-height:1.35;}
 .bnb-bdg.vis{display:block;}
+.bnb-bar{position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:2.5px;border-radius:0 0 3px 3px;background:var(--P);transition:width var(--tr);}
+.bnb.on .bnb-bar{width:30px;}
 
-/* Active indicator bar at top */
-.bnb-bar{
-  position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:0;height:2.5px;border-radius:0 0 3px 3px;
-  background:var(--P);
-  transition:width var(--tr);
+/* ── MOBILE PRODUCTS SEARCH BAR (sticky) ── */
+.mob-prod-topbar{
+  display:none;
+  flex-shrink:0;
+  padding:10px 13px 8px;
+  gap:8px;
+  background:var(--surface);
+  border-bottom:1px solid var(--bd);
+  position:sticky;top:0;z-index:10;
 }
-.bnb.on .bnb-bar{width:32px;}
+.mob-pt-row1{display:flex;gap:8px;align-items:center;}
+.mob-pt-row2{display:flex;gap:6px;align-items:center;margin-top:7px;}
+.mob-pt-count{font-size:11px;color:var(--T3);font-weight:500;flex:1;}
+.mob-pt-count b{color:var(--P);}
 
 /* ── EXIT DIALOG ── */
-.xdlg{display:none;position:fixed;inset:0;z-index:900;background:rgba(6,8,16,.94);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px;}
+.xdlg{display:none;position:fixed;inset:0;z-index:900;background:rgba(5,7,15,.95);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:20px;}
 .xdlg.on{display:flex;}
-.xbox{background:var(--card2);border:1px solid var(--bd2);border-radius:16px;padding:24px 20px;text-align:center;max-width:275px;width:100%;}
-.xbox .xi{width:52px;height:52px;border-radius:14px;background:var(--Rd);display:flex;align-items:center;justify-content:center;margin:0 auto 13px;}
+.xbox{background:var(--card2);border:1px solid var(--bd2);border-radius:18px;padding:26px 22px;text-align:center;max-width:280px;width:100%;}
+.xbox .xi{width:54px;height:54px;border-radius:15px;background:var(--Rd);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
 .xbox .xi svg{width:26px;height:26px;}
-.xbox h3{font-size:15px;font-weight:800;margin-bottom:6px;}
-.xbox p{font-size:12px;color:var(--T3);margin-bottom:18px;line-height:1.7;}
+.xbox h3{font-size:16px;font-weight:800;margin-bottom:6px;}
+.xbox p{font-size:12px;color:var(--T3);margin-bottom:20px;line-height:1.7;font-weight:400;}
 .xbtns{display:flex;gap:9px;}
 .xbtns .btn{flex:1;justify-content:center;}
 
-/* ── CLOSE CONFIRM (exit timer) ── */
-.close-cnt{
-  display:none;position:fixed;
-  bottom:calc(var(--bnh) + 12px);
-  left:50%;transform:translateX(-50%);
-  background:var(--card2);border:1px solid var(--bd2);
-  border-radius:12px;padding:9px 16px;
-  font-size:12.5px;font-weight:600;color:var(--T2);
-  white-space:nowrap;z-index:9999;
-  box-shadow:var(--sh);
-  animation:tin .22s ease both;
-}
+/* ── CLOSE COUNTER ── */
+.close-cnt{display:none;position:fixed;bottom:calc(var(--bnh) + 12px);left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--bd2);border-radius:12px;padding:9px 18px;font-size:12.5px;font-weight:600;color:var(--T2);white-space:nowrap;z-index:9999;box-shadow:var(--sh);animation:tin .22s ease both;}
 .close-cnt.on{display:block;}
 .close-cnt b{color:var(--P);}
 
@@ -581,20 +551,36 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
   .sidebar{display:none;}
   .topbar{display:flex;}
   .bnav{display:block;}
+
+  /* Products screen full-height flex */
+  #s-products{
+    height:calc(100vh - var(--tbh) - var(--bnh));
+    overflow:hidden;
+  }
+  #s-products .ph,
+  #s-products .steps{display:none;}
+  .mob-prod-topbar{display:flex;flex-direction:column;}
+  .mob-prod-topbar .sw{width:100%;}
+  .prod-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:10px 0 8px;}
+  .pcards{display:flex;}
+  .twrap{display:none!important;}
+  .ccards{display:flex;}
+
   .content{
-    padding:13px 13px calc(var(--bnh) + 20px);
+    padding:13px 13px calc(var(--bnh) + 16px);
     height:calc(100vh - var(--tbh));
     overflow-y:auto;overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
   }
-  .twrap{display:none!important;}
-  .pcards{display:flex;}
-  .ccards{display:flex;}
+  /* Products screen overrides content scroll */
+  #s-products.on ~ * {}
+  .scr.on#s-products{
+    /* remove from content flow and handle separately */
+  }
   .sgrid{grid-template-columns:repeat(2,1fr);}
-  .hero{padding:18px 16px;}
-  .hero h1{font-size:20px;}
+  .hero{padding:20px 18px;}
+  .hero h1{font-size:22px;}
   .hero-deco{display:none;}
-  .hero-brand-strip{display:flex;}
   .cbar{flex-direction:column;align-items:stretch;gap:9px;}
   .cacts{width:100%;margin-left:0;}
   .cacts .btn{flex:1;justify-content:center;}
@@ -604,7 +590,8 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
   .rh-nm{font-size:20px;}
   .toolbar{flex-wrap:wrap;gap:7px;}
   .tr2{width:100%;justify-content:space-between;}
-  #toasts{bottom:76px;right:10px;}
+  #toasts{bottom:74px;right:10px;}
+  .split-stats{flex-wrap:wrap;}
 }
 @media(max-width:480px){
   .mrow{grid-template-columns:1fr;}
@@ -612,7 +599,8 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 }
 @media(min-width:769px){
   .content{height:100%;overflow-y:auto;}
-  #toasts{bottom:16px;right:16px;}
+  #toasts{bottom:18px;right:18px;}
+  .mob-prod-topbar{display:none!important;}
 }
 </style>
 </head>
@@ -664,56 +652,41 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 <!-- ══ MAIN ══ -->
 <div class="main">
 
-  <!-- TOPBAR -->
+  <!-- TOPBAR (mobile) -->
   <div class="topbar" id="topbar">
-    <button class="tb-back" id="tbback" onclick="goBack()">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
     <div class="tb-brand">
       <div class="tb-logo-wrap">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
       </div>
       <div>
         <div class="tb-nm">BoxFit Pro</div>
         <div class="tb-sub">A&amp;T India · Logistics</div>
       </div>
     </div>
-    <div class="tb-bdg" id="tbbdg"></div>
+    <div class="tb-actions">
+      <div class="tb-bdg" id="tbbdg"></div>
+    </div>
   </div>
 
   <div class="content" id="content">
 
     <!-- HOME -->
     <section id="s-home" class="scr on">
-      <!-- Mobile brand strip shown above hero -->
-      <div class="hero-brand-strip">
-        <div class="hbs-logo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-        </div>
-        <div>
-          <div class="hbs-nm">A&amp;T India</div>
-          <div class="hbs-tg">Logistics Division</div>
-        </div>
-        <div class="hbs-sep"></div>
-        <div class="hbs-info">Smart Carton<br><b>Recommender</b></div>
-      </div>
-
       <div class="hero">
         <div class="hero-eye"><div class="edot"></div>A&amp;T India — Logistics Tool<div class="edot"></div></div>
         <h1>Find the <em>Perfect Box</em><br>for Every Shipment</h1>
-        <p>Select products, set quantities, and our smart packing engine instantly recommends the most efficient carton — reducing waste and cutting costs.</p>
+        <p>Select products, set quantities, and our smart packing engine instantly recommends the most efficient carton — or splits items across multiple boxes.</p>
         <button class="btn bp blg" onclick="goTo('products')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           Start Packing
         </button>
         <div class="hero-deco">
-          <svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="1.5">
+          <svg viewBox="0 0 100 100" fill="none" stroke="white" stroke-width="1.2">
             <path d="M50 10L90 30V70L50 90L10 70V30Z"/>
             <path d="M50 10L50 90M10 30L90 30M10 70L50 50L90 70"/>
           </svg>
         </div>
       </div>
-
       <div id="h-notice" class="notice" style="display:none">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <span>Using <b>sample data</b>. Replace <code>SCRIPT_URL</code> with your Apps Script URL.</span>
@@ -735,34 +708,59 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 
     <!-- PRODUCTS -->
     <section id="s-products" class="scr">
-      <div class="ph"><h1>Select Products</h1><p>Choose products and set quantities to pack</p></div>
-      <div class="steps">
-        <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Home</span></div>
-        <div class="sline"></div>
-        <div class="stp active"><div class="sn">2</div><span class="sl">Products</span></div>
-        <div class="sline"></div>
-        <div class="stp"><div class="sn">3</div><span class="sl">Cart</span></div>
-        <div class="sline"></div>
-        <div class="stp"><div class="sn">4</div><span class="sl">Results</span></div>
-      </div>
-      <div class="toolbar">
-        <div class="sw">
-          <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-          <input class="sinp" id="psearch" placeholder="Search products…" oninput="renderProds()">
+      <!-- Desktop header (hidden on mobile) -->
+      <div class="prod-fixed">
+        <div class="ph"><h1>Select Products</h1><p>Choose products and set quantities to pack</p></div>
+        <div class="steps">
+          <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Home</span></div>
+          <div class="sline"></div>
+          <div class="stp active"><div class="sn">2</div><span class="sl">Products</span></div>
+          <div class="sline"></div>
+          <div class="stp"><div class="sn">3</div><span class="sl">Cart</span></div>
+          <div class="sline"></div>
+          <div class="stp"><div class="sn">4</div><span class="sl">Results</span></div>
         </div>
-        <div class="tr2">
-          <span class="clbl2">Showing <b id="p-show">0</b>/<b id="p-tot">0</b></span>
-          <button class="btn bg bsm" onclick="clearAllQty()">Clear</button>
-          <button class="btn bp bsm" onclick="proceedToCart()">Cart (<span id="p-cnt">0</span>)</button>
+        <!-- Desktop toolbar -->
+        <div class="toolbar">
+          <div class="sw">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <input class="sinp" id="psearch" placeholder="Search products…" oninput="renderProds()">
+          </div>
+          <div class="tr2">
+            <span class="clbl2">Showing <b id="p-show">0</b>/<b id="p-tot">0</b></span>
+            <button class="btn bg bsm" onclick="clearAllQty()">Clear</button>
+            <button class="btn bp bsm" onclick="proceedToCart()">Cart (<span id="p-cnt">0</span>)</button>
+          </div>
         </div>
       </div>
+
+      <!-- Mobile sticky search + action bar -->
+      <div class="mob-prod-topbar">
+        <div class="mob-pt-row1">
+          <div class="sw" style="flex:1">
+            <span class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <input class="sinp" id="psearch-mob" placeholder="Search products…" oninput="syncSearchAndRender(this.value)">
+          </div>
+          <button class="btn bg bsm" onclick="clearAllQty()" style="flex-shrink:0">Clear</button>
+          <button class="btn bp bsm" onclick="proceedToCart()" style="flex-shrink:0">Cart&nbsp;<span id="p-cnt-mob" style="background:rgba(255,255,255,.2);border-radius:20px;padding:0 5px;font-size:11px">0</span></button>
+        </div>
+        <div class="mob-pt-row2">
+          <span class="mob-pt-count"><b id="p-show-mob">0</b> / <b id="p-tot-mob">0</b> products</span>
+          <span class="chip co" id="mob-sel-chip" style="display:none"><span id="mob-sel-count">0</span> selected</span>
+        </div>
+      </div>
+
       <div id="p-loader" class="lwrap"><div class="spin"></div><p>Loading…</p></div>
       <div id="p-err" class="ecard" style="display:none"><h3>No Products</h3><p>Check your Apps Script URL.</p><button class="btn bg bsm" onclick="fetchData(true)">Retry</button></div>
-      <div class="twrap" id="p-tbl" style="display:none">
-        <table><thead><tr><th>#</th><th>Product Name</th><th>Dimensions</th><th>Weight</th><th>Volume</th><th>Qty</th></tr></thead>
-        <tbody id="p-tbody"></tbody></table>
+
+      <!-- Scrollable content wrapper -->
+      <div class="prod-scroll" id="prod-scroll-wrap">
+        <div class="twrap" id="p-tbl" style="display:none">
+          <table><thead><tr><th>#</th><th>Product Name</th><th>Dimensions</th><th>Weight</th><th>Volume</th><th>Qty</th></tr></thead>
+          <tbody id="p-tbody"></tbody></table>
+        </div>
+        <div class="pcards" id="p-cards"></div>
       </div>
-      <div class="pcards" id="p-cards"></div>
     </section>
 
     <!-- CART -->
@@ -808,7 +806,7 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 
     <!-- RESULTS -->
     <section id="s-results" class="scr">
-      <div class="ph"><h1>Recommendation</h1><p>Best carton box for your selection</p></div>
+      <div class="ph"><h1>Recommendation</h1><p>Optimal carton box for your selection</p></div>
       <div class="steps">
         <div class="stp done"><div class="sn"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><span class="sl">Home</span></div>
         <div class="sline"></div>
@@ -826,63 +824,34 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
       <div id="r-content" style="display:none"></div>
     </section>
 
-  </div>
-</div>
-</div>
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
 
 <!-- ══ BOTTOM NAV ══ -->
 <nav class="bnav" role="navigation" aria-label="Main navigation">
   <div class="bn-inner">
-
     <button class="bnb on" data-s="home" onclick="goTo('home')" aria-label="Home">
       <div class="bnb-bar"></div>
-      <div class="bnb-ic">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
+      <div class="bnb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <span class="bnb-lb">Home</span>
     </button>
-
     <button class="bnb" data-s="products" onclick="goTo('products')" aria-label="Products">
       <div class="bnb-bar"></div>
-      <div class="bnb-ic">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6"/>
-          <line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/>
-          <line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
-        </svg>
-      </div>
+      <div class="bnb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
       <span class="bnb-lb">Products</span>
     </button>
-
     <button class="bnb" data-s="cart" onclick="goTo('cart')" aria-label="Cart">
       <div class="bnb-bar"></div>
       <span class="bnb-bdg" id="bndg"></span>
-      <div class="bnb-ic">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-        </svg>
-      </div>
+      <div class="bnb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
       <span class="bnb-lb">Cart</span>
     </button>
-
     <button class="bnb" data-s="results" onclick="goTo('results')" aria-label="Results">
       <div class="bnb-bar"></div>
-      <div class="bnb-ic">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-      </div>
+      <div class="bnb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <span class="bnb-lb">Results</span>
     </button>
-
   </div>
 </nav>
 
@@ -890,10 +859,10 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 <div class="ov" id="ov">
   <div class="ovring"></div>
   <div class="ovt">Running packing algorithm…</div>
-  <div class="ovs">Finding the optimal carton box</div>
+  <div class="ovs">Finding the optimal carton configuration</div>
 </div>
 
-<!-- ══ EXIT DIALOG (desktop) ══ -->
+<!-- ══ EXIT DIALOG ══ -->
 <div class="xdlg" id="xdlg">
   <div class="xbox">
     <div class="xi"><svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
@@ -906,7 +875,7 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
   </div>
 </div>
 
-<!-- ══ MOBILE BACK PRESS COUNTER ══ -->
+<!-- ══ BACK PRESS COUNTER ══ -->
 <div class="close-cnt" id="closeCnt">Press back <b id="closeNum">2</b> more time(s) to exit</div>
 
 <div id="toasts"></div>
@@ -915,332 +884,313 @@ tbody tr.hl{background:rgba(255,92,26,.04);}
 /* ═══════════════════════
    CONFIG
 ═══════════════════════ */
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxOpkKSzSLry0CegCtZ8_mFmYV6a3MRGrXt4KXsfe8iiCyzTyE5JSHmfXxH_E7IC9Zkpw/exec';
-const POLL_MS=2000;
-const PAGES=['home','products','cart','results'];
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOpkKSzSLry0CegCtZ8_mFmYV6a3MRGrXt4KXsfe8iiCyzTyE5JSHmfXxH_E7IC9Zkpw/exec';
+const POLL_MS = 4000;
+const FETCH_TIMEOUT = 10000;
+const MAX_RETRIES = 3;
 
 /* ═══════════════════════
    STATE
 ═══════════════════════ */
-const A={
-  products:[],boxes:[],cart:{},result:null,ready:false,
-  polling:null,syncActive:false,cur:'home'
+const A = {
+  products: [], boxes: [], cart: {}, result: null, ready: false,
+  polling: null, syncActive: false, cur: 'home', fetchRetries: 0
 };
 
-/* ═══════════════════════════════════════════════════════
-   BACK NAVIGATION SYSTEM
-   ─────────────────────────────────────────────────────
-   STRATEGY:
-   • We own a navStack array (our source of truth).
-   • We push ONE dummy history entry on load.
-   • Every time popstate fires, we re-push that entry
-     so the browser never actually navigates back.
-   • We then handle all navigation ourselves.
+/* ═══════════════════════
+   BACK NAVIGATION
+═══════════════════════ */
+let navStack = ['home'];
+let exitPressCount = 0;
+let exitPressTimer = null;
 
-   ON MOBILE (Android back gesture):
-   • If current page ≠ home → go to previous page in stack.
-   • If current page = home → require 3 back presses
-     within 2 s to close (shows counter toast).
+function isMobile() { return window.innerWidth <= 768; }
 
-   ON WEB (desktop or PWA):
-   • Same stack logic for in-app navigation.
-   • At home, show the exit confirmation dialog instead
-     of the press-counter (web users have a close button).
-═══════════════════════════════════════════════════════ */
-let navStack=['home'];
-let exitPressCount=0;
-let exitPressTimer=null;
-
-function isMobile(){return window.innerWidth<=768;}
-
-function setupBack(){
-  history.replaceState({bfp:1},'','');
-  history.pushState({bfp:2},'','');
-
-  window.addEventListener('popstate',function(e){
-    /* Always re-push so we stay in control */
-    history.pushState({bfp:2},'','');
+function setupBack() {
+  history.replaceState({ bfp: 1 }, '', '');
+  history.pushState({ bfp: 2 }, '', '');
+  window.addEventListener('popstate', function () {
+    history.pushState({ bfp: 2 }, '', '');
     handleBack();
   });
 }
 
-function handleBack(){
-  const cur=A.cur;
-
-  /* If not on home, navigate back through stack */
-  if(cur!=='home'){
+function handleBack() {
+  const cur = A.cur;
+  if (cur !== 'home') {
     navStack.pop();
-    const prev=navStack.length>0?navStack[navStack.length-1]:'home';
-    if(!navStack.includes(prev)){navStack=['home'];}
-    goTo(prev,true);
+    const prev = navStack.length > 0 ? navStack[navStack.length - 1] : 'home';
+    goTo(prev, true);
     return;
   }
-
-  /* We ARE on home — handle exit logic */
-  if(isMobile()){
-    /* Mobile: count presses, need 3 within 2 s */
+  if (isMobile()) {
     exitPressCount++;
-    const remaining=3-exitPressCount;
-    if(remaining>0){
+    const remaining = 3 - exitPressCount;
+    if (remaining > 0) {
       showCloseCounter(remaining);
       clearTimeout(exitPressTimer);
-      exitPressTimer=setTimeout(()=>{
-        exitPressCount=0;
-        hideCloseCounter();
-      },2000);
+      exitPressTimer = setTimeout(() => { exitPressCount = 0; hideCloseCounter(); }, 2200);
     } else {
-      exitPressCount=0;
-      clearTimeout(exitPressTimer);
-      hideCloseCounter();
-      doExit();
+      exitPressCount = 0; clearTimeout(exitPressTimer); hideCloseCounter(); doExit();
     }
-  } else {
-    /* Web: show confirmation dialog */
-    showExit();
-  }
+  } else { showExit(); }
 }
 
-function showCloseCounter(n){
-  const el=G('closeCnt');
-  const num=G('closeNum');
-  if(num)num.textContent=n;
-  if(el)el.classList.add('on');
-}
-function hideCloseCounter(){
-  const el=G('closeCnt');
-  if(el)el.classList.remove('on');
-}
+function showCloseCounter(n) { const e = G('closeCnt'), m = G('closeNum'); if (m) m.textContent = n; if (e) e.classList.add('on'); }
+function hideCloseCounter() { const e = G('closeCnt'); if (e) e.classList.remove('on'); }
 
 /* ═══════════════════════
    NAVIGATION
 ═══════════════════════ */
-function goTo(name,skipStack=false){
-  G('content').scrollTop=0;
-  A.cur=name;
-
-  if(!skipStack){
-    /* Remove dupes then push */
-    navStack=navStack.filter(s=>s!==name);
-    navStack.push(name);
-  }
-
-  /* Show correct screen */
-  document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));
-  const sc=G('s-'+name);if(sc)sc.classList.add('on');
-
-  /* Sync sidebar nav items */
-  document.querySelectorAll('[data-s]').forEach(e=>
-    e.classList.toggle('on',e.dataset.s===name));
-
-  /* Topbar back button */
-  const bb=G('tbback');
-  if(bb)bb.classList.toggle('vis',name!=='home');
-
-  /* Reset exit counter when navigating */
-  exitPressCount=0;
-  clearTimeout(exitPressTimer);
-  hideCloseCounter();
-
-  if(name==='cart')renderCart();
-  if(name==='products')renderProds();
-  if(name==='results'&&!A.result){show('r-empty');hide('r-content');}
+function goTo(name, skipStack = false) {
+  G('content').scrollTop = 0;
+  A.cur = name;
+  if (!skipStack) { navStack = navStack.filter(s => s !== name); navStack.push(name); }
+  document.querySelectorAll('.scr').forEach(e => e.classList.remove('on'));
+  const sc = G('s-' + name); if (sc) sc.classList.add('on');
+  document.querySelectorAll('[data-s]').forEach(e => e.classList.toggle('on', e.dataset.s === name));
+  exitPressCount = 0; clearTimeout(exitPressTimer); hideCloseCounter();
+  if (name === 'cart') renderCart();
+  if (name === 'products') renderProds();
+  if (name === 'results' && !A.result) { show('r-empty'); hide('r-content'); }
 }
 
-function goBack(){handleBack();}
-function proceedToCart(){
-  if(!cartCount()){toast('Select at least one product first','warn');return;}
+function goBack() { handleBack(); }
+function proceedToCart() {
+  if (!cartCount()) { toast('Select at least one product first', 'warn'); return; }
   goTo('cart');
 }
-function showExit(){G('xdlg').classList.add('on');}
-function closeExit(){G('xdlg').classList.remove('on');}
-function doExit(){
-  try{navigator.app.exitApp();}catch(e){}
-  try{window.close();}catch(e){}
-  /* Fallback for browsers that block window.close() */
-  document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#666;font-size:14px;">You can now close this tab.</div>';
+function showExit() { G('xdlg').classList.add('on'); }
+function closeExit() { G('xdlg').classList.remove('on'); }
+function doExit() {
+  try { navigator.app.exitApp(); } catch (e) { }
+  try { window.close(); } catch (e) { }
+  document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:Poppins,sans-serif;color:#666;font-size:14px;">You can now close this tab.</div>';
 }
 
 /* ═══════════════════════
-   DATA
+   SEARCH SYNC (mobile/desktop)
 ═══════════════════════ */
-document.addEventListener('DOMContentLoaded',()=>{
-  loadCart();syncBadges();
+function syncSearchAndRender(val) {
+  const d = G('psearch'); if (d) d.value = val;
+  renderProds();
+}
+
+/* ═══════════════════════════════════════════
+   RELIABLE FETCH WITH RETRY + CORS FALLBACK
+═══════════════════════════════════════════ */
+async function fetchWithTimeout(url, timeout = FETCH_TIMEOUT) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), timeout);
+  try {
+    const res = await fetch(url + (url.includes('?') ? '&' : '?') + 'cb=' + Date.now(), {
+      signal: ctrl.signal,
+      cache: 'no-store',
+      mode: 'cors'
+    });
+    clearTimeout(t);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  } catch (e) {
+    clearTimeout(t);
+    throw e;
+  }
+}
+
+async function fetchWithRetry(url, retries = MAX_RETRIES) {
+  for (let i = 0; i <= retries; i++) {
+    try {
+      return await fetchWithTimeout(url, FETCH_TIMEOUT);
+    } catch (e) {
+      if (i < retries) {
+        await new Promise(r => setTimeout(r, 800 * (i + 1)));
+      } else {
+        throw e;
+      }
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadCart(); syncBadges();
   setupBack();
   fetchData(true);
 });
 
-async function fetchData(init=false){
-  if(!init&&A.syncActive)return;
-  A.syncActive=true;spinOn(true);
-  if(init){setConn('sync','Connecting…');show('h-loader');hide('h-err');hide('h-stats');hide('h-notice');}
-  try{
-    const ctrl=new AbortController();
-    const t=setTimeout(()=>ctrl.abort(),6000);
-    const res=await fetch(SCRIPT_URL,{signal:ctrl.signal});
-    clearTimeout(t);
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    const data=await res.json();
-    const np=(data.products||[]).map((p,i)=>({id:String(p.id||i+1),sno:p.sno||i+1,name:p.name||'',length:+p.length||0,width:+p.width||0,height:+p.height||0,weight:+p.weight||0}));
-    const nb=(data.boxes||[]).map((b,i)=>({id:String(b.id||i+1),sno:b.sno||i+1,name:b.name||'',length:+b.length||0,width:+b.width||0,height:+b.height||0,maxWeight:+b.maxWeight||0}));
-    const chg=JSON.stringify(np)!==JSON.stringify(A.products)||JSON.stringify(nb)!==JSON.stringify(A.boxes);
-    A.products=np;A.boxes=nb;A.ready=true;
-    setConn('live',`${np.length} prods · ${nb.length} boxes`);
-    if(init){hide('h-loader');show('h-stats');updHS();renderProds();toast('Data loaded','ok');}
-    else if(chg){updHS();renderProds();toast('Data refreshed','ok');}
-  }catch(e){
-    if(init){hide('h-loader');show('h-err');show('h-notice');setConn('err','Sample data');loadSample();}
-    else{setConn('err','Sync failed');setTimeout(()=>setConn('live',`${A.products.length} prods · ${A.boxes.length} boxes`),2500);}
-  }finally{A.syncActive=false;spinOn(false);if(!A.polling)startPoll();}
+async function fetchData(init = false) {
+  if (!init && A.syncActive) return;
+  A.syncActive = true; spinOn(true);
+  if (init) { setConn('sync', 'Connecting…'); show('h-loader'); hide('h-err'); hide('h-stats'); hide('h-notice'); }
+  try {
+    const data = await fetchWithRetry(SCRIPT_URL);
+    const np = (data.products || []).map((p, i) => ({
+      id: String(p.id || i + 1), sno: p.sno || i + 1, name: p.name || '',
+      length: +p.length || 0, width: +p.width || 0, height: +p.height || 0, weight: +p.weight || 0
+    }));
+    const nb = (data.boxes || []).map((b, i) => ({
+      id: String(b.id || i + 1), sno: b.sno || i + 1, name: b.name || '',
+      length: +b.length || 0, width: +b.width || 0, height: +b.height || 0, maxWeight: +b.maxWeight || 0
+    }));
+    const chg = JSON.stringify(np) !== JSON.stringify(A.products) || JSON.stringify(nb) !== JSON.stringify(A.boxes);
+    A.products = np; A.boxes = nb; A.ready = true; A.fetchRetries = 0;
+    setConn('live', `${np.length} prods · ${nb.length} boxes`);
+    if (init) { hide('h-loader'); show('h-stats'); updHS(); renderProds(); toast('Data loaded', 'ok'); }
+    else if (chg) { updHS(); renderProds(); toast('Data refreshed', 'ok'); }
+  } catch (e) {
+    if (init) { hide('h-loader'); show('h-err'); show('h-notice'); setConn('err', 'Sample data'); loadSample(); }
+    else { setConn('err', 'Sync failed'); setTimeout(() => setConn('live', `${A.products.length} prods · ${A.boxes.length} boxes`), 3000); }
+  } finally {
+    A.syncActive = false; spinOn(false);
+    if (!A.polling) startPoll();
+  }
 }
 
-function startPoll(){
-  if(SCRIPT_URL==='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')return;
-  A.polling=setInterval(()=>fetchData(false),POLL_MS);
+function startPoll() {
+  if (!SCRIPT_URL || SCRIPT_URL.includes('YOUR_GOOGLE')) return;
+  A.polling = setInterval(() => fetchData(false), POLL_MS);
 }
 
-function loadSample(){
-  A.products=[
-    {id:'1',sno:1,name:'Laptop 15',length:38,width:26,height:2.5,weight:2.1},
-    {id:'2',sno:2,name:'Wireless Mouse',length:12,width:7,height:4,weight:0.1},
-    {id:'3',sno:3,name:'USB-C Hub',length:14,width:5,height:2,weight:0.15},
-    {id:'4',sno:4,name:'Mechanical Keyboard',length:45,width:15,height:4,weight:1.2},
-    {id:'5',sno:5,name:'Monitor 24"',length:57,width:34,height:7,weight:4.5}
+function loadSample() {
+  A.products = [
+    { id: '1', sno: 1, name: 'Laptop 15"', length: 38, width: 26, height: 2.5, weight: 2.1 },
+    { id: '2', sno: 2, name: 'Wireless Mouse', length: 12, width: 7, height: 4, weight: 0.1 },
+    { id: '3', sno: 3, name: 'USB-C Hub', length: 14, width: 5, height: 2, weight: 0.15 },
+    { id: '4', sno: 4, name: 'Mechanical Keyboard', length: 45, width: 15, height: 4, weight: 1.2 },
+    { id: '5', sno: 5, name: 'Monitor 24"', length: 57, width: 34, height: 7, weight: 4.5 },
+    { id: '6', sno: 6, name: 'HDMI Cable', length: 20, width: 3, height: 3, weight: 0.2 },
+    { id: '7', sno: 7, name: 'Webcam HD', length: 10, width: 8, height: 6, weight: 0.3 },
+    { id: '8', sno: 8, name: 'Desk Lamp', length: 35, width: 12, height: 12, weight: 1.0 },
   ];
-  A.boxes=[
-    {id:'1',sno:1,name:'BOX-XS',length:25,width:20,height:15,maxWeight:5},
-    {id:'2',sno:2,name:'BOX-SM',length:35,width:25,height:20,maxWeight:8},
-    {id:'3',sno:3,name:'BOX-MD',length:50,width:35,height:30,maxWeight:15},
-    {id:'4',sno:4,name:'BOX-LG',length:65,width:50,height:40,maxWeight:25},
-    {id:'5',sno:5,name:'BOX-XL',length:80,width:60,height:50,maxWeight:40}
+  A.boxes = [
+    { id: '1', sno: 1, name: 'BOX-XS', length: 25, width: 20, height: 15, maxWeight: 5 },
+    { id: '2', sno: 2, name: 'BOX-SM', length: 35, width: 25, height: 20, maxWeight: 8 },
+    { id: '3', sno: 3, name: 'BOX-MD', length: 50, width: 35, height: 30, maxWeight: 15 },
+    { id: '4', sno: 4, name: 'BOX-LG', length: 65, width: 50, height: 40, maxWeight: 25 },
+    { id: '5', sno: 5, name: 'BOX-XL', length: 80, width: 60, height: 50, maxWeight: 40 },
   ];
-  A.ready=true;
-  hide('h-loader');show('h-stats');show('h-notice');
-  updHS();renderProds();toast('Sample data loaded','info');
+  A.ready = true;
+  hide('h-loader'); show('h-stats'); show('h-notice');
+  updHS(); renderProds(); toast('Sample data loaded', 'info');
 }
 
 /* ═══════════════════════
    CART
 ═══════════════════════ */
-function loadCart(){try{const s=localStorage.getItem('bfp6');if(s)A.cart=JSON.parse(s);}catch(e){}}
-function saveCart(){localStorage.setItem('bfp6',JSON.stringify(A.cart));}
-function cartCount(){return Object.keys(A.cart).length;}
-function cartUnits(){return Object.values(A.cart).reduce((s,v)=>s+v,0);}
-function cartItems(){
-  return Object.entries(A.cart).map(([id,qty])=>{
-    const p=A.products.find(p=>String(p.id)===id);return p?{...p,qty}:null;
+function loadCart() { try { const s = localStorage.getItem('bfp7'); if (s) A.cart = JSON.parse(s); } catch (e) { } }
+function saveCart() { localStorage.setItem('bfp7', JSON.stringify(A.cart)); }
+function cartCount() { return Object.keys(A.cart).length; }
+function cartUnits() { return Object.values(A.cart).reduce((s, v) => s + v, 0); }
+function cartItems() {
+  return Object.entries(A.cart).map(([id, qty]) => {
+    const p = A.products.find(p => String(p.id) === id); return p ? { ...p, qty } : null;
   }).filter(Boolean);
 }
-function cartTotals(){
-  const it=cartItems();
-  return{vol:it.reduce((s,i)=>s+i.length*i.width*i.height*i.qty,0),wt:it.reduce((s,i)=>s+i.weight*i.qty,0),items:it};
+function cartTotals() {
+  const it = cartItems();
+  return { vol: it.reduce((s, i) => s + i.length * i.width * i.height * i.qty, 0), wt: it.reduce((s, i) => s + i.weight * i.qty, 0), items: it };
 }
 
-function setQty(id,v){
-  v=Math.max(0,parseInt(v)||0);
-  id=String(id);
-  if(v===0)delete A.cart[id];else A.cart[id]=v;
-  saveCart();syncBadges();
-  document.querySelectorAll(`.qd[data-qid="${id}"]`).forEach(el=>{
-    el.textContent=v;el.classList.toggle('on',v>0);
-  });
-  document.querySelectorAll(`[data-rid="${id}"]`).forEach(el=>{
-    el.classList.toggle('hl',v>0);el.classList.toggle('sel',v>0);
-  });
+function setQty(id, v) {
+  v = Math.max(0, parseInt(v) || 0);
+  id = String(id);
+  if (v === 0) delete A.cart[id]; else A.cart[id] = v;
+  saveCart(); syncBadges();
+  document.querySelectorAll(`.qd[data-qid="${id}"]`).forEach(el => { el.textContent = v; el.classList.toggle('on', v > 0); });
+  document.querySelectorAll(`[data-rid="${id}"]`).forEach(el => { el.classList.toggle('hl', v > 0); el.classList.toggle('sel', v > 0); });
 }
 
-function adj(id,delta){
-  id=String(id);
-  const cur=A.cart[id]||0;
-  const nv=Math.max(0,cur+delta);
-  setQty(id,nv);
-  if(delta>0&&nv===1){
-    const p=A.products.find(x=>String(x.id)===id);
-    if(p)toast(p.name+' added','ok');
-  }
+function adj(id, delta) {
+  id = String(id);
+  const cur = A.cart[id] || 0;
+  const nv = Math.max(0, cur + delta);
+  setQty(id, nv);
+  if (delta > 0 && nv === 1) { const p = A.products.find(x => String(x.id) === id); if (p) toast(p.name + ' added', 'ok'); }
+  syncMobSelChip();
 }
 
-function adjCart(id,delta){
-  id=String(id);
-  setQty(id,Math.max(1,(A.cart[id]||0)+delta));
-  const it=cartItems();
-  const item=it.find(i=>String(i.id)===id);
-  if(!item)return;
-  const row=document.querySelector(`tr[data-rid="${id}"]`);
-  if(row){
-    const cells=row.querySelectorAll('td');
-    if(cells.length>=6){
-      cells[4].textContent=N(item.length*item.width*item.height*item.qty)+' cm³';
-      cells[5].textContent=(item.weight*item.qty).toFixed(2)+' kg';
-    }
-  }
-  const card=document.querySelector(`.ccard[data-rid="${id}"]`);
-  if(card){
-    const vEl=card.querySelector('.cv-vol');if(vEl)vEl.textContent=N(item.length*item.width*item.height*item.qty)+' cm³';
-    const wEl=card.querySelector('.cv-wt');if(wEl)wEl.textContent=(item.weight*item.qty).toFixed(2)+' kg';
-  }
-  const{vol,wt}=cartTotals();
-  T('c-units',it.reduce((s,i)=>s+i.qty,0));
-  T('c-vol',N(vol));T('c-wt',wt.toFixed(2));
+function adjCart(id, delta) {
+  id = String(id);
+  setQty(id, Math.max(1, (A.cart[id] || 0) + delta));
+  const it = cartItems();
+  const item = it.find(i => String(i.id) === id); if (!item) return;
+  const row = document.querySelector(`tr[data-rid="${id}"]`);
+  if (row) { const cells = row.querySelectorAll('td'); if (cells.length >= 6) { cells[4].textContent = N(item.length * item.width * item.height * item.qty) + ' cm³'; cells[5].textContent = (item.weight * item.qty).toFixed(2) + ' kg'; } }
+  const card = document.querySelector(`.ccard[data-rid="${id}"]`);
+  if (card) { const vEl = card.querySelector('.cv-vol'); if (vEl) vEl.textContent = N(item.length * item.width * item.height * item.qty) + ' cm³'; const wEl = card.querySelector('.cv-wt'); if (wEl) wEl.textContent = (item.weight * item.qty).toFixed(2) + ' kg'; }
+  const { vol, wt } = cartTotals();
+  T('c-units', it.reduce((s, i) => s + i.qty, 0));
+  T('c-vol', N(vol)); T('c-wt', wt.toFixed(2));
 }
 
-function removeItem(id){
-  delete A.cart[String(id)];saveCart();syncBadges();renderCart();renderProds();
+function removeItem(id) { delete A.cart[String(id)]; saveCart(); syncBadges(); renderCart(); renderProds(); }
+function clearCart() {
+  if (!Object.keys(A.cart).length) return;
+  if (!confirm('Remove all items?')) return;
+  A.cart = {}; saveCart(); syncBadges(); renderCart(); renderProds(); toast('Cart cleared', 'info');
 }
-function clearCart(){
-  if(!Object.keys(A.cart).length)return;
-  if(!confirm('Remove all items?'))return;
-  A.cart={};saveCart();syncBadges();renderCart();renderProds();toast('Cart cleared','info');
-}
-function clearAllQty(){A.cart={};saveCart();syncBadges();renderProds();toast('Cleared','info');}
+function clearAllQty() { A.cart = {}; saveCart(); syncBadges(); renderProds(); syncMobSelChip(); toast('Cleared', 'info'); }
 
-function syncBadges(){
-  const u=cartUnits(),c=cartCount();
-  const nb=G('nb');if(nb){nb.textContent=u;nb.classList.toggle('vis',u>0);}
-  const bb=G('bndg');if(bb){bb.textContent=u;bb.classList.toggle('vis',u>0);}
-  const tb=G('tbbdg');if(tb){tb.textContent=u;tb.classList.toggle('vis',u>0);}
-  T('h-sel',u);T('p-cnt',c);
-  const{wt}=cartTotals();T('h-wt',wt.toFixed(2)+' kg');
+function syncBadges() {
+  const u = cartUnits();
+  const nb = G('nb'); if (nb) { nb.textContent = u; nb.classList.toggle('vis', u > 0); }
+  const bb = G('bndg'); if (bb) { bb.textContent = u; bb.classList.toggle('vis', u > 0); }
+  const tb = G('tbbdg'); if (tb) { tb.textContent = u; tb.classList.toggle('vis', u > 0); }
+  T('h-sel', u); T('p-cnt', cartCount());
+  const mc = G('p-cnt-mob'); if (mc) mc.textContent = cartCount();
+  const { wt } = cartTotals(); T('h-wt', wt.toFixed(2) + ' kg');
 }
-function updHS(){T('h-np',A.products.length);T('h-nb',A.boxes.length);}
+
+function syncMobSelChip() {
+  const u = cartCount();
+  const chip = G('mob-sel-chip'); const cnt = G('mob-sel-count');
+  if (chip) chip.style.display = u > 0 ? '' : 'none';
+  if (cnt) cnt.textContent = u;
+}
+
+function updHS() { T('h-np', A.products.length); T('h-nb', A.boxes.length); }
 
 /* ═══════════════════════
    RENDER PRODUCTS
 ═══════════════════════ */
-function renderProds(){
-  if(!A.ready){show('p-loader');hide('p-tbl');return;}
-  hide('p-loader');hide('p-err');show('p-tbl');
-  const q=(G('psearch')?.value||'').toLowerCase();
-  const list=A.products.filter(p=>p.name.toLowerCase().includes(q));
-  T('p-show',list.length);T('p-tot',A.products.length);
+function renderProds() {
+  if (!A.ready) { show('p-loader'); hide('p-tbl'); return; }
+  hide('p-loader'); hide('p-err'); show('p-tbl');
+  const mobSearch = G('psearch-mob');
+  const deskSearch = G('psearch');
+  const q = ((mobSearch && document.activeElement === mobSearch ? mobSearch.value : (deskSearch ? deskSearch.value : '')) || '').toLowerCase();
+  const list = A.products.filter(p => p.name.toLowerCase().includes(q));
+  T('p-show', list.length); T('p-tot', A.products.length);
+  T('p-show-mob', list.length); T('p-tot-mob', A.products.length);
+  syncMobSelChip();
 
-  const tb=G('p-tbody');
-  if(tb){
-    tb.innerHTML=!list.length
-      ?`<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--T3)">No products found</td></tr>`
-      :list.map(p=>{
-        const qty=A.cart[String(p.id)]||0;
-        return`<tr data-rid="${p.id}" class="${qty>0?'hl':''}">
+  const tb = G('p-tbody');
+  if (tb) {
+    tb.innerHTML = !list.length
+      ? `<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--T3)">No products found</td></tr>`
+      : list.map(p => {
+        const qty = A.cart[String(p.id)] || 0;
+        return `<tr data-rid="${p.id}" class="${qty > 0 ? 'hl' : ''}">
           <td><span class="snob">${p.sno}</span></td>
           <td class="tn">${p.name}</td>
           <td><span class="db">${p.length}×${p.width}×${p.height}</span></td>
           <td><span class="wb">${p.weight} kg</span></td>
-          <td style="font-size:11px;color:var(--T3)">${N(p.length*p.width*p.height)} cm³</td>
+          <td style="font-size:11px;color:var(--T3)">${N(p.length * p.width * p.height)} cm³</td>
           <td><div class="qw">
             <button class="qb" onclick="adj('${p.id}',-1)">−</button>
-            <div class="qd ${qty>0?'on':''}" data-qid="${p.id}">${qty}</div>
+            <div class="qd ${qty > 0 ? 'on' : ''}" data-qid="${p.id}">${qty}</div>
             <button class="qb" onclick="adj('${p.id}',1)">+</button>
           </div></td>
         </tr>`;
       }).join('');
   }
 
-  const pc=G('p-cards');
-  if(pc){
-    pc.innerHTML=!list.length
-      ?`<div style="text-align:center;padding:32px;color:var(--T3);font-size:13px">No products found</div>`
-      :list.map(p=>{
-        const qty=A.cart[String(p.id)]||0;
-        return`<div class="pcard ${qty>0?'sel':''}" data-rid="${p.id}">
+  const pc = G('p-cards');
+  if (pc) {
+    pc.innerHTML = !list.length
+      ? `<div style="text-align:center;padding:32px;color:var(--T3);font-size:13px;font-weight:500">No products found</div>`
+      : list.map(p => {
+        const qty = A.cart[String(p.id)] || 0;
+        return `<div class="pcard ${qty > 0 ? 'sel' : ''}" data-rid="${p.id}">
           <div class="pcard-row">
             <div class="pcard-left">
               <div class="pcard-num">${p.sno}</div>
@@ -1248,15 +1198,13 @@ function renderProds(){
               <div class="pcard-badges">
                 <span class="db">${p.length}×${p.width}×${p.height}</span>
                 <span class="wb">${p.weight} kg</span>
-                <span class="vb">${N(p.length*p.width*p.height)} cm³</span>
+                <span class="vb">${N(p.length * p.width * p.height)} cm³</span>
               </div>
             </div>
-            <div class="pcard-right">
-              <div class="qw">
-                <button class="qb" onclick="adj('${p.id}',-1)">−</button>
-                <div class="qd ${qty>0?'on':''}" data-qid="${p.id}">${qty}</div>
-                <button class="qb" onclick="adj('${p.id}',1)">+</button>
-              </div>
+            <div class="qw">
+              <button class="qb" onclick="adj('${p.id}',-1)">−</button>
+              <div class="qd ${qty > 0 ? 'on' : ''}" data-qid="${p.id}">${qty}</div>
+              <button class="qb" onclick="adj('${p.id}',1)">+</button>
             </div>
           </div>
         </div>`;
@@ -1267,19 +1215,19 @@ function renderProds(){
 /* ═══════════════════════
    RENDER CART
 ═══════════════════════ */
-function renderCart(){
-  const items=cartItems();
-  if(!items.length){show('c-empty');hide('c-content');return;}
-  hide('c-empty');show('c-content');
-  const{vol,wt}=cartTotals();
-  T('c-units',items.reduce((s,i)=>s+i.qty,0));
-  T('c-vol',N(vol));T('c-wt',wt.toFixed(2));
+function renderCart() {
+  const items = cartItems();
+  if (!items.length) { show('c-empty'); hide('c-content'); return; }
+  hide('c-empty'); show('c-content');
+  const { vol, wt } = cartTotals();
+  T('c-units', items.reduce((s, i) => s + i.qty, 0));
+  T('c-vol', N(vol)); T('c-wt', wt.toFixed(2));
 
-  const tb=G('c-tbody');
-  if(tb){
-    tb.innerHTML=items.map(it=>{
-      const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;
-      return`<tr data-rid="${it.id}">
+  const tb = G('c-tbody');
+  if (tb) {
+    tb.innerHTML = items.map(it => {
+      const iv = it.length * it.width * it.height * it.qty, iw = it.weight * it.qty;
+      return `<tr data-rid="${it.id}">
         <td class="tn">${it.name}</td>
         <td><span class="db">${it.length}×${it.width}×${it.height}</span></td>
         <td><span class="wb">${it.weight} kg</span></td>
@@ -1297,11 +1245,11 @@ function renderCart(){
     }).join('');
   }
 
-  const cc=G('c-cards');
-  if(cc){
-    cc.innerHTML=items.map(it=>{
-      const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;
-      return`<div class="ccard" data-rid="${it.id}">
+  const cc = G('c-cards');
+  if (cc) {
+    cc.innerHTML = items.map(it => {
+      const iv = it.length * it.width * it.height * it.qty, iw = it.weight * it.qty;
+      return `<div class="ccard" data-rid="${it.id}">
         <div class="ccard-head">
           <div class="ccard-nm">${it.name}</div>
           <button class="btn bd bsm" onclick="removeItem('${it.id}')">
@@ -1326,98 +1274,199 @@ function renderCart(){
   }
 }
 
-/* ═══════════════════════
-   PACKING ALGORITHM
-═══════════════════════ */
-function sd(a,b,c){return[a,b,c].sort((x,y)=>x-y);}
-function fits(il,iw,ih,bl,bw,bh){
-  const[ia,ib,ic]=sd(il,iw,ih);const[ba,bb,bc]=sd(bl,bw,bh);
-  return ia<=ba&&ib<=bb&&ic<=bc;
+/* ═══════════════════════════
+   PACKING CORE ALGORITHM
+═══════════════════════════ */
+function sd(a, b, c) { return [a, b, c].sort((x, y) => x - y); }
+function fits(il, iw, ih, bl, bw, bh) {
+  const [ia, ib, ic] = sd(il, iw, ih); const [ba, bb, bc] = sd(bl, bw, bh);
+  return ia <= ba && ib <= bb && ic <= bc;
 }
-function stackFits(items,bl,bw,bh){
-  const oris=(l,w,h)=>[[l,w,h],[l,h,w],[w,l,h],[w,h,l],[h,l,w],[h,w,l]];
-  const s=[...items].sort((a,b)=>(b.l*b.w*b.h)-(a.l*a.w*a.h));
-  let uH=0;
-  for(const it of s){
-    let bH=Infinity,ok=false;
-    for(const[fl,fw,sh]of oris(it.l,it.w,it.h)){if(fl<=bl&&fw<=bw&&sh<bH){bH=sh;ok=true;}}
-    if(!ok)return false;uH+=bH;
+function stackFits(items, bl, bw, bh) {
+  const oris = (l, w, h) => [[l, w, h], [l, h, w], [w, l, h], [w, h, l], [h, l, w], [h, w, l]];
+  const s = [...items].sort((a, b) => (b.l * b.w * b.h) - (a.l * a.w * a.h));
+  let uH = 0;
+  for (const it of s) {
+    let bH = Infinity, ok = false;
+    for (const [fl, fw, sh] of oris(it.l, it.w, it.h)) { if (fl <= bl && fw <= bw && sh < bH) { bH = sh; ok = true; } }
+    if (!ok) return false; uH += bH;
   }
-  return uH<=bh;
-}
-function findBox(){
-  const items=cartItems();if(!items.length)return null;
-  const tw=items.reduce((s,i)=>s+i.weight*i.qty,0);
-  const tv=items.reduce((s,i)=>s+i.length*i.width*i.height*i.qty,0);
-  const ex=[];
-  items.forEach(it=>{for(let q=0;q<it.qty;q++)ex.push({l:it.length,w:it.width,h:it.height});});
-  const boxes=[...A.boxes].sort((a,b)=>(a.length*a.width*a.height)-(b.length*b.width*b.height));
-  let rec=null,ow=null;
-  for(const box of boxes){
-    const bl=+box.length,bw=+box.width,bh=+box.height,bv=bl*bw*bh,mw=+box.maxWeight;
-    if(tv>bv)continue;
-    if(!ex.every(it=>fits(it.l,it.w,it.h,bl,bw,bh)))continue;
-    if(!stackFits(ex,bl,bw,bh))continue;
-    if(tw>mw){if(!ow)ow={box,bv,mw};continue;}
-    rec={box,bv,mw};break;
-  }
-  return{rec,ow,tw,tv,items,noFit:!rec&&!ow};
+  return uH <= bh;
 }
 
-function analyzeBoxes(tv,tw,ex,bestId){
-  return A.boxes.map(box=>{
-    const bl=+box.length,bw=+box.width,bh=+box.height,bv=bl*bw*bh,mw=+box.maxWeight;
-    const vOk=tv<=bv,aFit=ex.every(it=>fits(it.l,it.w,it.h,bl,bw,bh));
-    const sOk=aFit&&stackFits(ex,bl,bw,bh),wOk=tw<=mw;
-    const isBest=String(box.id)===String(bestId);
-    let st,cls,reason;
-    if(!vOk||!aFit||!sOk){st='no';cls='no';reason=!vOk?'Volume exceeds box':!aFit?'Items don\'t fit dimensionally':'Stacking height exceeded';}
-    else if(!wOk){st='big';cls='big';reason=`Overweight by ${(tw-mw).toFixed(2)} kg`;}
-    else{const u=tv/bv*100;reason=u<20?'Oversized — lots of unused space':u<40?'Larger than needed but fits':`Good fit — ${u.toFixed(0)}% used`;st='ok';cls='fit';}
-    return{box,st,cls,reason,isBest,bv};
+function boxCanFitItems(items, box) {
+  const bl = +box.length, bw = +box.width, bh = +box.height, mw = +box.maxWeight;
+  const tv = items.reduce((s, i) => s + i.l * i.w * i.h, 0);
+  const tw = items.reduce((s, i) => s + i.w2, 0);
+  if (tv > bl * bw * bh) return false;
+  if (tw > mw) return false;
+  if (!items.every(i => fits(i.l, i.w, i.h, bl, bw, bh))) return false;
+  if (!stackFits(items, bl, bw, bh)) return false;
+  return true;
+}
+
+function bestBoxForItems(items) {
+  const boxes = [...A.boxes].sort((a, b) => (a.length * a.width * a.height) - (b.length * b.width * b.height));
+  for (const box of boxes) {
+    if (boxCanFitItems(items, box)) return box;
+  }
+  return null;
+}
+
+/* Expand cartItems into individual unit objects */
+function expandItems(cartItemsArr) {
+  const ex = [];
+  cartItemsArr.forEach(it => {
+    for (let q = 0; q < it.qty; q++) {
+      ex.push({ id: it.id, name: it.name, l: it.length, w: it.width, h: it.height, w2: it.weight, origItem: it });
+    }
+  });
+  return ex;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MULTI-BOX SPLIT ALGORITHM
+   Strategy: greedy bin packing.
+   1. Try single box first.
+   2. If no single box fits, split into minimum groups
+      by trying to pack greedily into the smallest valid box.
+   Returns array of {box, items (grouped by product), vol, wt}
+═══════════════════════════════════════════════════════ */
+function multiBoxPack(cartItemsArr) {
+  const expanded = expandItems(cartItemsArr);
+  // Sort by volume descending (largest first) for better bin packing
+  expanded.sort((a, b) => (b.l * b.w * b.h) - (a.l * a.w * a.h));
+
+  const bins = []; // [{box, items:[...]}]
+  let remaining = [...expanded];
+
+  const MAX_BINS = 20;
+  let safety = 0;
+
+  while (remaining.length > 0 && safety < MAX_BINS) {
+    safety++;
+    let placed = false;
+
+    // Try to add to existing bins first
+    for (let bi = 0; bi < bins.length; bi++) {
+      const trial = [...bins[bi].items, remaining[0]];
+      if (boxCanFitItems(trial, bins[bi].box)) {
+        bins[bi].items.push(remaining.shift());
+        placed = true; break;
+      }
+    }
+
+    if (!placed) {
+      // Start a new bin — try to pack as many remaining items as possible
+      // Find the largest subset we can fit in some box
+      let bestBin = null;
+
+      // Greedy: keep adding items while they fit
+      for (let startSize = remaining.length; startSize >= 1; startSize--) {
+        const trial = remaining.slice(0, startSize);
+        const box = bestBoxForItems(trial);
+        if (box) {
+          bestBin = { box, items: remaining.splice(0, startSize) };
+          break;
+        }
+      }
+
+      if (!bestBin) {
+        // Single item can't fit any box — mark as overflow
+        bestBin = { box: null, items: [remaining.shift()], overflow: true };
+      }
+      bins.push(bestBin);
+    }
+  }
+
+  // Consolidate: group items in each bin by product
+  return bins.map(bin => {
+    const grouped = {};
+    bin.items.forEach(unit => {
+      if (!grouped[unit.id]) grouped[unit.id] = { ...unit.origItem, qty: 0 };
+      grouped[unit.id].qty++;
+    });
+    const groupedArr = Object.values(grouped);
+    const vol = groupedArr.reduce((s, i) => s + i.length * i.width * i.height * i.qty, 0);
+    const wt = groupedArr.reduce((s, i) => s + i.weight * i.qty, 0);
+    return { box: bin.box, items: groupedArr, vol, wt, overflow: bin.overflow };
+  });
+}
+
+function findBox() {
+  const items = cartItems(); if (!items.length) return null;
+  const tw = items.reduce((s, i) => s + i.weight * i.qty, 0);
+  const tv = items.reduce((s, i) => s + i.length * i.width * i.height * i.qty, 0);
+  const ex = expandItems(items);
+  const boxes = [...A.boxes].sort((a, b) => (a.length * a.width * a.height) - (b.length * b.width * b.height));
+  let rec = null, ow = null;
+
+  for (const box of boxes) {
+    const bl = +box.length, bw = +box.width, bh = +box.height, bv = bl * bw * bh, mw = +box.maxWeight;
+    if (tv > bv) continue;
+    if (!ex.every(it => fits(it.l, it.w, it.h, bl, bw, bh))) continue;
+    if (!stackFits(ex, bl, bw, bh)) continue;
+    if (tw > mw) { if (!ow) ow = { box, bv, mw }; continue; }
+    rec = { box, bv, mw }; break;
+  }
+
+  const noFit = !rec && !ow;
+
+  // If no single box works, try multi-box split
+  let multiBoxResult = null;
+  if (noFit) {
+    const bins = multiBoxPack(items);
+    const hasOverflow = bins.some(b => b.overflow);
+    if (!hasOverflow) multiBoxResult = bins;
+  }
+
+  return { rec, ow, tw, tv, items, noFit, multiBoxResult };
+}
+
+function analyzeBoxes(tv, tw, ex, bestId) {
+  return A.boxes.map(box => {
+    const bl = +box.length, bw = +box.width, bh = +box.height, bv = bl * bw * bh, mw = +box.maxWeight;
+    const vOk = tv <= bv, aFit = ex.every(it => fits(it.l, it.w, it.h, bl, bw, bh));
+    const sOk = aFit && stackFits(ex, bl, bw, bh), wOk = tw <= mw;
+    const isBest = String(box.id) === String(bestId);
+    let st, cls, reason;
+    if (!vOk || !aFit || !sOk) { st = 'no'; cls = 'no'; reason = !vOk ? 'Volume exceeds box' : !aFit ? 'Items don\'t fit dimensionally' : 'Stacking height exceeded'; }
+    else if (!wOk) { st = 'big'; cls = 'big'; reason = `Overweight by ${(tw - mw).toFixed(2)} kg`; }
+    else { const u = tv / bv * 100; reason = u < 20 ? 'Oversized — lots of unused space' : u < 40 ? 'Larger than needed but fits' : `Good fit — ${u.toFixed(0)}% used`; st = 'ok'; cls = 'fit'; }
+    return { box, st, cls, reason, isBest, bv };
   });
 }
 
 /* ═══════════════════════
    OPTIMIZER
 ═══════════════════════ */
-function buildOptimizer(box,bv,mw,tv,tw,items){
-  const remVol=bv-tv;
-  const remWt=mw-tw;
-  const util=(tv/bv*100);
-  const suggestions=[];
-  A.products.forEach(p=>{
-    const pv=p.length*p.width*p.height;
-    const pw=p.weight;
-    if(pv<=0||pw<=0)return;
-    const byVol=Math.floor(remVol/pv);
-    const byWt=remWt>0?Math.floor(remWt/pw):0;
-    const n=Math.min(byVol,byWt);
-    if(n<=0)return;
-    if(!fits(p.length,p.width,p.height,+box.length,+box.width,+box.height))return;
-    suggestions.push({p,n});
+function buildOptimizer(box, bv, mw, tv, tw, items) {
+  const remVol = bv - tv, remWt = mw - tw;
+  const util = (tv / bv * 100);
+  const suggestions = [];
+  A.products.forEach(p => {
+    const pv = p.length * p.width * p.height, pw = p.weight;
+    if (pv <= 0 || pw <= 0) return;
+    const byVol = Math.floor(remVol / pv), byWt = remWt > 0 ? Math.floor(remWt / pw) : 0;
+    const n = Math.min(byVol, byWt);
+    if (n <= 0) return;
+    if (!fits(p.length, p.width, p.height, +box.length, +box.width, +box.height)) return;
+    suggestions.push({ p, n });
   });
-  suggestions.sort((a,b)=>b.n-a.n);
-  let html='';
-  if(util<30){
-    html+=`<div class="opt-item warn"><div class="opt-dot warn"></div><div class="opt-txt">Box is only <strong>${util.toFixed(0)}% utilized</strong>. Consider downsizing to save shipping costs.</div></div>`;
-  } else if(util>90){
-    html+=`<div class="opt-item good"><div class="opt-dot good"></div><div class="opt-txt"><strong>Excellent utilization at ${util.toFixed(0)}%.</strong> This is a highly efficient packing choice.</div></div>`;
-  }
-  if(remVol>0){
-    html+=`<div class="opt-item"><div class="opt-dot"></div><div class="opt-txt">Remaining space: <strong>${N(remVol)} cm³</strong> · Weight left: <strong>${remWt>0?remWt.toFixed(2)+' kg':'0 kg (at capacity)'}</strong></div></div>`;
-  }
-  suggestions.slice(0,4).forEach(({p,n})=>{
-    html+=`<div class="opt-item good"><div class="opt-dot good"></div><div class="opt-txt">You can add <strong>${n} more unit${n>1?'s':''} of ${p.name}</strong> (${p.length}×${p.width}×${p.height} cm, ${p.weight} kg each).</div></div>`;
+  suggestions.sort((a, b) => b.n - a.n);
+  let html = '';
+  if (util < 30) html += `<div class="opt-item warn"><div class="opt-dot warn"></div><div class="opt-txt">Box is only <strong>${util.toFixed(0)}% utilized</strong>. Consider downsizing to save shipping costs.</div></div>`;
+  else if (util > 90) html += `<div class="opt-item good"><div class="opt-dot good"></div><div class="opt-txt"><strong>Excellent utilization at ${util.toFixed(0)}%.</strong> This is a highly efficient packing choice.</div></div>`;
+  if (remVol > 0) html += `<div class="opt-item"><div class="opt-dot"></div><div class="opt-txt">Remaining space: <strong>${N(remVol)} cm³</strong> · Weight left: <strong>${remWt > 0 ? remWt.toFixed(2) + ' kg' : '0 kg (at capacity)'}</strong></div></div>`;
+  suggestions.slice(0, 4).forEach(({ p, n }) => {
+    html += `<div class="opt-item good"><div class="opt-dot good"></div><div class="opt-txt">You can add <strong>${n} more unit${n > 1 ? 's' : ''} of ${p.name}</strong> (${p.length}×${p.width}×${p.height} cm, ${p.weight} kg each).</div></div>`;
   });
-  if(!suggestions.length&&util>=30){
-    html+=`<div class="opt-item"><div class="opt-dot"></div><div class="opt-txt">Remaining space is too small to fit any additional products from the catalog.</div></div>`;
-  }
-  if(!html)return '';
-  return`<div class="optimizer">
+  if (!suggestions.length && util >= 30) html += `<div class="opt-item"><div class="opt-dot"></div><div class="opt-txt">Remaining space is too small to fit any additional products from the catalog.</div></div>`;
+  if (!html) return '';
+  return `<div class="optimizer">
     <div class="opt-head">
       <div class="opt-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><polyline points="12 16 12.01 16"/></svg></div>
-      <div><div class="opt-t">Smart Space Optimizer</div><div class="opt-s">Packing suggestions</div></div>
+      <div><div class="opt-t">Smart Space Optimizer</div><div class="opt-s">Packing suggestions for remaining space</div></div>
     </div>
     <div class="opt-list">${html}</div>
   </div>`;
@@ -1426,36 +1475,103 @@ function buildOptimizer(box,bv,mw,tv,tw,items){
 /* ═══════════════════════
    CALCULATE
 ═══════════════════════ */
-function runCalc(){
-  if(!cartItems().length){toast('Cart is empty','warn');return;}
-  G('calc-btn').disabled=true;
+function runCalc() {
+  if (!cartItems().length) { toast('Cart is empty', 'warn'); return; }
+  G('calc-btn').disabled = true;
   G('ov').classList.add('on');
-  setTimeout(()=>{
-    const result=findBox();A.result=result;
+  setTimeout(() => {
+    const result = findBox(); A.result = result;
     G('ov').classList.remove('on');
-    G('calc-btn').disabled=false;
-    renderResults(result);goTo('results');
-    toast('Calculation complete!','ok');
-  },900);
+    G('calc-btn').disabled = false;
+    renderResults(result);
+    goTo('results');
+    toast('Calculation complete!', 'ok');
+  }, 900);
 }
 
 /* ═══════════════════════
    RENDER RESULTS
 ═══════════════════════ */
-function renderResults(r){
-  const cont=G('r-content');
-  if(!r){show('r-empty');hide('r-content');return;}
-  hide('r-empty');show('r-content');
-  const{rec,ow,tw,tv,items,noFit}=r;
-  const ex=[];items.forEach(it=>{for(let q=0;q<it.qty;q++)ex.push({l:it.length,w:it.width,h:it.height});});
-  let html='';
+function renderResults(r) {
+  const cont = G('r-content');
+  if (!r) { show('r-empty'); hide('r-content'); return; }
+  hide('r-empty'); show('r-content');
+  const { rec, ow, tw, tv, items, noFit, multiBoxResult } = r;
+  const ex = expandItems(items);
+  let html = '';
 
-  if(noFit){
-    const an=analyzeBoxes(tv,tw,ex,null);
-    html=`<div class="rhero rh-no">
+  /* ── MULTI BOX SPLIT ── */
+  if (noFit && multiBoxResult) {
+    const totalBoxes = multiBoxResult.length;
+    html += `<div class="rhero rh-multi">
+      <div class="rh-top">
+        <div class="rh-ico rhi-multi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--V)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="rh-m">
+          <div class="rh-eye">Multi-Box Recommendation</div>
+          <div class="rh-nm multi">${totalBoxes} Boxes Required</div>
+          <div class="rh-dm">Items split optimally across ${totalBoxes} cartons</div>
+        </div>
+        <span class="chip cv">${totalBoxes} Boxes</span>
+      </div>
+      <div class="mrow">
+        <div class="mbox"><div class="mbl">Total Volume</div><div class="mbv">${N(tv)}<span class="mbu">cm³</span></div></div>
+        <div class="mbox"><div class="mbl">Total Weight</div><div class="mbv">${tw.toFixed(2)}<span class="mbu">kg</span></div></div>
+        <div class="mbox"><div class="mbl">Split Into</div><div class="mbv">${totalBoxes}<span class="mbu">boxes</span></div></div>
+      </div>
+    </div>`;
+
+    html += `<div class="split-wrap">
+      <div class="split-head">
+        <div class="split-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--V)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div><div class="split-title">Optimal Split Configuration</div><div class="split-sub">Items distributed for maximum efficiency</div></div>
+      </div>`;
+
+    multiBoxResult.forEach((bin, idx) => {
+      const boxName = bin.box ? bin.box.name : 'OVERFLOW';
+      const boxDims = bin.box ? `${bin.box.length}×${bin.box.width}×${bin.box.height} cm · Max ${bin.box.maxWeight} kg` : 'No suitable box';
+      const util = bin.box ? (bin.vol / (bin.box.length * bin.box.width * bin.box.height) * 100).toFixed(1) : '—';
+      const utcls = parseFloat(util) >= 70 ? 'ok' : parseFloat(util) >= 40 ? 'ow' : 'no';
+      html += `<div class="split-box">
+        <div class="split-box-head">
+          <div class="split-num">${idx + 1}</div>
+          <div class="split-box-name">${boxName}</div>
+          <div class="split-box-dims">${boxDims}</div>
+          ${bin.box ? `<span class="chip ${utcls === 'ok' ? 'cg' : utcls === 'ow' ? 'cy' : 'co'}" style="margin-left:auto">${util}%</span>` : ''}
+        </div>
+        <div class="split-items">
+          ${bin.items.map(it => `<div class="split-item">
+            <span class="split-item-name">${it.name} × ${it.qty}</span>
+            <span class="split-item-info">${N(it.length * it.width * it.height * it.qty)} cm³ · ${(it.weight * it.qty).toFixed(2)} kg</span>
+          </div>`).join('')}
+        </div>
+        <div class="split-stats">
+          <div class="split-stat"><div class="split-stat-l">Volume</div><div class="split-stat-v" style="color:var(--A)">${N(bin.vol)} cm³</div></div>
+          <div class="split-stat"><div class="split-stat-l">Weight</div><div class="split-stat-v" style="color:var(--Y)">${bin.wt.toFixed(2)} kg</div></div>
+          <div class="split-stat"><div class="split-stat-l">Utilization</div><div class="split-stat-v" style="color:var(--V)">${util}%</div></div>
+        </div>
+      </div>`;
+    });
+
+    html += `</div>`; // end split-wrap
+
+    html += `${baHTML(analyzeBoxes(tv, tw, ex, null))}
+    <div class="racts">
+      <button class="btn bg" onclick="goTo('cart')">← Cart</button>
+      <button class="btn bg" onclick="goTo('products')">Change Products</button>
+      <button class="btn bd bsm" onclick="resetAll()">Reset</button>
+    </div>`;
+    cont.innerHTML = html; return;
+  }
+
+  /* ── NO FIT AT ALL ── */
+  if (noFit && !multiBoxResult) {
+    const an = analyzeBoxes(tv, tw, ex, null);
+    html = `<div class="rhero rh-no">
       <div class="rh-top">
         <div class="rh-ico rhi-no"><svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
-        <div class="rh-m"><div class="rh-eye">Recommendation</div><div class="rh-nm no">No Suitable Box</div><div class="rh-dm">Products exceed all available boxes</div></div>
+        <div class="rh-m"><div class="rh-eye">Recommendation</div><div class="rh-nm no">No Suitable Box</div><div class="rh-dm">Products exceed all available boxes — even when split</div></div>
       </div>
       <div class="mrow">
         <div class="mbox"><div class="mbl">Total Volume</div><div class="mbv">${N(tv)}<span class="mbu">cm³</span></div></div>
@@ -1463,40 +1579,43 @@ function renderResults(r){
         <div class="mbox"><div class="mbl">Status</div><div class="mbv"><span class="chip cr">No Fit</span></div></div>
       </div>
     </div>
-    ${baHTML(an,null)}
+    ${baHTML(an, null)}
     <div class="racts">
       <button class="btn bg" onclick="goTo('cart')">← Cart</button>
       <button class="btn bd bsm" onclick="resetAll()">Reset</button>
     </div>`;
-    cont.innerHTML=html;return;
+    cont.innerHTML = html; return;
   }
 
-  const active=rec||ow;
-  const{box,bv,mw}=active;
-  const isOW=!rec&&!!ow;
-  const util=(tv/bv*100).toFixed(1);
-  const remV=bv-tv,remW=mw-tw;
-  const ufc=util>=70?'uhi':util>=45?'umd':'ulo';
-  const an=analyzeBoxes(tv,tw,ex,box.id);
+  /* ── SINGLE BOX ── */
+  const active = rec || ow;
+  const { box, bv, mw } = active;
+  const isOW = !rec && !!ow;
+  const util = (tv / bv * 100).toFixed(1);
+  const remV = bv - tv, remW = mw - tw;
+  const ufc = util >= 70 ? 'uhi' : util >= 45 ? 'umd' : 'ulo';
+  const an = analyzeBoxes(tv, tw, ex, box.id);
 
-  if(isOW)html+=`<div class="warnbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>Weight Exceeded:</b> ${tw.toFixed(2)} kg exceeds ${box.name}'s limit of ${mw} kg. Split the shipment.</div></div>`;
+  if (isOW) html += `<div class="warnbar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div><b>Weight Exceeded:</b> ${tw.toFixed(2)} kg exceeds ${box.name}'s limit of ${mw} kg. Consider splitting the shipment.</div></div>`;
 
-  html+=`<div class="rhero ${isOW?'rh-ow':'rh-ok'}">
+  html += `<div class="rhero ${isOW ? 'rh-ow' : 'rh-ok'}">
     <div class="rh-top">
-      <div class="rh-ico ${isOW?'rhi-ow':'rhi-ok'}">
-        ${isOW?`<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`}
+      <div class="rh-ico ${isOW ? 'rhi-ow' : 'rhi-ok'}">
+        ${isOW
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`
+      : `<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`}
       </div>
       <div class="rh-m" style="flex:1">
         <div class="rh-eye">Recommended Box</div>
-        <div class="rh-nm ${isOW?'ow':'ok'}">${box.name}</div>
+        <div class="rh-nm ${isOW ? 'ow' : 'ok'}">${box.name}</div>
         <div class="rh-dm">${box.length}×${box.width}×${box.height} cm · ${mw} kg cap · ${N(bv)} cm³</div>
       </div>
-      <span class="chip ${+util>=70?'cg':+util>=45?'cy':'co'}">${util}%</span>
+      <span class="chip ${+util >= 70 ? 'cg' : +util >= 45 ? 'cy' : 'co'}">${util}%</span>
     </div>
     <div class="mrow">
       <div class="mbox"><div class="mbl">Space Used</div><div class="mbv">${util}<span class="mbu">%</span></div><div class="utt"><div class="utf ${ufc}" id="uf" style="width:0%"></div></div></div>
       <div class="mbox"><div class="mbl">Free Space</div><div class="mbv">${N(remV)}<span class="mbu">cm³</span></div></div>
-      <div class="mbox"><div class="mbl">Wt Left</div><div class="mbv" style="color:${remW<0?'var(--R)':'inherit'}">${Math.abs(remW).toFixed(2)}<span class="mbu">kg</span></div></div>
+      <div class="mbox"><div class="mbl">Wt Left</div><div class="mbv" style="color:${remW < 0 ? 'var(--R)' : 'inherit'}">${Math.abs(remW).toFixed(2)}<span class="mbu">kg</span></div></div>
     </div>
   </div>
   <div class="ag">
@@ -1511,47 +1630,51 @@ function renderResults(r){
       <div class="dttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Weight</div>
       <div class="drow"><span class="dl">Total</span><span class="dv">${tw.toFixed(2)} kg</span></div>
       <div class="drow"><span class="dl">Capacity</span><span class="dv">${mw} kg</span></div>
-      <div class="drow"><span class="dl">Used</span><span class="dv" style="color:${isOW?'var(--R)':'var(--G)'}">${(tw/mw*100).toFixed(1)}%</span></div>
-      <div class="drow"><span class="dl">Remaining</span><span class="dv" style="color:${remW<0?'var(--R)':'inherit'}">${remW.toFixed(2)} kg</span></div>
+      <div class="drow"><span class="dl">Used</span><span class="dv" style="color:${isOW ? 'var(--R)' : 'var(--G)'}">${(tw / mw * 100).toFixed(1)}%</span></div>
+      <div class="drow"><span class="dl">Remaining</span><span class="dv" style="color:${remW < 0 ? 'var(--R)' : 'inherit'}">${remW.toFixed(2)} kg</span></div>
     </div>
   </div>
   <div class="ppc">
     <div class="dttl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Products Packed</div>
-    ${items.map(it=>{const iv=it.length*it.width*it.height*it.qty,iw=it.weight*it.qty;return`<div class="drow"><span class="dl">${it.name} × ${it.qty}</span><span class="dv">${N(iv)} cm³ · ${iw.toFixed(2)} kg</span></div>`;}).join('')}
+    ${items.map(it => { const iv = it.length * it.width * it.height * it.qty, iw = it.weight * it.qty; return `<div class="drow"><span class="dl">${it.name} × ${it.qty}</span><span class="dv">${N(iv)} cm³ · ${iw.toFixed(2)} kg</span></div>`; }).join('')}
   </div>
-  ${!isOW?buildOptimizer(box,bv,mw,tv,tw,items):''}
-  ${baHTML(an,box.id)}
+  ${!isOW ? buildOptimizer(box, bv, mw, tv, tw, items) : ''}
+  ${baHTML(an, box.id)}
   <div class="racts">
     <button class="btn bg" onclick="goTo('cart')">← Cart</button>
     <button class="btn bg" onclick="goTo('products')">Change Products</button>
     <button class="btn bd bsm" onclick="resetAll()">Reset</button>
   </div>`;
 
-  cont.innerHTML=html;
-  setTimeout(()=>{const f=G('uf');if(f)f.style.width=util+'%';},80);
+  cont.innerHTML = html;
+  setTimeout(() => { const f = G('uf'); if (f) f.style.width = util + '%'; }, 100);
 }
 
 /* ═══════════════════════
    BOX ANALYSIS HTML
 ═══════════════════════ */
-function baHTML(an,bestId){
-  const rows=an.map(({box,st,cls,reason,isBest,bv})=>{
-    const ico={ok:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,big:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,no:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`}[st];
-    const sbg={ok:'bsf',big:'bsb',no:'bsn'}[st];
-    const lbl={ok:'Best Fit',big:'Overweight',no:'Not Fit'}[st];
-    return`<div class="bai ${cls}">
+function baHTML(an, bestId) {
+  const rows = an.map(({ box, st, cls, reason, isBest, bv }) => {
+    const ico = {
+      ok: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+      big: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+      no: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`
+    }[st];
+    const sbg = { ok: 'bsf', big: 'bsb', no: 'bsn' }[st];
+    const lbl = { ok: 'Best Fit', big: 'Overweight', no: 'Not Fit' }[st];
+    return `<div class="bai ${cls}">
       <div class="bast ${sbg}">${ico}</div>
       <div class="bab">
-        <div class="ban">${box.name} ${isBest?'<span class="babest">★ Recommended</span>':''}</div>
+        <div class="ban">${box.name} ${isBest ? '<span class="babest">★ Recommended</span>' : ''}</div>
         <div class="bar">${lbl} — ${reason}</div>
         <div class="bad">${box.length}×${box.width}×${box.height} · ${box.maxWeight}kg · ${N(bv)}cm³</div>
       </div>
     </div>`;
   }).join('');
-  return`<div class="banal">
+  return `<div class="banal">
     <div class="ba-h">
       <div class="ba-ico"><svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-      <div><div class="ba-t">All Box Analysis</div><div class="ba-s">Fit status for every carton</div></div>
+      <div><div class="ba-t">All Box Analysis</div><div class="ba-s">Fit status for every available carton</div></div>
     </div>
     <div class="ba-list">${rows}</div>
   </div>`;
@@ -1560,35 +1683,40 @@ function baHTML(an,bestId){
 /* ═══════════════════════
    RESET
 ═══════════════════════ */
-function resetAll(){
-  if(!confirm('Reset everything?'))return;
-  A.cart={};A.result=null;
-  saveCart();syncBadges();renderCart();renderProds();
-  goTo('home');toast('Reset complete','info');
+function resetAll() {
+  if (!confirm('Reset everything?')) return;
+  A.cart = {}; A.result = null;
+  saveCart(); syncBadges(); renderCart(); renderProds();
+  goTo('home'); toast('Reset complete', 'info');
 }
 
 /* ═══════════════════════
    TOAST
 ═══════════════════════ */
-function toast(msg,type='info'){
-  const C=G('toasts');
-  const ico={ok:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,warn:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>`,err:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,info:`<svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>`}[type]||'';
-  const cls={ok:'tok',warn:'twa',err:'ter',info:'tin2'}[type]||'tin2';
-  const t=document.createElement('div');
-  t.className=`toast ${cls}`;t.innerHTML=ico+`<span>${msg}</span>`;C.appendChild(t);
-  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),250);},3000);
+function toast(msg, type = 'info') {
+  const C = G('toasts');
+  const ico = {
+    ok: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--G)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    warn: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--Y)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>`,
+    err: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--R)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+    info: `<svg viewBox="0 0 24 24" fill="none" stroke="var(--A)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>`
+  }[type] || '';
+  const cls = { ok: 'tok', warn: 'twa', err: 'ter', info: 'tin2' }[type] || 'tin2';
+  const t = document.createElement('div');
+  t.className = `toast ${cls}`; t.innerHTML = ico + `<span>${msg}</span>`; C.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 250); }, 3200);
 }
 
 /* ═══════════════════════
    HELPERS
 ═══════════════════════ */
-function setConn(s,txt){const d=G('cdot'),t=G('ctxt');if(d)d.className='cdot '+({live:'live',sync:'sync',err:'err'}[s]||'');if(t)t.textContent=txt;}
-function spinOn(on){const s=G('sspin');if(s)s.classList.toggle('vis',on);}
-function G(id){return document.getElementById(id);}
-function show(id){const e=G(id);if(e)e.style.display='';}
-function hide(id){const e=G(id);if(e)e.style.display='none';}
-function T(id,v){const e=G(id);if(e)e.textContent=v;}
-function N(n){return Math.round(n).toLocaleString();}
+function setConn(s, txt) { const d = G('cdot'), t = G('ctxt'); if (d) d.className = 'cdot ' + ({ live: 'live', sync: 'sync', err: 'err' }[s] || ''); if (t) t.textContent = txt; }
+function spinOn(on) { const s = G('sspin'); if (s) s.classList.toggle('vis', on); }
+function G(id) { return document.getElementById(id); }
+function show(id) { const e = G(id); if (e) e.style.display = ''; }
+function hide(id) { const e = G(id); if (e) e.style.display = 'none'; }
+function T(id, v) { const e = G(id); if (e) e.textContent = v; }
+function N(n) { return Math.round(n).toLocaleString(); }
 </script>
 </body>
 </html>
